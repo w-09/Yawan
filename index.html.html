@@ -1,103 +1,1296 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>南一處工務所</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <title>現場回報系統</title>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Sans TC', sans-serif; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      margin: 0;
+      color: #1f2937;
+      background: #f1f5f9;
+      font-family: Arial, "Microsoft JhengHei", sans-serif;
+    }
+
+    header {
+      color: white;
+      background: #0f766e;
+      padding: 18px;
+    }
+
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .card {
+      margin-bottom: 16px;
       padding: 20px;
-    }
-    .logo-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-    .logo-wrap img {
-      height: 70px;
-      margin-bottom: 12px;
-      filter: brightness(0) invert(1);
-    }
-    .logo-wrap h1 { color: white; font-size: 24px; font-weight: 700; letter-spacing: 2px; }
-    .logo-wrap p { color: rgba(255,255,255,0.75); font-size: 14px; margin-top: 6px; }
-    .card-container {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      max-width: 700px;
-    }
-    .entry-card {
       background: white;
-      border-radius: 16px;
-      padding: 36px 28px;
-      width: 280px;
-      text-align: center;
-      text-decoration: none;
-      color: #333;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
     }
-    .entry-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(0,0,0,0.25); }
-    .entry-card .icon-wrap {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+
+    .full {
+      grid-column: 1 / -1;
     }
-    .entry-card.yawan .icon-wrap { background: linear-gradient(135deg, #1a73e8, #42a5f5); }
-    .entry-card.shengli .icon-wrap { background: linear-gradient(135deg, #3e9956, #66bb6a); }
-    .entry-card .icon-wrap i { font-size: 36px; color: white; }
-    .entry-card h2 { font-size: 22px; font-weight: 700; color: #222; }
-    .entry-card p { font-size: 13px; color: #888; line-height: 1.6; }
-    .entry-card .arrow {
-      margin-top: 6px; font-size: 13px; font-weight: 500;
-      display: flex; align-items: center; gap: 4px;
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
     }
-    .entry-card.yawan .arrow { color: #1a73e8; }
-    .entry-card.shengli .arrow { color: #3e9956; }
-    .footer { margin-top: 40px; color: rgba(255,255,255,0.5); font-size: 12px; }
-    @media (max-width: 600px) {
-      .entry-card { width: 100%; max-width: 340px; }
-      .logo-wrap h1 { font-size: 20px; }
+
+    input,
+    select,
+    textarea,
+    button {
+      width: 100%;
+      min-height: 44px;
+      font: inherit;
+      border-radius: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      background: white;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: 0;
+      color: white;
+      background: #0f766e;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #475569;
+    }
+
+    button.warning {
+      background: #c2410c;
+    }
+
+    button.light {
+      color: #1f2937;
+      background: #e2e8f0;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+
+    .nav,
+    .actions,
+    .photo-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nav {
+      margin-bottom: 16px;
+    }
+
+    .nav button,
+    .actions button,
+    .photo-tools button {
+      width: auto;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+
+    .message.info {
+      color: #1e3a8a;
+      background: #dbeafe;
+    }
+
+    .message.success {
+      color: #14532d;
+      background: #dcfce7;
+    }
+
+    .message.error {
+      color: #7f1d1d;
+      background: #fee2e2;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      max-height: 550px;
+      margin: 12px 0;
+      background: #111827;
+      border-radius: 10px;
+      object-fit: contain;
+      touch-action: none;
+    }
+
+    .report {
+      margin-bottom: 14px;
+      padding: 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .report h3 {
+      margin: 0 0 8px;
+    }
+
+    .report p {
+      margin: 6px 0;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      color: #065f46;
+      background: #d1fae5;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .muted {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    a {
+      display: inline-block;
+      padding: 10px 4px;
+      color: #0f766e;
+      font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+      main {
+        padding: 10px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="logo-wrap">
-    <img src="https://i.postimg.cc/ZKWfsQD9/Logo-02-0.png" alt="Logo">
-    <h1>南一處工務所</h1>
-    <p>請選擇您要進入的工地</p>
-  </div>
-  <div class="card-container">
-    <a href="yawan.html" class="entry-card yawan">
-      <div class="icon-wrap"><i class="material-icons">domain</i></div>
-      <h2>亞灣工地</h2>
-      <p>亞灣社宅工程<br>施工組・品管組・行政組</p>
-      <div class="arrow"><span>進入</span><i class="material-icons" style="font-size:16px;">arrow_forward</i></div>
-    </a>
-    <a href="shengli.html" class="entry-card shengli">
-      <div class="icon-wrap"><i class="material-icons">apartment</i></div>
-      <h2>勝利安居</h2>
-      <p>勝利安居工程<br>施工組・品管組・職安組</p>
-      <div class="arrow"><span>進入</span><i class="material-icons" style="font-size:16px;">arrow_forward</i></div>
-    </a>
-  </div>
-  <div class="footer">© 2026 南一處工務所</div>
+  <header>
+    <h1>現場回報系統</h1>
+    <p id="userInfo">請先使用 Google 帳號登入</p>
+  </header>
+
+  <main>
+    <div id="message" class="message info hidden"></div>
+
+    <section id="loginCard" class="card">
+      <h2>Google 帳號登入</h2>
+      <p>只有後台 Users 工作表內已啟用的帳號可以使用。</p>
+      <div id="googleLoginButton"></div>
+    </section>
+
+    <div id="app" class="hidden">
+      <nav class="nav">
+        <button type="button" onclick="showPage('createPage')">
+          新增回報
+        </button>
+
+        <button type="button" class="secondary"
+                onclick="openImprovementPage()">
+          改善回報
+        </button>
+
+        <button type="button" class="secondary"
+                onclick="openListPage()">
+          回報清單
+        </button>
+
+        <button type="button" class="light" onclick="logout()">
+          登出
+        </button>
+      </nav>
+
+      <section id="createPage" class="card page">
+        <h2>新增現場回報</h2>
+
+        <form id="reportForm">
+          <div class="grid">
+            <div>
+              <label for="project">專案名稱 *</label>
+              <input id="project" maxlength="100" required>
+            </div>
+
+            <div>
+              <label for="category">回報類型 *</label>
+              <select id="category" required>
+                <option value="施工缺失">施工缺失</option>
+                <option value="安全缺失">安全缺失</option>
+                <option value="材料問題">材料問題</option>
+                <option value="進度問題">進度問題</option>
+                <option value="現場狀況">現場狀況</option>
+                <option value="其他">其他</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="location">現場位置 *</label>
+              <input id="location"
+                     maxlength="150"
+                     placeholder="例如：A棟3樓浴室"
+                     required>
+            </div>
+
+            <div>
+              <label for="owner">改善負責人</label>
+              <input id="owner" maxlength="100">
+            </div>
+
+            <div>
+              <label for="dueDate">改善期限</label>
+              <input id="dueDate" type="date">
+            </div>
+
+            <div>
+              <label for="severity">嚴重程度</label>
+              <select id="severity">
+                <option value="一般">一般</option>
+                <option value="重要">重要</option>
+                <option value="緊急">緊急</option>
+              </select>
+            </div>
+
+            <div class="full">
+              <label for="description">回報內容 *</label>
+              <textarea id="description"
+                        maxlength="2000"
+                        placeholder="請輸入現場狀況或缺失內容"
+                        required></textarea>
+            </div>
+
+            <div class="full">
+              <label for="beforeFile">現場照片 *</label>
+              <input id="beforeFile"
+                     type="file"
+                     accept="image/*"
+                     capture="environment"
+                     required>
+
+              <canvas id="beforeCanvas" class="hidden"></canvas>
+
+              <div class="photo-tools">
+                <button type="button"
+                        class="warning"
+                        onclick="selectCircleTool('before')">
+                  圈選缺失
+                </button>
+
+                <button type="button"
+                        class="secondary"
+                        onclick="addPhotoText('before')">
+                  加入文字
+                </button>
+
+                <button type="button"
+                        class="light"
+                        onclick="undoPhoto('before')">
+                  復原
+                </button>
+
+                <button type="button"
+                        class="light"
+                        onclick="clearPhoto('before')">
+                  清除照片
+                </button>
+              </div>
+
+              <p class="muted">
+                送出時會自動加入日期、專案、位置及 GPS 浮水印。
+              </p>
+            </div>
+
+            <div class="full">
+              <button id="submitReportButton" type="submit">
+                送出現場回報
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section id="improvementPage" class="card page hidden">
+        <h2>改善完成回報</h2>
+
+        <form id="improvementForm">
+          <div class="grid">
+            <div class="full">
+              <label for="improvementReportId">選擇待改善項目 *</label>
+              <select id="improvementReportId" required></select>
+            </div>
+
+            <div class="full">
+              <label for="improvementNote">改善說明 *</label>
+              <textarea id="improvementNote"
+                        maxlength="2000"
+                        placeholder="請說明改善方式及處理結果"
+                        required></textarea>
+            </div>
+
+            <div class="full">
+              <label for="afterFile">改善後照片 *</label>
+              <input id="afterFile"
+                     type="file"
+                     accept="image/*"
+                     capture="environment"
+                     required>
+
+              <canvas id="afterCanvas" class="hidden"></canvas>
+
+              <div class="photo-tools">
+                <button type="button"
+                        class="warning"
+                        onclick="selectCircleTool('after')">
+                  圈選位置
+                </button>
+
+                <button type="button"
+                        class="secondary"
+                        onclick="addPhotoText('after')">
+                  加入文字
+                </button>
+
+                <button type="button"
+                        class="light"
+                        onclick="undoPhoto('after')">
+                  復原
+                </button>
+
+                <button type="button"
+                        class="light"
+                        onclick="clearPhoto('after')">
+                  清除照片
+                </button>
+              </div>
+            </div>
+
+            <div class="full">
+              <button id="submitImprovementButton" type="submit">
+                送出改善回報
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section id="listPage" class="card page hidden">
+        <div class="actions">
+          <h2 style="flex:1">回報清單</h2>
+
+          <button type="button"
+                  class="secondary"
+                  onclick="loadReports()">
+            重新整理
+          </button>
+        </div>
+
+        <div id="reportList">讀取中……</div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const CONFIG = {
+      GOOGLE_CLIENT_ID:
+        "請填入_GOOGLE_CLIENT_ID",
+      APPS_SCRIPT_URL:
+        "請填入_APPS_SCRIPT_EXEC_URL"
+    };
+
+    let googleCredential = "";
+    let currentUser = null;
+    let reports = [];
+
+    const gps = {
+      latitude: "",
+      longitude: ""
+    };
+
+    const editors = {
+      before: createEditor("before"),
+      after: createEditor("after")
+    };
+
+    function createEditor(prefix) {
+      return {
+        prefix: prefix,
+        canvas: null,
+        context: null,
+        loaded: false,
+        tool: "",
+        history: []
+      };
+    }
+
+    window.addEventListener("load", function () {
+      initializeEditors();
+      initializeGoogleLogin();
+      locateUser();
+
+      document.getElementById("reportForm")
+        .addEventListener("submit", submitReport);
+
+      document.getElementById("improvementForm")
+        .addEventListener("submit", submitImprovement);
+
+      document.getElementById("beforeFile")
+        .addEventListener("change", function (event) {
+          loadPhoto("before", event);
+        });
+
+      document.getElementById("afterFile")
+        .addEventListener("change", function (event) {
+          loadPhoto("after", event);
+        });
+    });
+
+    function initializeGoogleLogin() {
+      if (!window.google || !google.accounts) {
+        setTimeout(initializeGoogleLogin, 300);
+        return;
+      }
+
+      if (CONFIG.GOOGLE_CLIENT_ID.includes("請填入")) {
+        showMessage("請先設定 GOOGLE_CLIENT_ID。", "error");
+        return;
+      }
+
+      google.accounts.id.initialize({
+        client_id: CONFIG.GOOGLE_CLIENT_ID,
+        callback: handleGoogleLogin,
+        auto_select: false
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("googleLoginButton"),
+        {
+          theme: "outline",
+          size: "large",
+          text: "signin_with",
+          shape: "rectangular",
+          width: 280
+        }
+      );
+    }
+
+    async function handleGoogleLogin(response) {
+      googleCredential = response.credential;
+
+      try {
+        showMessage("正在驗證帳號……", "info");
+
+        const result = await callApi("bootstrap");
+
+        currentUser = result.user;
+        reports = result.reports || [];
+
+        document.getElementById("loginCard").classList.add("hidden");
+        document.getElementById("app").classList.remove("hidden");
+
+        document.getElementById("userInfo").textContent =
+          currentUser.name + "｜" +
+          currentUser.email + "｜" +
+          currentUser.role;
+
+        renderReports();
+        updateImprovementOptions();
+
+        showMessage("登入成功。", "success");
+      } catch (error) {
+        googleCredential = "";
+        showMessage(error.message, "error");
+      }
+    }
+
+    function logout() {
+      googleCredential = "";
+      currentUser = null;
+      reports = [];
+
+      if (window.google && google.accounts) {
+        google.accounts.id.disableAutoSelect();
+      }
+
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("loginCard").classList.remove("hidden");
+      document.getElementById("userInfo").textContent =
+        "請先使用 Google 帳號登入";
+
+      showMessage("已登出。", "info");
+    }
+
+    function initializeEditors() {
+      Object.keys(editors).forEach(function (prefix) {
+        const editor = editors[prefix];
+
+        editor.canvas =
+          document.getElementById(prefix + "Canvas");
+
+        editor.context =
+          editor.canvas.getContext("2d");
+
+        editor.canvas.addEventListener(
+          "pointerdown",
+          function (event) {
+            if (!editor.loaded || editor.tool !== "circle") {
+              return;
+            }
+
+            saveHistory(prefix);
+
+            const rect = editor.canvas.getBoundingClientRect();
+            const scaleX = editor.canvas.width / rect.width;
+            const scaleY = editor.canvas.height / rect.height;
+
+            const x =
+              (event.clientX - rect.left) * scaleX;
+
+            const y =
+              (event.clientY - rect.top) * scaleY;
+
+            const radius =
+              Math.max(35, editor.canvas.width * 0.06);
+
+            editor.context.beginPath();
+            editor.context.arc(
+              x,
+              y,
+              radius,
+              0,
+              Math.PI * 2
+            );
+
+            editor.context.strokeStyle = "#ff0000";
+            editor.context.lineWidth =
+              Math.max(6, editor.canvas.width * 0.008);
+
+            editor.context.stroke();
+            editor.tool = "";
+
+            showMessage("已加入紅色圈選。", "success");
+          }
+        );
+      });
+    }
+
+    function loadPhoto(prefix, event) {
+      const file = event.target.files[0];
+
+      if (!file) {
+        return;
+      }
+
+      if (!file.type.startsWith("image/")) {
+        showMessage("請選擇圖片檔案。", "error");
+        event.target.value = "";
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function (readerEvent) {
+        const image = new Image();
+
+        image.onload = function () {
+          const editor = editors[prefix];
+          const maxSize = 1600;
+
+          const ratio = Math.min(
+            1,
+            maxSize / Math.max(image.width, image.height)
+          );
+
+          editor.canvas.width =
+            Math.round(image.width * ratio);
+
+          editor.canvas.height =
+            Math.round(image.height * ratio);
+
+          editor.context.clearRect(
+            0,
+            0,
+            editor.canvas.width,
+            editor.canvas.height
+          );
+
+          editor.context.drawImage(
+            image,
+            0,
+            0,
+            editor.canvas.width,
+            editor.canvas.height
+          );
+
+          editor.loaded = true;
+          editor.tool = "";
+          editor.history = [];
+          editor.canvas.classList.remove("hidden");
+
+          showMessage(
+            "照片已載入，可使用圈選或文字標註。",
+            "success"
+          );
+        };
+
+        image.src = readerEvent.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    function selectCircleTool(prefix) {
+      const editor = editors[prefix];
+
+      if (!editor.loaded) {
+        showMessage("請先選擇照片。", "error");
+        return;
+      }
+
+      editor.tool = "circle";
+
+      showMessage(
+        "請在照片上點一下要圈選的位置。",
+        "info"
+      );
+    }
+
+    function addPhotoText(prefix) {
+      const editor = editors[prefix];
+
+      if (!editor.loaded) {
+        showMessage("請先選擇照片。", "error");
+        return;
+      }
+
+      const text = prompt("請輸入照片標註文字：");
+
+      if (!text) {
+        return;
+      }
+
+      saveHistory(prefix);
+
+      const fontSize =
+        Math.max(28, editor.canvas.width * 0.035);
+
+      const x = editor.canvas.width * 0.04;
+      const y = editor.canvas.height * 0.1;
+
+      editor.context.font =
+        "bold " + fontSize + "px sans-serif";
+
+      editor.context.lineWidth =
+        Math.max(4, fontSize * 0.12);
+
+      editor.context.strokeStyle =
+        "rgba(0,0,0,0.9)";
+
+      editor.context.fillStyle = "#ffff00";
+
+      editor.context.strokeText(text, x, y);
+      editor.context.fillText(text, x, y);
+    }
+
+    function saveHistory(prefix) {
+      const editor = editors[prefix];
+
+      editor.history.push(
+        editor.canvas.toDataURL("image/jpeg", 0.85)
+      );
+
+      if (editor.history.length > 10) {
+        editor.history.shift();
+      }
+    }
+
+    function undoPhoto(prefix) {
+      const editor = editors[prefix];
+
+      if (!editor.history.length) {
+        showMessage("沒有可以復原的操作。", "info");
+        return;
+      }
+
+      const image = new Image();
+
+      image.onload = function () {
+        editor.context.clearRect(
+          0,
+          0,
+          editor.canvas.width,
+          editor.canvas.height
+        );
+
+        editor.context.drawImage(image, 0, 0);
+      };
+
+      image.src = editor.history.pop();
+    }
+
+    function clearPhoto(prefix) {
+      const editor = editors[prefix];
+
+      editor.context.clearRect(
+        0,
+        0,
+        editor.canvas.width,
+        editor.canvas.height
+      );
+
+      editor.loaded = false;
+      editor.tool = "";
+      editor.history = [];
+
+      editor.canvas.classList.add("hidden");
+
+      document.getElementById(prefix + "File").value = "";
+    }
+
+    function createFinalPhoto(prefix, project, location) {
+      const editor = editors[prefix];
+
+      if (!editor.loaded) {
+        throw new Error("請選擇照片。");
+      }
+
+      const output = document.createElement("canvas");
+      output.width = editor.canvas.width;
+      output.height = editor.canvas.height;
+
+      const context = output.getContext("2d");
+
+      context.drawImage(editor.canvas, 0, 0);
+
+      const fontSize =
+        Math.max(20, output.width * 0.024);
+
+      const padding =
+        Math.max(12, output.width * 0.015);
+
+      const lineHeight = fontSize * 1.35;
+      const boxHeight = lineHeight * 3 + padding * 2;
+
+      context.fillStyle = "rgba(0,0,0,0.68)";
+
+      context.fillRect(
+        0,
+        output.height - boxHeight,
+        output.width,
+        boxHeight
+      );
+
+      context.fillStyle = "#ffffff";
+      context.font = "bold " + fontSize + "px sans-serif";
+
+      const dateText =
+        new Intl.DateTimeFormat("zh-TW", {
+          dateStyle: "medium",
+          timeStyle: "medium"
+        }).format(new Date());
+
+      const gpsText = gps.latitude
+        ? "GPS：" + gps.latitude + ", " + gps.longitude
+        : "GPS：未取得";
+
+      const lines = [
+        "日期：" + dateText,
+        "專案：" + project + "｜位置：" + location,
+        gpsText
+      ];
+
+      lines.forEach(function (line, index) {
+        context.fillText(
+          line,
+          padding,
+          output.height - boxHeight +
+            padding +
+            fontSize +
+            index * lineHeight,
+          output.width - padding * 2
+        );
+      });
+
+      return output.toDataURL("image/jpeg", 0.78);
+    }
+
+    function locateUser() {
+      if (!navigator.geolocation) {
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          gps.latitude =
+            position.coords.latitude.toFixed(6);
+
+          gps.longitude =
+            position.coords.longitude.toFixed(6);
+        },
+        function () {
+          gps.latitude = "";
+          gps.longitude = "";
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 60000
+        }
+      );
+    }
+
+    async function submitReport(event) {
+      event.preventDefault();
+
+      const button =
+        document.getElementById("submitReportButton");
+
+      button.disabled = true;
+
+      try {
+        const project = getValue("project");
+        const location = getValue("location");
+
+        const data = {
+          project: project,
+          category: getValue("category"),
+          location: location,
+          owner: getValue("owner"),
+          dueDate: getValue("dueDate"),
+          severity: getValue("severity"),
+          description: getValue("description"),
+          latitude: gps.latitude,
+          longitude: gps.longitude,
+          photo: createFinalPhoto(
+            "before",
+            project,
+            location
+          )
+        };
+
+        showMessage(
+          "正在上傳照片並建立回報，請稍候……",
+          "info"
+        );
+
+        const result = await callApi(
+          "createReport",
+          data
+        );
+
+        document.getElementById("reportForm").reset();
+        clearPhoto("before");
+
+        showMessage(
+          "回報建立成功，編號：" + result.reportId,
+          "success"
+        );
+
+        await loadReports();
+        showPage("listPage");
+      } catch (error) {
+        showMessage(error.message, "error");
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function submitImprovement(event) {
+      event.preventDefault();
+
+      const button =
+        document.getElementById(
+          "submitImprovementButton"
+        );
+
+      button.disabled = true;
+
+      try {
+        const reportId =
+          getValue("improvementReportId");
+
+        const report = reports.find(function (item) {
+          return item.reportId === reportId;
+        });
+
+        if (!report) {
+          throw new Error("找不到指定的回報。");
+        }
+
+        const data = {
+          reportId: reportId,
+          improvementNote:
+            getValue("improvementNote"),
+          latitude: gps.latitude,
+          longitude: gps.longitude,
+          photo: createFinalPhoto(
+            "after",
+            report.project,
+            report.location
+          )
+        };
+
+        showMessage(
+          "正在上傳改善資料，請稍候……",
+          "info"
+        );
+
+        await callApi("completeImprovement", data);
+
+        document.getElementById(
+          "improvementForm"
+        ).reset();
+
+        clearPhoto("after");
+
+        showMessage("改善回報完成。", "success");
+
+        await loadReports();
+        showPage("listPage");
+      } catch (error) {
+        showMessage(error.message, "error");
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function loadReports() {
+      try {
+        showMessage("正在讀取回報資料……", "info");
+
+        const result = await callApi("listReports");
+
+        reports = result.reports || [];
+
+        renderReports();
+        updateImprovementOptions();
+
+        showMessage(
+          "已讀取 " + reports.length + " 筆資料。",
+          "success"
+        );
+      } catch (error) {
+        showMessage(error.message, "error");
+      }
+    }
+
+    function renderReports() {
+      const container =
+        document.getElementById("reportList");
+
+      if (!reports.length) {
+        container.innerHTML = "<p>目前沒有回報資料。</p>";
+        return;
+      }
+
+      container.innerHTML = reports.map(function (report) {
+        const improvementLink =
+          report.improvementPdfUrl
+            ? '<a href="' +
+              escapeHtml(report.improvementPdfUrl) +
+              '" target="_blank" rel="noopener">' +
+              "下載改善報告</a>"
+            : "";
+
+        const acceptanceLink =
+          report.acceptancePdfUrl
+            ? '<a href="' +
+              escapeHtml(report.acceptancePdfUrl) +
+              '" target="_blank" rel="noopener">' +
+              "下載驗收單</a>"
+            : "";
+
+        return (
+          '<article class="report">' +
+            "<h3>" +
+              escapeHtml(report.reportId) +
+              "｜" +
+              escapeHtml(report.project) +
+            "</h3>" +
+
+            '<p><span class="badge">' +
+              escapeHtml(report.status) +
+            "</span> " +
+              escapeHtml(report.category) +
+              "／" +
+              escapeHtml(report.severity) +
+            "</p>" +
+
+            "<p><strong>位置：</strong>" +
+              escapeHtml(report.location) +
+            "</p>" +
+
+            "<p><strong>內容：</strong>" +
+              escapeHtml(report.description) +
+            "</p>" +
+
+            "<p><strong>負責人：</strong>" +
+              escapeHtml(report.owner || "未指定") +
+            "</p>" +
+
+            "<p><strong>期限：</strong>" +
+              escapeHtml(report.dueDate || "未設定") +
+            "</p>" +
+
+            "<p><strong>回報人：</strong>" +
+              escapeHtml(report.createdByName) +
+            "</p>" +
+
+            "<p><strong>建立時間：</strong>" +
+              escapeHtml(report.createdAt) +
+            "</p>" +
+
+            (
+              report.improvementNote
+                ? "<p><strong>改善說明：</strong>" +
+                  escapeHtml(report.improvementNote) +
+                  "</p>"
+                : ""
+            ) +
+
+            '<div class="actions">' +
+              '<button type="button" onclick="createPdf(\'' +
+                escapeJs(report.reportId) +
+                "', 'improvement')\">" +
+                "缺失改善報告 PDF" +
+              "</button>" +
+
+              '<button type="button" class="secondary" ' +
+                "onclick=\"createPdf('" +
+                escapeJs(report.reportId) +
+                "', 'acceptance')\">" +
+                "驗收單 PDF" +
+              "</button>" +
+
+              improvementLink +
+              acceptanceLink +
+            "</div>" +
+          "</article>"
+        );
+      }).join("");
+    }
+
+    function updateImprovementOptions() {
+      const select =
+        document.getElementById("improvementReportId");
+
+      const available = reports.filter(function (report) {
+        return report.status !== "已完成" &&
+               report.status !== "已驗收";
+      });
+
+      if (!available.length) {
+        select.innerHTML =
+          '<option value="">目前沒有待改善項目</option>';
+        return;
+      }
+
+      select.innerHTML = available.map(function (report) {
+        return (
+          '<option value="' +
+          escapeHtml(report.reportId) +
+          '">' +
+          escapeHtml(
+            report.reportId +
+            "｜" +
+            report.project +
+            "｜" +
+            report.location
+          ) +
+          "</option>"
+        );
+      }).join("");
+    }
+
+    async function createPdf(reportId, reportType) {
+      try {
+        const name =
+          reportType === "acceptance"
+            ? "驗收單"
+            : "缺失改善報告";
+
+        showMessage("正在產生" + name + "……", "info");
+
+        const result = await callApi("createPdf", {
+          reportId: reportId,
+          reportType: reportType
+        });
+
+        showMessage(name + "已產生。", "success");
+
+        await loadReports();
+
+        window.open(result.url, "_blank");
+      } catch (error) {
+        showMessage(error.message, "error");
+      }
+    }
+
+    async function callApi(action, data) {
+      if (!googleCredential) {
+        throw new Error("請先登入 Google 帳號。");
+      }
+
+      if (CONFIG.APPS_SCRIPT_URL.includes("請填入")) {
+        throw new Error(
+          "請先設定 APPS_SCRIPT_URL。"
+        );
+      }
+
+      const response = await fetch(
+        CONFIG.APPS_SCRIPT_URL,
+        {
+          method: "POST",
+          redirect: "follow",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            action: action,
+            credential: googleCredential,
+            data: data || {}
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "後端連線失敗：HTTP " + response.status
+        );
+      }
+
+      const text = await response.text();
+
+      let result;
+
+      try {
+        result = JSON.parse(text);
+      } catch (error) {
+        throw new Error(
+          "後端沒有回傳 JSON，請確認 Apps Script 部署網址。"
+        );
+      }
+
+      if (!result.ok) {
+        throw new Error(result.message || "操作失敗。");
+      }
+
+      return result;
+    }
+
+    function openImprovementPage() {
+      updateImprovementOptions();
+      showPage("improvementPage");
+    }
+
+    async function openListPage() {
+      showPage("listPage");
+      await loadReports();
+    }
+
+    function showPage(pageId) {
+      document.querySelectorAll(".page")
+        .forEach(function (element) {
+          element.classList.add("hidden");
+        });
+
+      document.getElementById(pageId)
+        .classList.remove("hidden");
+    }
+
+    function showMessage(text, type) {
+      const element =
+        document.getElementById("message");
+
+      element.textContent = text;
+      element.className =
+        "message " + (type || "info");
+
+      element.classList.remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function escapeHtml(value) {
+      return String(value == null ? "" : value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeJs(value) {
+      return String(value == null ? "" : value)
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'");
+    }
+  </script>
 </body>
 </html>

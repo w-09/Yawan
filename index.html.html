@@ -2183,5 +2183,216 @@
         .replace(/'/g, "&#039;");
     }
   </script>
+  <script>
+  /*
+   * 回報類型自動設定：
+   * 機電 → 雄菱工程
+   * 土建 → 永青營造
+   * 改善期限 → 開立當天加 7 天
+   */
+  (function () {
+    function formatLocalDate(date) {
+      const year = date.getFullYear();
+
+      const month = String(
+        date.getMonth() + 1
+      ).padStart(2, "0");
+
+      const day = String(
+        date.getDate()
+      ).padStart(2, "0");
+
+      return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+      );
+    }
+
+    function getDueDate() {
+      const dueDate = new Date();
+
+      dueDate.setHours(
+        12,
+        0,
+        0,
+        0
+      );
+
+      dueDate.setDate(
+        dueDate.getDate() + 7
+      );
+
+      return formatLocalDate(
+        dueDate
+      );
+    }
+
+    function getOwnerByCategory(
+      category
+    ) {
+      if (category === "機電") {
+        return "雄菱工程";
+      }
+
+      if (category === "土建") {
+        return "永青營造";
+      }
+
+      return "";
+    }
+
+    function updateAutomaticFields() {
+      const category =
+        document.getElementById(
+          "category"
+        );
+
+      const owner =
+        document.getElementById(
+          "owner"
+        );
+
+      const dueDate =
+        document.getElementById(
+          "dueDate"
+        );
+
+      if (
+        category &&
+        owner
+      ) {
+        owner.value =
+          getOwnerByCategory(
+            category.value
+          );
+      }
+
+      if (dueDate) {
+        dueDate.value =
+          getDueDate();
+      }
+    }
+
+    function initializeAutomaticFields() {
+      const category =
+        document.getElementById(
+          "category"
+        );
+
+      const location =
+        document.getElementById(
+          "location"
+        );
+
+      const owner =
+        document.getElementById(
+          "owner"
+        );
+
+      const dueDate =
+        document.getElementById(
+          "dueDate"
+        );
+
+      const reportForm =
+        document.getElementById(
+          "reportForm"
+        );
+
+      if (category) {
+        category.innerHTML = [
+          '<option value="機電">機電</option>',
+          '<option value="土建">土建</option>'
+        ].join("");
+
+        category.value = "機電";
+
+        category.addEventListener(
+          "change",
+          updateAutomaticFields
+        );
+      }
+
+      if (location) {
+        location.placeholder =
+          "例如：A棟3樓02戶廁所";
+      }
+
+      if (owner) {
+        owner.readOnly = true;
+
+        owner.setAttribute(
+          "aria-readonly",
+          "true"
+        );
+
+        owner.title =
+          "依回報類型自動帶入";
+      }
+
+      if (dueDate) {
+        dueDate.readOnly = true;
+
+        dueDate.setAttribute(
+          "aria-readonly",
+          "true"
+        );
+
+        dueDate.title =
+          "開立當天加 7 天";
+      }
+
+      updateAutomaticFields();
+
+      if (reportForm) {
+        /*
+         * 送出前重新計算，避免網頁開啟跨日後，
+         * 日期仍停留在前一天。
+         */
+        reportForm.addEventListener(
+          "submit",
+          updateAutomaticFields,
+          true
+        );
+
+        /*
+         * 表單送出成功並 reset 後，
+         * 再次帶入預設類型、負責人及期限。
+         */
+        reportForm.addEventListener(
+          "reset",
+          function () {
+            window.setTimeout(
+              function () {
+                if (category) {
+                  category.value =
+                    "機電";
+                }
+
+                updateAutomaticFields();
+              },
+              0
+            );
+          }
+        );
+      }
+    }
+
+    if (
+      document.readyState ===
+      "loading"
+    ) {
+      document.addEventListener(
+        "DOMContentLoaded",
+        initializeAutomaticFields
+      );
+    } else {
+      initializeAutomaticFields();
+    }
+  })();
+</script>
 </body>
 </html>

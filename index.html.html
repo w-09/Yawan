@@ -6,8 +6,6 @@
   <meta name="theme-color" content="#0f766e">
   <title>現場回報系統</title>
 
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-
   <style>
     * {
       box-sizing: border-box;
@@ -21,9 +19,9 @@
     }
 
     header {
+      padding: 18px;
       color: white;
       background: #0f766e;
-      padding: 18px;
     }
 
     header h1 {
@@ -229,36 +227,32 @@
 <body>
   <header>
     <h1>現場回報系統</h1>
-    <p id="userInfo">請先使用 Google 帳號登入</p>
+    <p id="userInfo">免登入，開啟後即可直接回報</p>
   </header>
 
   <main>
     <div id="message" class="message info hidden"></div>
 
-    <section id="loginCard" class="card">
-      <h2>Google 帳號登入</h2>
-      <p>只有後台 Users 工作表內已啟用的帳號可以使用。</p>
-      <div id="googleLoginButton"></div>
-    </section>
-
-    <div id="app" class="hidden">
+    <div id="app">
       <nav class="nav">
         <button type="button" onclick="showPage('createPage')">
           新增回報
         </button>
 
-        <button type="button" class="secondary"
-                onclick="openImprovementPage()">
+        <button
+          type="button"
+          class="secondary"
+          onclick="openImprovementPage()"
+        >
           改善回報
         </button>
 
-        <button type="button" class="secondary"
-                onclick="openListPage()">
+        <button
+          type="button"
+          class="secondary"
+          onclick="openListPage()"
+        >
           回報清單
-        </button>
-
-        <button type="button" class="light" onclick="logout()">
-          登出
         </button>
       </nav>
 
@@ -268,8 +262,24 @@
         <form id="reportForm">
           <div class="grid">
             <div>
+              <label for="reporterName">回報人姓名 *</label>
+              <input
+                id="reporterName"
+                maxlength="50"
+                placeholder="請輸入回報人姓名"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div>
               <label for="project">專案名稱 *</label>
-              <input id="project" maxlength="100" required>
+              <input
+                id="project"
+                maxlength="100"
+                value="亞灣社宅"
+                required
+              >
             </div>
 
             <div>
@@ -286,10 +296,12 @@
 
             <div>
               <label for="location">現場位置 *</label>
-              <input id="location"
-                     maxlength="150"
-                     placeholder="例如：A棟3樓浴室"
-                     required>
+              <input
+                id="location"
+                maxlength="150"
+                placeholder="例如：A棟3樓浴室"
+                required
+              >
             </div>
 
             <div>
@@ -313,44 +325,60 @@
 
             <div class="full">
               <label for="description">回報內容 *</label>
-              <textarea id="description"
-                        maxlength="2000"
-                        placeholder="請輸入現場狀況或缺失內容"
-                        required></textarea>
+              <textarea
+                id="description"
+                maxlength="2000"
+                placeholder="請輸入現場狀況或缺失內容"
+                required
+              ></textarea>
             </div>
 
             <div class="full">
               <label for="beforeFile">現場照片 *</label>
-              <input id="beforeFile"
-                     type="file"
-                     accept="image/*"
-                     capture="environment"
-                     required>
 
-              <canvas id="beforeCanvas" class="hidden"></canvas>
+              <input
+                id="beforeFile"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                required
+              >
+
+              <canvas
+                id="beforeCanvas"
+                class="hidden"
+              ></canvas>
 
               <div class="photo-tools">
-                <button type="button"
-                        class="warning"
-                        onclick="selectCircleTool('before')">
+                <button
+                  type="button"
+                  class="warning"
+                  onclick="selectCircleTool('before')"
+                >
                   圈選缺失
                 </button>
 
-                <button type="button"
-                        class="secondary"
-                        onclick="addPhotoText('before')">
+                <button
+                  type="button"
+                  class="secondary"
+                  onclick="addPhotoText('before')"
+                >
                   加入文字
                 </button>
 
-                <button type="button"
-                        class="light"
-                        onclick="undoPhoto('before')">
+                <button
+                  type="button"
+                  class="light"
+                  onclick="undoPhoto('before')"
+                >
                   復原
                 </button>
 
-                <button type="button"
-                        class="light"
-                        onclick="clearPhoto('before')">
+                <button
+                  type="button"
+                  class="light"
+                  onclick="clearPhoto('before')"
+                >
                   清除照片
                 </button>
               </div>
@@ -369,63 +397,108 @@
         </form>
       </section>
 
-      <section id="improvementPage" class="card page hidden">
+      <section
+        id="improvementPage"
+        class="card page hidden"
+      >
         <h2>改善完成回報</h2>
 
         <form id="improvementForm">
           <div class="grid">
-            <div class="full">
-              <label for="improvementReportId">選擇待改善項目 *</label>
-              <select id="improvementReportId" required></select>
+            <div>
+              <label for="improvementReporterName">
+                改善回報人姓名 *
+              </label>
+
+              <input
+                id="improvementReporterName"
+                maxlength="50"
+                placeholder="請輸入改善回報人姓名"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div>
+              <label for="improvementReportId">
+                選擇待改善項目 *
+              </label>
+
+              <select
+                id="improvementReportId"
+                required
+              ></select>
             </div>
 
             <div class="full">
-              <label for="improvementNote">改善說明 *</label>
-              <textarea id="improvementNote"
-                        maxlength="2000"
-                        placeholder="請說明改善方式及處理結果"
-                        required></textarea>
+              <label for="improvementNote">
+                改善說明 *
+              </label>
+
+              <textarea
+                id="improvementNote"
+                maxlength="2000"
+                placeholder="請說明改善方式及處理結果"
+                required
+              ></textarea>
             </div>
 
             <div class="full">
               <label for="afterFile">改善後照片 *</label>
-              <input id="afterFile"
-                     type="file"
-                     accept="image/*"
-                     capture="environment"
-                     required>
 
-              <canvas id="afterCanvas" class="hidden"></canvas>
+              <input
+                id="afterFile"
+                type="file"
+                accept="image/*"
+                capture="environment"
+                required
+              >
+
+              <canvas
+                id="afterCanvas"
+                class="hidden"
+              ></canvas>
 
               <div class="photo-tools">
-                <button type="button"
-                        class="warning"
-                        onclick="selectCircleTool('after')">
+                <button
+                  type="button"
+                  class="warning"
+                  onclick="selectCircleTool('after')"
+                >
                   圈選位置
                 </button>
 
-                <button type="button"
-                        class="secondary"
-                        onclick="addPhotoText('after')">
+                <button
+                  type="button"
+                  class="secondary"
+                  onclick="addPhotoText('after')"
+                >
                   加入文字
                 </button>
 
-                <button type="button"
-                        class="light"
-                        onclick="undoPhoto('after')">
+                <button
+                  type="button"
+                  class="light"
+                  onclick="undoPhoto('after')"
+                >
                   復原
                 </button>
 
-                <button type="button"
-                        class="light"
-                        onclick="clearPhoto('after')">
+                <button
+                  type="button"
+                  class="light"
+                  onclick="clearPhoto('after')"
+                >
                   清除照片
                 </button>
               </div>
             </div>
 
             <div class="full">
-              <button id="submitImprovementButton" type="submit">
+              <button
+                id="submitImprovementButton"
+                type="submit"
+              >
                 送出改善回報
               </button>
             </div>
@@ -437,9 +510,11 @@
         <div class="actions">
           <h2 style="flex:1">回報清單</h2>
 
-          <button type="button"
-                  class="secondary"
-                  onclick="loadReports()">
+          <button
+            type="button"
+            class="secondary"
+            onclick="loadReports()"
+          >
             重新整理
           </button>
         </div>
@@ -451,12 +526,13 @@
 
   <script>
     const CONFIG = {
+      APPS_SCRIPT_URL:
+        "const CONFIG = {
   APPS_SCRIPT_URL:
     "https://script.google.com/macros/s/AKfycbyfNW0bcT6XPt8ve0Y-zcL3AcspWbMq-_yZnh9I5bwlDrt3cCn9jgQA2DruFZXV4U0/exec"
-};
+};"
+    };
 
-    let googleCredential = "";
-    let currentUser = null;
     let reports = [];
 
     const gps = {
@@ -482,153 +558,216 @@
 
     window.addEventListener("load", function () {
       initializeEditors();
-      initializeGoogleLogin();
+      restoreReporterName();
       locateUser();
 
-      document.getElementById("reportForm")
+      document
+        .getElementById("reportForm")
         .addEventListener("submit", submitReport);
 
-      document.getElementById("improvementForm")
-        .addEventListener("submit", submitImprovement);
+      document
+        .getElementById("improvementForm")
+        .addEventListener(
+          "submit",
+          submitImprovement
+        );
 
-      document.getElementById("beforeFile")
-        .addEventListener("change", function (event) {
-          loadPhoto("before", event);
-        });
+      document
+        .getElementById("beforeFile")
+        .addEventListener(
+          "change",
+          function (event) {
+            loadPhoto("before", event);
+          }
+        );
 
-      document.getElementById("afterFile")
-        .addEventListener("change", function (event) {
-          loadPhoto("after", event);
-        });
+      document
+        .getElementById("afterFile")
+        .addEventListener(
+          "change",
+          function (event) {
+            loadPhoto("after", event);
+          }
+        );
+
+      document
+        .getElementById("reporterName")
+        .addEventListener(
+          "change",
+          rememberCreateReporter
+        );
+
+      document
+        .getElementById("improvementReporterName")
+        .addEventListener(
+          "change",
+          rememberImprovementReporter
+        );
+
+      if (
+        CONFIG.APPS_SCRIPT_URL.includes("請填入")
+      ) {
+        showMessage(
+          "請先在 index.html 設定 APPS_SCRIPT_URL。",
+          "error"
+        );
+        return;
+      }
+
+      loadReports(false);
     });
 
-    function initializeGoogleLogin() {
-      if (!window.google || !google.accounts) {
-        setTimeout(initializeGoogleLogin, 300);
+    function restoreReporterName() {
+      const savedName =
+        localStorage.getItem(
+          "yawanReporterName"
+        ) || "";
+
+      document.getElementById(
+        "reporterName"
+      ).value = savedName;
+
+      document.getElementById(
+        "improvementReporterName"
+      ).value = savedName;
+
+      updateUserInfo(savedName);
+    }
+
+    function rememberCreateReporter() {
+      const name = getValue("reporterName");
+
+      saveReporterName(name);
+
+      document.getElementById(
+        "improvementReporterName"
+      ).value = name;
+    }
+
+    function rememberImprovementReporter() {
+      const name =
+        getValue("improvementReporterName");
+
+      saveReporterName(name);
+
+      document.getElementById(
+        "reporterName"
+      ).value = name;
+    }
+
+    function saveReporterName(name) {
+      if (!name) {
         return;
       }
 
-      if (CONFIG.GOOGLE_CLIENT_ID.includes("請填入")) {
-        showMessage("請先設定 GOOGLE_CLIENT_ID。", "error");
-        return;
-      }
+      localStorage.setItem(
+        "yawanReporterName",
+        name
+      );
 
-      google.accounts.id.initialize({
-        client_id: CONFIG.GOOGLE_CLIENT_ID,
-        callback: handleGoogleLogin,
-        auto_select: false
-      });
+      updateUserInfo(name);
+    }
 
-      google.accounts.id.renderButton(
-        document.getElementById("googleLoginButton"),
-        {
-          theme: "outline",
-          size: "large",
-          text: "signin_with",
-          shape: "rectangular",
-          width: 280
-        }
+    function updateUserInfo(name) {
+      document.getElementById(
+        "userInfo"
+      ).textContent = name
+        ? "目前填報人：" + name + "｜免登入直接回報"
+        : "免登入，開啟後即可直接回報";
+    }
+
+    function getCurrentReporterName() {
+      return (
+        getValue("reporterName") ||
+        getValue("improvementReporterName") ||
+        localStorage.getItem(
+          "yawanReporterName"
+        ) ||
+        "現場人員"
       );
     }
 
-    async function handleGoogleLogin(response) {
-      googleCredential = response.credential;
-
-      try {
-        showMessage("正在驗證帳號……", "info");
-
-        const result = await callApi("bootstrap");
-
-        currentUser = result.user;
-        reports = result.reports || [];
-
-        document.getElementById("loginCard").classList.add("hidden");
-        document.getElementById("app").classList.remove("hidden");
-
-        document.getElementById("userInfo").textContent =
-          currentUser.name + "｜" +
-          currentUser.email + "｜" +
-          currentUser.role;
-
-        renderReports();
-        updateImprovementOptions();
-
-        showMessage("登入成功。", "success");
-      } catch (error) {
-        googleCredential = "";
-        showMessage(error.message, "error");
-      }
-    }
-
-    function logout() {
-      googleCredential = "";
-      currentUser = null;
-      reports = [];
-
-      if (window.google && google.accounts) {
-        google.accounts.id.disableAutoSelect();
-      }
-
-      document.getElementById("app").classList.add("hidden");
-      document.getElementById("loginCard").classList.remove("hidden");
-      document.getElementById("userInfo").textContent =
-        "請先使用 Google 帳號登入";
-
-      showMessage("已登出。", "info");
-    }
-
     function initializeEditors() {
-      Object.keys(editors).forEach(function (prefix) {
-        const editor = editors[prefix];
+      Object.keys(editors).forEach(
+        function (prefix) {
+          const editor = editors[prefix];
 
-        editor.canvas =
-          document.getElementById(prefix + "Canvas");
-
-        editor.context =
-          editor.canvas.getContext("2d");
-
-        editor.canvas.addEventListener(
-          "pointerdown",
-          function (event) {
-            if (!editor.loaded || editor.tool !== "circle") {
-              return;
-            }
-
-            saveHistory(prefix);
-
-            const rect = editor.canvas.getBoundingClientRect();
-            const scaleX = editor.canvas.width / rect.width;
-            const scaleY = editor.canvas.height / rect.height;
-
-            const x =
-              (event.clientX - rect.left) * scaleX;
-
-            const y =
-              (event.clientY - rect.top) * scaleY;
-
-            const radius =
-              Math.max(35, editor.canvas.width * 0.06);
-
-            editor.context.beginPath();
-            editor.context.arc(
-              x,
-              y,
-              radius,
-              0,
-              Math.PI * 2
+          editor.canvas =
+            document.getElementById(
+              prefix + "Canvas"
             );
 
-            editor.context.strokeStyle = "#ff0000";
-            editor.context.lineWidth =
-              Math.max(6, editor.canvas.width * 0.008);
+          editor.context =
+            editor.canvas.getContext("2d");
 
-            editor.context.stroke();
-            editor.tool = "";
+          editor.canvas.addEventListener(
+            "pointerdown",
+            function (event) {
+              if (
+                !editor.loaded ||
+                editor.tool !== "circle"
+              ) {
+                return;
+              }
 
-            showMessage("已加入紅色圈選。", "success");
-          }
-        );
-      });
+              saveHistory(prefix);
+
+              const rect =
+                editor.canvas
+                  .getBoundingClientRect();
+
+              const scaleX =
+                editor.canvas.width /
+                rect.width;
+
+              const scaleY =
+                editor.canvas.height /
+                rect.height;
+
+              const x =
+                (event.clientX - rect.left) *
+                scaleX;
+
+              const y =
+                (event.clientY - rect.top) *
+                scaleY;
+
+              const radius =
+                Math.max(
+                  35,
+                  editor.canvas.width * 0.06
+                );
+
+              editor.context.beginPath();
+
+              editor.context.arc(
+                x,
+                y,
+                radius,
+                0,
+                Math.PI * 2
+              );
+
+              editor.context.strokeStyle =
+                "#ff0000";
+
+              editor.context.lineWidth =
+                Math.max(
+                  6,
+                  editor.canvas.width * 0.008
+                );
+
+              editor.context.stroke();
+              editor.tool = "";
+
+              showMessage(
+                "已加入紅色圈選。",
+                "success"
+              );
+            }
+          );
+        }
+      );
     }
 
     function loadPhoto(prefix, event) {
@@ -639,7 +778,11 @@
       }
 
       if (!file.type.startsWith("image/")) {
-        showMessage("請選擇圖片檔案。", "error");
+        showMessage(
+          "請選擇圖片檔案。",
+          "error"
+        );
+
         event.target.value = "";
         return;
       }
@@ -655,14 +798,22 @@
 
           const ratio = Math.min(
             1,
-            maxSize / Math.max(image.width, image.height)
+            maxSize /
+              Math.max(
+                image.width,
+                image.height
+              )
           );
 
           editor.canvas.width =
-            Math.round(image.width * ratio);
+            Math.round(
+              image.width * ratio
+            );
 
           editor.canvas.height =
-            Math.round(image.height * ratio);
+            Math.round(
+              image.height * ratio
+            );
 
           editor.context.clearRect(
             0,
@@ -682,7 +833,10 @@
           editor.loaded = true;
           editor.tool = "";
           editor.history = [];
-          editor.canvas.classList.remove("hidden");
+
+          editor.canvas.classList.remove(
+            "hidden"
+          );
 
           showMessage(
             "照片已載入，可使用圈選或文字標註。",
@@ -690,7 +844,8 @@
           );
         };
 
-        image.src = readerEvent.target.result;
+        image.src =
+          readerEvent.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -700,7 +855,10 @@
       const editor = editors[prefix];
 
       if (!editor.loaded) {
-        showMessage("請先選擇照片。", "error");
+        showMessage(
+          "請先選擇照片。",
+          "error"
+        );
         return;
       }
 
@@ -716,11 +874,16 @@
       const editor = editors[prefix];
 
       if (!editor.loaded) {
-        showMessage("請先選擇照片。", "error");
+        showMessage(
+          "請先選擇照片。",
+          "error"
+        );
         return;
       }
 
-      const text = prompt("請輸入照片標註文字：");
+      const text = prompt(
+        "請輸入照片標註文字："
+      );
 
       if (!text) {
         return;
@@ -729,31 +892,55 @@
       saveHistory(prefix);
 
       const fontSize =
-        Math.max(28, editor.canvas.width * 0.035);
+        Math.max(
+          28,
+          editor.canvas.width * 0.035
+        );
 
-      const x = editor.canvas.width * 0.04;
-      const y = editor.canvas.height * 0.1;
+      const x =
+        editor.canvas.width * 0.04;
+
+      const y =
+        editor.canvas.height * 0.1;
 
       editor.context.font =
-        "bold " + fontSize + "px sans-serif";
+        "bold " +
+        fontSize +
+        "px sans-serif";
 
       editor.context.lineWidth =
-        Math.max(4, fontSize * 0.12);
+        Math.max(
+          4,
+          fontSize * 0.12
+        );
 
       editor.context.strokeStyle =
         "rgba(0,0,0,0.9)";
 
-      editor.context.fillStyle = "#ffff00";
+      editor.context.fillStyle =
+        "#ffff00";
 
-      editor.context.strokeText(text, x, y);
-      editor.context.fillText(text, x, y);
+      editor.context.strokeText(
+        text,
+        x,
+        y
+      );
+
+      editor.context.fillText(
+        text,
+        x,
+        y
+      );
     }
 
     function saveHistory(prefix) {
       const editor = editors[prefix];
 
       editor.history.push(
-        editor.canvas.toDataURL("image/jpeg", 0.85)
+        editor.canvas.toDataURL(
+          "image/jpeg",
+          0.85
+        )
       );
 
       if (editor.history.length > 10) {
@@ -765,7 +952,10 @@
       const editor = editors[prefix];
 
       if (!editor.history.length) {
-        showMessage("沒有可以復原的操作。", "info");
+        showMessage(
+          "沒有可以復原的操作。",
+          "info"
+        );
         return;
       }
 
@@ -779,56 +969,94 @@
           editor.canvas.height
         );
 
-        editor.context.drawImage(image, 0, 0);
+        editor.context.drawImage(
+          image,
+          0,
+          0
+        );
       };
 
-      image.src = editor.history.pop();
+      image.src =
+        editor.history.pop();
     }
 
     function clearPhoto(prefix) {
       const editor = editors[prefix];
 
-      editor.context.clearRect(
-        0,
-        0,
-        editor.canvas.width,
-        editor.canvas.height
-      );
+      if (editor.context) {
+        editor.context.clearRect(
+          0,
+          0,
+          editor.canvas.width,
+          editor.canvas.height
+        );
+      }
 
       editor.loaded = false;
       editor.tool = "";
       editor.history = [];
 
-      editor.canvas.classList.add("hidden");
+      editor.canvas.classList.add(
+        "hidden"
+      );
 
-      document.getElementById(prefix + "File").value = "";
+      document.getElementById(
+        prefix + "File"
+      ).value = "";
     }
 
-    function createFinalPhoto(prefix, project, location) {
+    function createFinalPhoto(
+      prefix,
+      project,
+      location
+    ) {
       const editor = editors[prefix];
 
       if (!editor.loaded) {
-        throw new Error("請選擇照片。");
+        throw new Error(
+          "請選擇照片。"
+        );
       }
 
-      const output = document.createElement("canvas");
-      output.width = editor.canvas.width;
-      output.height = editor.canvas.height;
+      const output =
+        document.createElement("canvas");
 
-      const context = output.getContext("2d");
+      output.width =
+        editor.canvas.width;
 
-      context.drawImage(editor.canvas, 0, 0);
+      output.height =
+        editor.canvas.height;
+
+      const context =
+        output.getContext("2d");
+
+      context.drawImage(
+        editor.canvas,
+        0,
+        0
+      );
 
       const fontSize =
-        Math.max(20, output.width * 0.024);
+        Math.max(
+          20,
+          output.width * 0.024
+        );
 
       const padding =
-        Math.max(12, output.width * 0.015);
+        Math.max(
+          12,
+          output.width * 0.015
+        );
 
-      const lineHeight = fontSize * 1.35;
-      const boxHeight = lineHeight * 3 + padding * 2;
+      const lineHeight =
+        fontSize * 1.35;
 
-      context.fillStyle = "rgba(0,0,0,0.68)";
+      const boxHeight =
+        lineHeight * 4 +
+        padding * 2;
+
+      context.fillStyle =
+        "rgba(0,0,0,0.68)";
 
       context.fillRect(
         0,
@@ -837,38 +1065,58 @@
         boxHeight
       );
 
-      context.fillStyle = "#ffffff";
-      context.font = "bold " + fontSize + "px sans-serif";
+      context.fillStyle =
+        "#ffffff";
+
+      context.font =
+        "bold " +
+        fontSize +
+        "px sans-serif";
 
       const dateText =
-        new Intl.DateTimeFormat("zh-TW", {
-          dateStyle: "medium",
-          timeStyle: "medium"
-        }).format(new Date());
+        new Intl.DateTimeFormat(
+          "zh-TW",
+          {
+            dateStyle: "medium",
+            timeStyle: "medium"
+          }
+        ).format(new Date());
 
-      const gpsText = gps.latitude
-        ? "GPS：" + gps.latitude + ", " + gps.longitude
-        : "GPS：未取得";
+      const gpsText =
+        gps.latitude
+          ? "GPS：" +
+            gps.latitude +
+            ", " +
+            gps.longitude
+          : "GPS：未取得";
 
       const lines = [
         "日期：" + dateText,
-        "專案：" + project + "｜位置：" + location,
+        "專案：" + project,
+        "位置：" + location,
         gpsText
       ];
 
-      lines.forEach(function (line, index) {
-        context.fillText(
-          line,
-          padding,
-          output.height - boxHeight +
-            padding +
-            fontSize +
-            index * lineHeight,
-          output.width - padding * 2
-        );
-      });
+      lines.forEach(
+        function (line, index) {
+          context.fillText(
+            line,
+            padding,
+            output.height -
+              boxHeight +
+              padding +
+              fontSize +
+              index * lineHeight,
+            output.width -
+              padding * 2
+          );
+        }
+      );
 
-      return output.toDataURL("image/jpeg", 0.78);
+      return output.toDataURL(
+        "image/jpeg",
+        0.78
+      );
     }
 
     function locateUser() {
@@ -876,48 +1124,77 @@
         return;
       }
 
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          gps.latitude =
-            position.coords.latitude.toFixed(6);
+      navigator.geolocation
+        .getCurrentPosition(
+          function (position) {
+            gps.latitude =
+              position.coords.latitude
+                .toFixed(6);
 
-          gps.longitude =
-            position.coords.longitude.toFixed(6);
-        },
-        function () {
-          gps.latitude = "";
-          gps.longitude = "";
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 60000
-        }
-      );
+            gps.longitude =
+              position.coords.longitude
+                .toFixed(6);
+          },
+          function () {
+            gps.latitude = "";
+            gps.longitude = "";
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 60000
+          }
+        );
     }
 
     async function submitReport(event) {
       event.preventDefault();
 
       const button =
-        document.getElementById("submitReportButton");
+        document.getElementById(
+          "submitReportButton"
+        );
 
       button.disabled = true;
 
       try {
-        const project = getValue("project");
-        const location = getValue("location");
+        const reporterName =
+          getValue("reporterName");
+
+        const project =
+          getValue("project");
+
+        const location =
+          getValue("location");
+
+        if (!reporterName) {
+          throw new Error(
+            "請輸入回報人姓名。"
+          );
+        }
+
+        saveReporterName(
+          reporterName
+        );
 
         const data = {
+          reporterName: reporterName,
           project: project,
-          category: getValue("category"),
+          category:
+            getValue("category"),
           location: location,
-          owner: getValue("owner"),
-          dueDate: getValue("dueDate"),
-          severity: getValue("severity"),
-          description: getValue("description"),
-          latitude: gps.latitude,
-          longitude: gps.longitude,
+          owner:
+            getValue("owner"),
+          dueDate:
+            getValue("dueDate"),
+          severity:
+            getValue("severity"),
+          description:
+            getValue("description"),
+          latitude:
+            gps.latitude,
+          longitude:
+            gps.longitude,
           photo: createFinalPhoto(
             "before",
             project,
@@ -930,23 +1207,41 @@
           "info"
         );
 
-        const result = await callApi(
-          "createReport",
-          data
-        );
+        const result =
+          await callApi(
+            "createReport",
+            data
+          );
 
-        document.getElementById("reportForm").reset();
+        document
+          .getElementById(
+            "reportForm"
+          )
+          .reset();
+
+        document.getElementById(
+          "reporterName"
+        ).value = reporterName;
+
+        document.getElementById(
+          "project"
+        ).value = "亞灣社宅";
+
         clearPhoto("before");
 
         showMessage(
-          "回報建立成功，編號：" + result.reportId,
+          "回報建立成功，編號：" +
+            result.reportId,
           "success"
         );
 
-        await loadReports();
+        await loadReports(false);
         showPage("listPage");
       } catch (error) {
-        showMessage(error.message, "error");
+        showMessage(
+          error.message,
+          "error"
+        );
       } finally {
         button.disabled = false;
       }
@@ -963,23 +1258,53 @@
       button.disabled = true;
 
       try {
+        const reporterName =
+          getValue(
+            "improvementReporterName"
+          );
+
         const reportId =
-          getValue("improvementReportId");
+          getValue(
+            "improvementReportId"
+          );
 
-        const report = reports.find(function (item) {
-          return item.reportId === reportId;
-        });
-
-        if (!report) {
-          throw new Error("找不到指定的回報。");
+        if (!reporterName) {
+          throw new Error(
+            "請輸入改善回報人姓名。"
+          );
         }
 
+        const report =
+          reports.find(
+            function (item) {
+              return (
+                item.reportId ===
+                reportId
+              );
+            }
+          );
+
+        if (!report) {
+          throw new Error(
+            "找不到指定的回報。"
+          );
+        }
+
+        saveReporterName(
+          reporterName
+        );
+
         const data = {
+          reporterName: reporterName,
           reportId: reportId,
           improvementNote:
-            getValue("improvementNote"),
-          latitude: gps.latitude,
-          longitude: gps.longitude,
+            getValue(
+              "improvementNote"
+            ),
+          latitude:
+            gps.latitude,
+          longitude:
+            gps.longitude,
           photo: createFinalPhoto(
             "after",
             report.project,
@@ -992,149 +1317,232 @@
           "info"
         );
 
-        await callApi("completeImprovement", data);
+        await callApi(
+          "completeImprovement",
+          data
+        );
+
+        document
+          .getElementById(
+            "improvementForm"
+          )
+          .reset();
 
         document.getElementById(
-          "improvementForm"
-        ).reset();
+          "improvementReporterName"
+        ).value = reporterName;
 
         clearPhoto("after");
 
-        showMessage("改善回報完成。", "success");
+        showMessage(
+          "改善回報完成。",
+          "success"
+        );
 
-        await loadReports();
+        await loadReports(false);
         showPage("listPage");
       } catch (error) {
-        showMessage(error.message, "error");
+        showMessage(
+          error.message,
+          "error"
+        );
       } finally {
         button.disabled = false;
       }
     }
 
-    async function loadReports() {
+    async function loadReports(
+      showLoading
+    ) {
       try {
-        showMessage("正在讀取回報資料……", "info");
+        if (showLoading !== false) {
+          showMessage(
+            "正在讀取回報資料……",
+            "info"
+          );
+        }
 
-        const result = await callApi("listReports");
+        const result =
+          await callApi(
+            "listReports"
+          );
 
-        reports = result.reports || [];
+        reports =
+          result.reports || [];
 
         renderReports();
         updateImprovementOptions();
 
-        showMessage(
-          "已讀取 " + reports.length + " 筆資料。",
-          "success"
-        );
+        if (showLoading !== false) {
+          showMessage(
+            "已讀取 " +
+              reports.length +
+              " 筆資料。",
+            "success"
+          );
+        }
       } catch (error) {
-        showMessage(error.message, "error");
+        showMessage(
+          error.message,
+          "error"
+        );
       }
     }
 
     function renderReports() {
       const container =
-        document.getElementById("reportList");
+        document.getElementById(
+          "reportList"
+        );
 
       if (!reports.length) {
-        container.innerHTML = "<p>目前沒有回報資料。</p>";
+        container.innerHTML =
+          "<p>目前沒有回報資料。</p>";
         return;
       }
 
-      container.innerHTML = reports.map(function (report) {
-        const improvementLink =
-          report.improvementPdfUrl
-            ? '<a href="' +
-              escapeHtml(report.improvementPdfUrl) +
-              '" target="_blank" rel="noopener">' +
-              "下載改善報告</a>"
-            : "";
+      container.innerHTML =
+        reports
+          .map(function (report) {
+            const improvementLink =
+              report.improvementPdfUrl
+                ? '<a href="' +
+                  escapeHtml(
+                    report.improvementPdfUrl
+                  ) +
+                  '" target="_blank" rel="noopener">' +
+                  "下載改善報告</a>"
+                : "";
 
-        const acceptanceLink =
-          report.acceptancePdfUrl
-            ? '<a href="' +
-              escapeHtml(report.acceptancePdfUrl) +
-              '" target="_blank" rel="noopener">' +
-              "下載驗收單</a>"
-            : "";
+            const acceptanceLink =
+              report.acceptancePdfUrl
+                ? '<a href="' +
+                  escapeHtml(
+                    report.acceptancePdfUrl
+                  ) +
+                  '" target="_blank" rel="noopener">' +
+                  "下載驗收單</a>"
+                : "";
 
-        return (
-          '<article class="report">' +
-            "<h3>" +
-              escapeHtml(report.reportId) +
-              "｜" +
-              escapeHtml(report.project) +
-            "</h3>" +
+            return (
+              '<article class="report">' +
+                "<h3>" +
+                  escapeHtml(
+                    report.reportId
+                  ) +
+                  "｜" +
+                  escapeHtml(
+                    report.project
+                  ) +
+                "</h3>" +
 
-            '<p><span class="badge">' +
-              escapeHtml(report.status) +
-            "</span> " +
-              escapeHtml(report.category) +
-              "／" +
-              escapeHtml(report.severity) +
-            "</p>" +
+                '<p><span class="badge">' +
+                  escapeHtml(
+                    report.status
+                  ) +
+                "</span> " +
+                  escapeHtml(
+                    report.category
+                  ) +
+                  "／" +
+                  escapeHtml(
+                    report.severity
+                  ) +
+                "</p>" +
 
-            "<p><strong>位置：</strong>" +
-              escapeHtml(report.location) +
-            "</p>" +
+                "<p><strong>位置：</strong>" +
+                  escapeHtml(
+                    report.location
+                  ) +
+                "</p>" +
 
-            "<p><strong>內容：</strong>" +
-              escapeHtml(report.description) +
-            "</p>" +
+                "<p><strong>內容：</strong>" +
+                  escapeHtml(
+                    report.description
+                  ) +
+                "</p>" +
 
-            "<p><strong>負責人：</strong>" +
-              escapeHtml(report.owner || "未指定") +
-            "</p>" +
+                "<p><strong>負責人：</strong>" +
+                  escapeHtml(
+                    report.owner ||
+                    "未指定"
+                  ) +
+                "</p>" +
 
-            "<p><strong>期限：</strong>" +
-              escapeHtml(report.dueDate || "未設定") +
-            "</p>" +
+                "<p><strong>期限：</strong>" +
+                  escapeHtml(
+                    report.dueDate ||
+                    "未設定"
+                  ) +
+                "</p>" +
 
-            "<p><strong>回報人：</strong>" +
-              escapeHtml(report.createdByName) +
-            "</p>" +
+                "<p><strong>回報人：</strong>" +
+                  escapeHtml(
+                    report.createdByName ||
+                    "現場人員"
+                  ) +
+                "</p>" +
 
-            "<p><strong>建立時間：</strong>" +
-              escapeHtml(report.createdAt) +
-            "</p>" +
+                "<p><strong>建立時間：</strong>" +
+                  escapeHtml(
+                    report.createdAt
+                  ) +
+                "</p>" +
 
-            (
-              report.improvementNote
-                ? "<p><strong>改善說明：</strong>" +
-                  escapeHtml(report.improvementNote) +
-                  "</p>"
-                : ""
-            ) +
+                (
+                  report.improvementNote
+                    ? "<p><strong>改善說明：</strong>" +
+                      escapeHtml(
+                        report.improvementNote
+                      ) +
+                      "</p>"
+                    : ""
+                ) +
 
-            '<div class="actions">' +
-              '<button type="button" onclick="createPdf(\'' +
-                escapeJs(report.reportId) +
-                "', 'improvement')\">" +
-                "缺失改善報告 PDF" +
-              "</button>" +
+                '<div class="actions">' +
+                  '<button type="button" onclick="createPdf(\'' +
+                    escapeJs(
+                      report.reportId
+                    ) +
+                    "', 'improvement')\">" +
+                    "缺失改善報告 PDF" +
+                  "</button>" +
 
-              '<button type="button" class="secondary" ' +
-                "onclick=\"createPdf('" +
-                escapeJs(report.reportId) +
-                "', 'acceptance')\">" +
-                "驗收單 PDF" +
-              "</button>" +
+                  '<button type="button" class="secondary" ' +
+                    "onclick=\"createPdf('" +
+                    escapeJs(
+                      report.reportId
+                    ) +
+                    "', 'acceptance')\">" +
+                    "驗收單 PDF" +
+                  "</button>" +
 
-              improvementLink +
-              acceptanceLink +
-            "</div>" +
-          "</article>"
-        );
-      }).join("");
+                  improvementLink +
+                  acceptanceLink +
+                "</div>" +
+              "</article>"
+            );
+          })
+          .join("");
     }
 
     function updateImprovementOptions() {
       const select =
-        document.getElementById("improvementReportId");
+        document.getElementById(
+          "improvementReportId"
+        );
 
-      const available = reports.filter(function (report) {
-        return report.status !== "已完成" &&
-               report.status !== "已驗收";
-      });
+      const available =
+        reports.filter(
+          function (report) {
+            return (
+              report.status !==
+                "已完成" &&
+              report.status !==
+                "已驗收"
+            );
+          }
+        );
 
       if (!available.length) {
         select.innerHTML =
@@ -1142,56 +1550,101 @@
         return;
       }
 
-      select.innerHTML = available.map(function (report) {
-        return (
-          '<option value="' +
-          escapeHtml(report.reportId) +
-          '">' +
-          escapeHtml(
-            report.reportId +
-            "｜" +
-            report.project +
-            "｜" +
-            report.location
-          ) +
-          "</option>"
-        );
-      }).join("");
+      select.innerHTML =
+        '<option value="">請選擇回報項目</option>' +
+        available
+          .map(function (report) {
+            return (
+              '<option value="' +
+              escapeHtml(
+                report.reportId
+              ) +
+              '">' +
+              escapeHtml(
+                report.reportId +
+                "｜" +
+                report.project +
+                "｜" +
+                report.location
+              ) +
+              "</option>"
+            );
+          })
+          .join("");
     }
 
-    async function createPdf(reportId, reportType) {
+    async function createPdf(
+      reportId,
+      reportType
+    ) {
       try {
         const name =
           reportType === "acceptance"
             ? "驗收單"
             : "缺失改善報告";
 
-        showMessage("正在產生" + name + "……", "info");
+        showMessage(
+          "正在產生" +
+            name +
+            "……",
+          "info"
+        );
 
-        const result = await callApi("createPdf", {
-          reportId: reportId,
-          reportType: reportType
-        });
+        const result =
+          await callApi(
+            "createPdf",
+            {
+              reporterName:
+                getCurrentReporterName(),
+              reportId: reportId,
+              reportType: reportType
+            }
+          );
 
-        showMessage(name + "已產生。", "success");
+        showMessage(
+          name + "已產生。",
+          "success"
+        );
 
-        await loadReports();
+        await loadReports(false);
 
-        window.open(result.url, "_blank");
+        window.open(
+          result.url,
+          "_blank",
+          "noopener"
+        );
       } catch (error) {
-        showMessage(error.message, "error");
+        showMessage(
+          error.message,
+          "error"
+        );
       }
     }
 
-    async function callApi(action, data) {
-      if (!googleCredential) {
-        throw new Error("請先登入 Google 帳號。");
-      }
-
-      if (CONFIG.APPS_SCRIPT_URL.includes("請填入")) {
+    async function callApi(
+      action,
+      data
+    ) {
+      if (
+        !CONFIG.APPS_SCRIPT_URL ||
+        CONFIG.APPS_SCRIPT_URL.includes(
+          "請填入"
+        )
+      ) {
         throw new Error(
           "請先設定 APPS_SCRIPT_URL。"
         );
+      }
+
+      const requestData =
+        Object.assign(
+          {},
+          data || {}
+        );
+
+      if (!requestData.reporterName) {
+        requestData.reporterName =
+          getCurrentReporterName();
       }
 
       const response = await fetch(
@@ -1200,23 +1653,25 @@
           method: "POST",
           redirect: "follow",
           headers: {
-            "Content-Type": "text/plain;charset=utf-8"
+            "Content-Type":
+              "text/plain;charset=utf-8"
           },
           body: JSON.stringify({
             action: action,
-            credential: googleCredential,
-            data: data || {}
+            data: requestData
           })
         }
       );
 
       if (!response.ok) {
         throw new Error(
-          "後端連線失敗：HTTP " + response.status
+          "後端連線失敗：HTTP " +
+            response.status
         );
       }
 
-      const text = await response.text();
+      const text =
+        await response.text();
 
       let result;
 
@@ -1224,12 +1679,15 @@
         result = JSON.parse(text);
       } catch (error) {
         throw new Error(
-          "後端沒有回傳 JSON，請確認 Apps Script 部署網址。"
+          "後端沒有回傳 JSON，請確認 Apps Script 部署網址及存取權限。"
         );
       }
 
       if (!result.ok) {
-        throw new Error(result.message || "操作失敗。");
+        throw new Error(
+          result.message ||
+          "操作失敗。"
+        );
       }
 
       return result;
@@ -1237,7 +1695,9 @@
 
     function openImprovementPage() {
       updateImprovementOptions();
-      showPage("improvementPage");
+      showPage(
+        "improvementPage"
+      );
     }
 
     async function openListPage() {
@@ -1246,24 +1706,36 @@
     }
 
     function showPage(pageId) {
-      document.querySelectorAll(".page")
-        .forEach(function (element) {
-          element.classList.add("hidden");
-        });
+      document
+        .querySelectorAll(".page")
+        .forEach(
+          function (element) {
+            element.classList.add(
+              "hidden"
+            );
+          }
+        );
 
-      document.getElementById(pageId)
+      document
+        .getElementById(pageId)
         .classList.remove("hidden");
     }
 
     function showMessage(text, type) {
       const element =
-        document.getElementById("message");
+        document.getElementById(
+          "message"
+        );
 
       element.textContent = text;
-      element.className =
-        "message " + (type || "info");
 
-      element.classList.remove("hidden");
+      element.className =
+        "message " +
+        (type || "info");
+
+      element.classList.remove(
+        "hidden"
+      );
 
       window.scrollTo({
         top: 0,
@@ -1272,11 +1744,18 @@
     }
 
     function getValue(id) {
-      return document.getElementById(id).value.trim();
+      const element =
+        document.getElementById(id);
+
+      return element
+        ? element.value.trim()
+        : "";
     }
 
     function escapeHtml(value) {
-      return String(value == null ? "" : value)
+      return String(
+        value == null ? "" : value
+      )
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
@@ -1285,7 +1764,9 @@
     }
 
     function escapeJs(value) {
-      return String(value == null ? "" : value)
+      return String(
+        value == null ? "" : value
+      )
         .replaceAll("\\", "\\\\")
         .replaceAll("'", "\\'");
     }

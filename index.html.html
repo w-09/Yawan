@@ -7,9 +7,7 @@
   <title>現場回報系統</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -18,40 +16,21 @@
       font-family: Arial, "Microsoft JhengHei", sans-serif;
     }
 
-    header {
-      padding: 18px;
-      color: #ffffff;
-      background: #0f766e;
-    }
+    header { padding: 18px; color: #fff; background: #0f766e; }
+    header h1 { margin: 0 0 6px; font-size: 24px; }
+    header p { margin: 0; font-size: 14px; opacity: 0.9; }
 
-    header h1 {
-      margin: 0 0 6px;
-      font-size: 24px;
-    }
-
-    header p {
-      margin: 0;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 16px;
-    }
+    main { max-width: 1000px; margin: 0 auto; padding: 16px; }
 
     .card {
       margin-bottom: 16px;
       padding: 20px;
-      background: #ffffff;
+      background: #fff;
       border-radius: 14px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
     .grid {
       display: grid;
@@ -59,91 +38,58 @@
       gap: 14px;
     }
 
-    .full {
-      grid-column: 1 / -1;
-    }
+    .full { grid-column: 1 / -1; }
 
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
+    label { display: block; margin-bottom: 6px; font-weight: bold; }
 
-    input,
-    select,
-    textarea,
-    button {
+    input, select, textarea, button {
       width: 100%;
       min-height: 44px;
       font: inherit;
       border-radius: 8px;
     }
 
-    input,
-    select,
-    textarea {
+    input, select, textarea {
       padding: 10px;
       border: 1px solid #cbd5e1;
-      background: #ffffff;
+      background: #fff;
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
+    input[readonly] { background: #f1f5f9; color: #475569; }
+
+    input:focus, select:focus, textarea:focus {
       outline: 2px solid #5eead4;
       border-color: #0f766e;
     }
 
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
+    textarea { min-height: 110px; resize: vertical; }
 
     button {
       padding: 10px 15px;
       border: 0;
-      color: #ffffff;
+      color: #fff;
       background: #0f766e;
       font-weight: bold;
       cursor: pointer;
     }
 
-    button.secondary {
-      background: #475569;
-    }
+    button.secondary { background: #475569; }
+    button.warning { background: #c2410c; }
+    button.light { color: #1f2937; background: #e2e8f0; }
+    button:disabled { opacity: 0.55; cursor: wait; }
 
-    button.warning {
-      background: #c2410c;
-    }
-
-    button.light {
-      color: #1f2937;
-      background: #e2e8f0;
-    }
-
-    button:disabled {
-      opacity: 0.55;
-      cursor: wait;
-    }
-
-    .nav,
-    .actions,
-    .photo-tools {
+    .nav, .actions, .photo-tools, .photo-pick {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 8px;
     }
 
-    .nav {
-      margin-bottom: 16px;
-    }
+    .nav { margin-bottom: 16px; }
 
-    .nav button,
-    .actions button,
-    .photo-tools button {
-      width: auto;
-    }
+    .nav button, .actions button, .photo-tools button, .photo-pick button { width: auto; }
+
+    .photo-label { display: block; margin-bottom: 8px; font-weight: bold; }
 
     .message {
       margin-bottom: 15px;
@@ -153,26 +99,11 @@
       overflow-wrap: anywhere;
     }
 
-    .message.info {
-      color: #1e3a8a;
-      background: #dbeafe;
-    }
+    .message.info { color: #1e3a8a; background: #dbeafe; }
+    .message.success { color: #14532d; background: #dcfce7; }
+    .message.error { color: #7f1d1d; background: #fee2e2; }
 
-    .message.success {
-      color: #14532d;
-      background: #dcfce7;
-    }
-
-    .message.error {
-      color: #7f1d1d;
-      background: #fee2e2;
-    }
-
-    .photo-status {
-      margin: 8px 0;
-      color: #64748b;
-      font-size: 14px;
-    }
+    .photo-status { margin: 8px 0; color: #64748b; font-size: 14px; }
 
     canvas {
       display: block;
@@ -184,6 +115,7 @@
       border-radius: 10px;
       object-fit: contain;
       touch-action: none;
+      cursor: crosshair;
     }
 
     .report {
@@ -193,16 +125,8 @@
       border-radius: 10px;
     }
 
-    .report h3 {
-      margin: 0 0 8px;
-      overflow-wrap: anywhere;
-    }
-
-    .report p {
-      margin: 6px 0;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-    }
+    .report h3 { margin: 0 0 8px; overflow-wrap: anywhere; }
+    .report p { margin: 6px 0; line-height: 1.5; overflow-wrap: anywhere; }
 
     .badge {
       display: inline-block;
@@ -214,10 +138,7 @@
       font-weight: bold;
     }
 
-    .muted {
-      color: #64748b;
-      font-size: 14px;
-    }
+    .muted { color: #64748b; font-size: 14px; }
 
     a {
       display: inline-block;
@@ -226,24 +147,30 @@
       font-weight: bold;
     }
 
+    .detail-box {
+      padding: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .detail-box p { margin: 6px 0; line-height: 1.5; overflow-wrap: anywhere; }
+
+    .detail-box img {
+      display: block;
+      width: 100%;
+      max-height: 450px;
+      margin-top: 10px;
+      object-fit: contain;
+      background: #111827;
+      border-radius: 8px;
+    }
+
     @media (max-width: 700px) {
-      main {
-        padding: 10px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .full {
-        grid-column: auto;
-      }
-
-      .nav button,
-      .actions button,
-      .photo-tools button {
-        flex: 1 1 130px;
-      }
+      main { padding: 10px; }
+      .grid { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+      .nav button, .actions button, .photo-tools button, .photo-pick button { flex: 1 1 130px; }
     }
   </style>
 </head>
@@ -251,39 +178,19 @@
 <body>
   <header>
     <h1>現場回報系統</h1>
-    <p id="userInfo">免登入，開啟後即可直接回報</p>
+    <p id="userInfo">免登入,開啟後即可直接回報</p>
   </header>
 
   <main>
-    <div
-      id="message"
-      class="message info hidden"
-      role="status"
-      aria-live="polite"
-    ></div>
+    <div id="message" class="message info hidden" role="status" aria-live="polite"></div>
 
     <nav class="nav">
-      <button type="button" onclick="showPage('createPage')">
-        新增回報
-      </button>
-
-      <button
-        type="button"
-        class="secondary"
-        onclick="openImprovementPage()"
-      >
-        改善回報
-      </button>
-
-      <button
-        type="button"
-        class="secondary"
-        onclick="openListPage()"
-      >
-        回報清單
-      </button>
+      <button type="button" onclick="showPage('createPage')">新增回報</button>
+      <button type="button" class="secondary" onclick="openImprovementPage()">改善回報</button>
+      <button type="button" class="secondary" onclick="openListPage()">回報清單</button>
     </nav>
 
+    <!-- 新增回報 -->
     <section id="createPage" class="card page">
       <h2>新增現場回報</h2>
 
@@ -291,55 +198,35 @@
         <div class="grid">
           <div>
             <label for="reporterName">回報人姓名 *</label>
-            <input
-              id="reporterName"
-              maxlength="50"
-              placeholder="請輸入回報人姓名"
-              autocomplete="name"
-              required
-            >
+            <input id="reporterName" maxlength="50" placeholder="請輸入回報人姓名" autocomplete="name" required>
           </div>
 
           <div>
             <label for="project">專案名稱 *</label>
-            <input
-              id="project"
-              maxlength="100"
-              value="亞灣社宅"
-              required
-            >
+            <input id="project" maxlength="100" value="亞灣社宅" required>
           </div>
 
           <div>
             <label for="category">回報類型 *</label>
             <select id="category" required>
-              <option value="施工缺失">施工缺失</option>
-              <option value="安全缺失">安全缺失</option>
-              <option value="材料問題">材料問題</option>
-              <option value="進度問題">進度問題</option>
-              <option value="現場狀況">現場狀況</option>
-              <option value="其他">其他</option>
+              <option value="機電">機電</option>
+              <option value="土建">土建</option>
             </select>
           </div>
 
           <div>
             <label for="location">現場位置 *</label>
-            <input
-              id="location"
-              maxlength="150"
-              placeholder="例如：A棟3樓浴室"
-              required
-            >
+            <input id="location" maxlength="150" placeholder="例如:A棟3樓02戶廁所" required>
           </div>
 
           <div>
-            <label for="owner">改善負責人</label>
-            <input id="owner" maxlength="100">
+            <label for="owner">改善負責人(依類型自動帶入)</label>
+            <input id="owner" maxlength="100" readonly>
           </div>
 
           <div>
-            <label for="dueDate">改善期限</label>
-            <input id="dueDate" type="date">
+            <label for="dueDate">改善期限(開立日加 7 天)</label>
+            <input id="dueDate" type="date" readonly>
           </div>
 
           <div>
@@ -353,209 +240,102 @@
 
           <div class="full">
             <label for="description">回報內容 *</label>
-            <textarea
-              id="description"
-              maxlength="2000"
-              placeholder="請輸入現場狀況或缺失內容"
-              required
-            ></textarea>
+            <textarea id="description" maxlength="2000" placeholder="請輸入現場狀況或缺失內容" required></textarea>
           </div>
 
           <div class="full">
-            <label for="beforeFile">現場照片 *</label>
+            <span class="photo-label">現場照片 *</span>
 
-            <input
-              id="beforeFile"
-              type="file"
-              accept="image/*"
-              capture="environment"
-              required
-            >
+            <!-- 隱藏的檔案欄位:拍照(開相機)與相簿選擇 -->
+            <input id="beforeCamera" class="hidden" type="file" accept="image/*" capture="environment">
+            <input id="beforeFile" class="hidden" type="file" accept="image/*">
 
-            <p id="beforeStatus" class="photo-status">
-              尚未載入照片
-            </p>
-
-            <canvas
-              id="beforeCanvas"
-              class="hidden"
-            ></canvas>
-
-            <div class="photo-tools">
-              <button
-                type="button"
-                class="warning"
-                onclick="selectCircleTool('before')"
-              >
-                圈選缺失
-              </button>
-
-              <button
-                type="button"
-                class="secondary"
-                onclick="addPhotoText('before')"
-              >
-                加入文字
-              </button>
-
-              <button
-                type="button"
-                class="light"
-                onclick="undoPhoto('before')"
-              >
-                復原
-              </button>
-
-              <button
-                type="button"
-                class="light"
-                onclick="clearPhoto('before')"
-              >
-                清除照片
-              </button>
+            <div class="photo-pick">
+              <button type="button" onclick="document.getElementById('beforeCamera').click()">📷 拍照</button>
+              <button type="button" class="secondary" onclick="document.getElementById('beforeFile').click()">🖼 從相簿選擇</button>
             </div>
 
-            <p class="muted">
-              送出時會自動加入日期、專案、位置及 GPS 浮水印。
-            </p>
+            <p id="beforeStatus" class="photo-status">尚未載入照片</p>
+            <canvas id="beforeCanvas" class="hidden"></canvas>
+
+            <div class="photo-tools">
+              <button type="button" class="warning" onclick="addFrame('before')">新增框選</button>
+              <button type="button" class="secondary" onclick="deleteSelectedFrame('before')">刪除選取框</button>
+              <button type="button" class="light" onclick="undoPhoto('before')">復原</button>
+              <button type="button" class="light" onclick="clearPhoto('before')">清除照片</button>
+            </div>
+
+            <p class="muted">按「新增框選」後,在照片上拖曳畫出範圍(單點一下會產生預設框)。框可拖曳移動,拖曳四角的白點調整大小。送出時會自動在照片右下角加入日期。</p>
           </div>
 
           <div class="full">
-            <button id="submitReportButton" type="submit">
-              送出現場回報
-            </button>
+            <button id="submitReportButton" type="submit">送出現場回報</button>
           </div>
         </div>
       </form>
     </section>
 
-    <section
-      id="improvementPage"
-      class="card page hidden"
-    >
+    <!-- 改善回報 -->
+    <section id="improvementPage" class="card page hidden">
       <h2>改善完成回報</h2>
 
       <form id="improvementForm">
         <div class="grid">
           <div>
-            <label for="improvementReporterName">
-              改善回報人姓名 *
-            </label>
-
-            <input
-              id="improvementReporterName"
-              maxlength="50"
-              placeholder="請輸入改善回報人姓名"
-              autocomplete="name"
-              required
-            >
+            <label for="improvementReporterName">改善回報人姓名 *</label>
+            <input id="improvementReporterName" maxlength="50" placeholder="請輸入改善回報人姓名" autocomplete="name" required>
           </div>
 
           <div>
-            <label for="improvementReportId">
-              選擇待改善項目 *
-            </label>
-
-            <select
-              id="improvementReportId"
-              required
-            ></select>
+            <label for="improvementReportId">選擇待改善項目 *</label>
+            <select id="improvementReportId" required></select>
           </div>
 
           <div class="full">
-            <label for="improvementNote">
-              改善說明 *
-            </label>
-
-            <textarea
-              id="improvementNote"
-              maxlength="2000"
-              placeholder="請說明改善方式及處理結果"
-              required
-            ></textarea>
+            <div id="improvementDetail" class="detail-box hidden"></div>
           </div>
 
           <div class="full">
-            <label for="afterFile">改善後照片 *</label>
+            <label for="improvementNote">改善說明 *</label>
+            <textarea id="improvementNote" maxlength="2000" placeholder="請說明改善方式及處理結果" required></textarea>
+          </div>
 
-            <input
-              id="afterFile"
-              type="file"
-              accept="image/*"
-              capture="environment"
-              required
-            >
+          <div class="full">
+            <span class="photo-label">改善後照片 *</span>
 
-            <p id="afterStatus" class="photo-status">
-              尚未載入照片
-            </p>
+            <input id="afterCamera" class="hidden" type="file" accept="image/*" capture="environment">
+            <input id="afterFile" class="hidden" type="file" accept="image/*">
 
-            <canvas
-              id="afterCanvas"
-              class="hidden"
-            ></canvas>
+            <div class="photo-pick">
+              <button type="button" onclick="document.getElementById('afterCamera').click()">📷 拍照</button>
+              <button type="button" class="secondary" onclick="document.getElementById('afterFile').click()">🖼 從相簿選擇</button>
+            </div>
+
+            <p id="afterStatus" class="photo-status">尚未載入照片</p>
+            <canvas id="afterCanvas" class="hidden"></canvas>
 
             <div class="photo-tools">
-              <button
-                type="button"
-                class="warning"
-                onclick="selectCircleTool('after')"
-              >
-                圈選位置
-              </button>
-
-              <button
-                type="button"
-                class="secondary"
-                onclick="addPhotoText('after')"
-              >
-                加入文字
-              </button>
-
-              <button
-                type="button"
-                class="light"
-                onclick="undoPhoto('after')"
-              >
-                復原
-              </button>
-
-              <button
-                type="button"
-                class="light"
-                onclick="clearPhoto('after')"
-              >
-                清除照片
-              </button>
+              <button type="button" class="warning" onclick="addFrame('after')">新增框選</button>
+              <button type="button" class="secondary" onclick="deleteSelectedFrame('after')">刪除選取框</button>
+              <button type="button" class="light" onclick="undoPhoto('after')">復原</button>
+              <button type="button" class="light" onclick="clearPhoto('after')">清除照片</button>
             </div>
+
+            <p class="muted">按「新增框選」後,在照片上拖曳畫出範圍。框可拖曳移動,拖曳四角的白點調整大小。</p>
           </div>
 
           <div class="full">
-            <button
-              id="submitImprovementButton"
-              type="submit"
-            >
-              送出改善回報
-            </button>
+            <button id="submitImprovementButton" type="submit">送出改善回報</button>
           </div>
         </div>
       </form>
     </section>
 
-    <section
-      id="listPage"
-      class="card page hidden"
-    >
+    <!-- 回報清單 -->
+    <section id="listPage" class="card page hidden">
       <div class="actions">
         <h2 style="flex: 1">回報清單</h2>
-
-        <button
-          type="button"
-          class="secondary"
-          onclick="loadReports()"
-        >
-          重新整理
-        </button>
+        <button type="button" class="secondary" onclick="loadReports()">重新整理</button>
       </div>
 
       <div id="reportList">讀取中……</div>
@@ -567,16 +347,19 @@
       APPS_SCRIPT_URL:
         "https://script.google.com/macros/s/AKfycbyfNW0bcT6XPt8ve0Y-zcL3AcspWbMq-_yZnh9I5bwlDrt3cCn9jgQA2DruFZXV4U0/exec",
       DEFAULT_PROJECT: "亞灣社宅",
+      DEFAULT_CATEGORY: "機電",
+      DUE_DAYS: 7,
       MAX_IMAGE_SIZE: 1600,
       JPEG_QUALITY: 0.78
     };
 
-    let reports = [];
-
-    const gps = {
-      latitude: "",
-      longitude: ""
+    const OWNER_BY_CATEGORY = {
+      "機電": "雄菱工程",
+      "土建": "永青營造"
     };
+
+    let reports = [];
+    let detailRequestToken = 0;
 
     const editors = {
       before: createEditor("before"),
@@ -588,122 +371,135 @@
         prefix: prefix,
         canvas: null,
         context: null,
+        base: null,        // 原始照片(不含框)
         loaded: false,
-        tool: "",
+        tool: "",          // "draw" = 等待拖曳畫框
+        shapes: [],        // 框選清單 {x, y, w, h}
+        selected: -1,      // 目前選取的框
+        drag: null,        // 目前的拖曳狀態
         history: []
       };
     }
+
+    /* ========== 初始化 ========== */
 
     window.addEventListener("load", function () {
       try {
         initializeEditors();
         restoreReporterName();
-        locateUser();
         bindEvents();
+        updateAutomaticFields();
 
-        showMessage(
-          "系統已就緒，請填寫資料並選擇照片。",
-          "success"
-        );
-
+        showMessage("系統已就緒,請填寫資料並選擇照片。", "success");
         loadReports(false);
       } catch (error) {
         console.error(error);
-
-        showMessage(
-          "系統初始化失敗：" + getErrorMessage(error),
-          "error"
-        );
+        showMessage("系統初始化失敗:" + getErrorMessage(error), "error");
       }
     });
 
     function bindEvents() {
-      document
-        .getElementById("reportForm")
-        .addEventListener("submit", submitReport);
+      const reportForm = document.getElementById("reportForm");
 
-      document
-        .getElementById("improvementForm")
+      reportForm.addEventListener("submit", submitReport);
+
+      // 送出前重新計算,避免網頁開啟跨日後日期仍是前一天
+      reportForm.addEventListener("submit", updateAutomaticFields, true);
+
+      // 表單重設後,重新帶入預設值
+      reportForm.addEventListener("reset", function () {
+        window.setTimeout(function () {
+          document.getElementById("category").value = CONFIG.DEFAULT_CATEGORY;
+          updateAutomaticFields();
+        }, 0);
+      });
+
+      document.getElementById("improvementForm")
         .addEventListener("submit", submitImprovement);
 
-      document
-        .getElementById("beforeFile")
-        .addEventListener("change", function (event) {
-          loadPhoto("before", event);
-        });
+      ["beforeFile", "beforeCamera"].forEach(function (id) {
+        document.getElementById(id)
+          .addEventListener("change", function (event) { loadPhoto("before", event); });
+      });
 
-      document
-        .getElementById("afterFile")
-        .addEventListener("change", function (event) {
-          loadPhoto("after", event);
-        });
+      ["afterFile", "afterCamera"].forEach(function (id) {
+        document.getElementById(id)
+          .addEventListener("change", function (event) { loadPhoto("after", event); });
+      });
 
-      document
-        .getElementById("reporterName")
+      document.getElementById("category")
+        .addEventListener("change", updateAutomaticFields);
+
+      document.getElementById("reporterName")
         .addEventListener("change", rememberCreateReporter);
 
-      document
-        .getElementById("improvementReporterName")
-        .addEventListener(
-          "change",
-          rememberImprovementReporter
-        );
+      document.getElementById("improvementReporterName")
+        .addEventListener("change", rememberImprovementReporter);
+
+      document.getElementById("improvementReportId")
+        .addEventListener("change", renderImprovementDetail);
     }
 
+    /* ========== 自動欄位(負責人、期限) ========== */
+
+    function formatLocalDate(date) {
+      return (
+        date.getFullYear() + "-" +
+        String(date.getMonth() + 1).padStart(2, "0") + "-" +
+        String(date.getDate()).padStart(2, "0")
+      );
+    }
+
+    function updateAutomaticFields() {
+      const category = document.getElementById("category");
+      const owner = document.getElementById("owner");
+      const dueDate = document.getElementById("dueDate");
+
+      if (category && owner) {
+        owner.value = OWNER_BY_CATEGORY[category.value] || "";
+      }
+
+      if (dueDate) {
+        const date = new Date();
+        date.setHours(12, 0, 0, 0);
+        date.setDate(date.getDate() + CONFIG.DUE_DAYS);
+        dueDate.value = formatLocalDate(date);
+      }
+    }
+
+    /* ========== 回報人姓名 ========== */
+
     function restoreReporterName() {
-      const savedName =
-        localStorage.getItem("yawanReporterName") || "";
+      const savedName = localStorage.getItem("yawanReporterName") || "";
 
-      document.getElementById("reporterName").value =
-        savedName;
-
-      document.getElementById(
-        "improvementReporterName"
-      ).value = savedName;
+      document.getElementById("reporterName").value = savedName;
+      document.getElementById("improvementReporterName").value = savedName;
 
       updateUserInfo(savedName);
     }
 
     function rememberCreateReporter() {
       const name = getValue("reporterName");
-
       saveReporterName(name);
-
-      document.getElementById(
-        "improvementReporterName"
-      ).value = name;
+      document.getElementById("improvementReporterName").value = name;
     }
 
     function rememberImprovementReporter() {
-      const name =
-        getValue("improvementReporterName");
-
+      const name = getValue("improvementReporterName");
       saveReporterName(name);
-
-      document.getElementById("reporterName").value =
-        name;
+      document.getElementById("reporterName").value = name;
     }
 
     function saveReporterName(name) {
-      if (!name) {
-        return;
-      }
-
-      localStorage.setItem(
-        "yawanReporterName",
-        name
-      );
-
+      if (!name) return;
+      localStorage.setItem("yawanReporterName", name);
       updateUserInfo(name);
     }
 
     function updateUserInfo(name) {
-      document.getElementById("userInfo").textContent =
-        name
-          ? "目前填報人：" +
-            name +
-            "｜免登入直接回報"
-          : "免登入，開啟後即可直接回報";
+      document.getElementById("userInfo").textContent = name
+        ? "目前填報人:" + name + "|免登入直接回報"
+        : "免登入,開啟後即可直接回報";
     }
 
     function getCurrentReporterName() {
@@ -715,200 +511,124 @@
       );
     }
 
+    /* ========== 照片編輯(可自訂範圍、可移動與縮放的框選) ========== */
+
     function initializeEditors() {
       Object.keys(editors).forEach(function (prefix) {
         const editor = editors[prefix];
 
-        editor.canvas =
-          document.getElementById(prefix + "Canvas");
+        editor.canvas = document.getElementById(prefix + "Canvas");
 
         if (!editor.canvas) {
-          throw new Error(
-            "找不到照片畫布：" + prefix
-          );
+          throw new Error("找不到照片畫布:" + prefix);
         }
 
-        editor.context =
-          editor.canvas.getContext("2d");
+        editor.context = editor.canvas.getContext("2d");
 
-        editor.canvas.addEventListener(
-          "pointerdown",
-          function (event) {
-            drawCircle(prefix, event);
-          }
-        );
+        editor.canvas.addEventListener("pointerdown", function (event) {
+          onPointerDown(prefix, event);
+        });
+        editor.canvas.addEventListener("pointermove", function (event) {
+          onPointerMove(prefix, event);
+        });
+        editor.canvas.addEventListener("pointerup", function (event) {
+          onPointerUp(prefix, event);
+        });
+        editor.canvas.addEventListener("pointercancel", function (event) {
+          onPointerUp(prefix, event);
+        });
       });
     }
 
     function setPhotoStatus(prefix, text, isError) {
-      const element =
-        document.getElementById(prefix + "Status");
-
-      if (!element) {
-        return;
-      }
-
+      const element = document.getElementById(prefix + "Status");
+      if (!element) return;
       element.textContent = text;
-      element.style.color =
-        isError ? "#b91c1c" : "#64748b";
+      element.style.color = isError ? "#b91c1c" : "#64748b";
+    }
+
+    function resetFileInputs(prefix) {
+      [prefix + "File", prefix + "Camera"].forEach(function (id) {
+        const input = document.getElementById(id);
+        if (input) input.value = "";
+      });
     }
 
     function loadPhoto(prefix, event) {
       const input = event.target;
-      const file =
-        input.files && input.files[0];
+      const file = input.files && input.files[0];
 
       if (!file) {
-        setPhotoStatus(
-          prefix,
-          "尚未載入照片",
-          false
-        );
         return;
       }
 
-      if (
-        !file.type ||
-        !file.type.startsWith("image/")
-      ) {
+      if (!file.type || !file.type.startsWith("image/")) {
         input.value = "";
-
-        setPhotoStatus(
-          prefix,
-          "檔案格式不正確",
-          true
-        );
-
-        showMessage(
-          "請選擇 JPG、PNG 或手機照片。",
-          "error"
-        );
+        setPhotoStatus(prefix, "檔案格式不正確", true);
+        showMessage("請選擇 JPG、PNG 或手機照片。", "error");
         return;
       }
 
-      setPhotoStatus(
-        prefix,
-        "正在讀取照片：" + file.name,
-        false
-      );
+      setPhotoStatus(prefix, "正在讀取照片:" + file.name, false);
+      showMessage("正在讀取照片,請稍候……", "info");
 
-      showMessage(
-        "正在讀取照片，請稍候……",
-        "info"
-      );
-
-      const imageUrl =
-        URL.createObjectURL(file);
-
+      const imageUrl = URL.createObjectURL(file);
       const image = new Image();
 
       image.onload = function () {
         try {
           const editor = editors[prefix];
+          const sourceWidth = image.naturalWidth || image.width;
+          const sourceHeight = image.naturalHeight || image.height;
 
-          const sourceWidth =
-            image.naturalWidth || image.width;
-
-          const sourceHeight =
-            image.naturalHeight || image.height;
-
-          if (
-            !sourceWidth ||
-            !sourceHeight
-          ) {
-            throw new Error(
-              "無法取得照片尺寸。"
-            );
+          if (!sourceWidth || !sourceHeight) {
+            throw new Error("無法取得照片尺寸。");
           }
 
           const ratio = Math.min(
             1,
-            CONFIG.MAX_IMAGE_SIZE /
-              Math.max(
-                sourceWidth,
-                sourceHeight
-              )
+            CONFIG.MAX_IMAGE_SIZE / Math.max(sourceWidth, sourceHeight)
           );
 
-          editor.canvas.width =
-            Math.max(
-              1,
-              Math.round(
-                sourceWidth * ratio
-              )
-            );
+          const width = Math.max(1, Math.round(sourceWidth * ratio));
+          const height = Math.max(1, Math.round(sourceHeight * ratio));
 
-          editor.canvas.height =
-            Math.max(
-              1,
-              Math.round(
-                sourceHeight * ratio
-              )
-            );
+          editor.canvas.width = width;
+          editor.canvas.height = height;
+          editor.context = editor.canvas.getContext("2d");
 
-          editor.context =
-            editor.canvas.getContext("2d");
-
-          editor.context.clearRect(
-            0,
-            0,
-            editor.canvas.width,
-            editor.canvas.height
-          );
-
-          editor.context.drawImage(
-            image,
-            0,
-            0,
-            editor.canvas.width,
-            editor.canvas.height
-          );
+          // 原始照片另外存一份,框選才能隨時重畫、移動與縮放
+          editor.base = document.createElement("canvas");
+          editor.base.width = width;
+          editor.base.height = height;
+          editor.base.getContext("2d").drawImage(image, 0, 0, width, height);
 
           editor.loaded = true;
           editor.tool = "";
+          editor.shapes = [];
+          editor.selected = -1;
+          editor.drag = null;
           editor.history = [];
+          editor.canvas.classList.remove("hidden");
 
-          editor.canvas.classList.remove(
-            "hidden"
-          );
+          renderEditor(prefix);
 
           setPhotoStatus(
             prefix,
-            "照片已載入：" +
-              file.name +
-              "（" +
-              editor.canvas.width +
-              " × " +
-              editor.canvas.height +
-              "）",
+            "照片已載入:" + file.name + "(" + width + " × " + height + ")",
             false
           );
 
-          showMessage(
-            "照片已載入，可圈選缺失或加入文字。",
-            "success"
-          );
+          showMessage("照片已載入,可按「新增框選」標示缺失範圍。", "success");
         } catch (error) {
           console.error(error);
 
           input.value = "";
-
           editors[prefix].loaded = false;
-          editors[prefix].canvas.classList.add(
-            "hidden"
-          );
+          editors[prefix].canvas.classList.add("hidden");
 
-          setPhotoStatus(
-            prefix,
-            "照片處理失敗",
-            true
-          );
-
-          showMessage(
-            "照片處理失敗：" +
-              getErrorMessage(error),
-            "error"
-          );
+          setPhotoStatus(prefix, "照片處理失敗", true);
+          showMessage("照片處理失敗:" + getErrorMessage(error), "error");
         } finally {
           URL.revokeObjectURL(imageUrl);
         }
@@ -919,18 +639,11 @@
         input.value = "";
 
         editors[prefix].loaded = false;
-        editors[prefix].canvas.classList.add(
-          "hidden"
-        );
+        editors[prefix].canvas.classList.add("hidden");
 
-        setPhotoStatus(
-          prefix,
-          "瀏覽器無法讀取此照片",
-          true
-        );
-
+        setPhotoStatus(prefix, "瀏覽器無法讀取此照片", true);
         showMessage(
-          "瀏覽器無法開啟這張照片。請改用 JPG、PNG，或先將照片截圖後再上傳。",
+          "瀏覽器無法開啟這張照片。請改用 JPG、PNG,或先將照片截圖後再上傳。",
           "error"
         );
       };
@@ -938,161 +651,286 @@
       image.src = imageUrl;
     }
 
-    function drawCircle(prefix, event) {
+    /* ----- 畫面繪製 ----- */
+
+    function getHandleSize(editor) {
+      return Math.max(18, editor.canvas.width * 0.025);
+    }
+
+    function getCorners(shape) {
+      return [
+        [shape.x, shape.y],
+        [shape.x + shape.w, shape.y],
+        [shape.x, shape.y + shape.h],
+        [shape.x + shape.w, shape.y + shape.h]
+      ];
+    }
+
+    /* 畫出所有框;withHandles 為 true 時,選取的框會顯示四角控制點 */
+    function drawShapes(context, editor, withHandles) {
+      const lineWidth = Math.max(5, editor.canvas.width * 0.006);
+
+      editor.shapes.forEach(function (shape, index) {
+        context.strokeStyle = "#ff0000";
+        context.lineWidth = lineWidth;
+        context.lineJoin = "round";
+        context.strokeRect(shape.x, shape.y, shape.w, shape.h);
+
+        if (withHandles && index === editor.selected) {
+          const size = getHandleSize(editor);
+
+          getCorners(shape).forEach(function (corner) {
+            context.fillStyle = "#ffffff";
+            context.fillRect(corner[0] - size / 2, corner[1] - size / 2, size, size);
+            context.lineWidth = Math.max(3, lineWidth * 0.6);
+            context.strokeStyle = "#ff0000";
+            context.strokeRect(corner[0] - size / 2, corner[1] - size / 2, size, size);
+          });
+        }
+      });
+    }
+
+    function renderEditor(prefix) {
       const editor = editors[prefix];
 
-      if (
-        !editor.loaded ||
-        editor.tool !== "circle"
-      ) {
-        return;
+      if (!editor.loaded || !editor.base) return;
+
+      editor.context.clearRect(0, 0, editor.canvas.width, editor.canvas.height);
+      editor.context.drawImage(editor.base, 0, 0);
+      drawShapes(editor.context, editor, true);
+    }
+
+    /* ----- 座標與判斷 ----- */
+
+    function getPoint(editor, event) {
+      const rect = editor.canvas.getBoundingClientRect();
+
+      return {
+        x: (event.clientX - rect.left) * (editor.canvas.width / rect.width),
+        y: (event.clientY - rect.top) * (editor.canvas.height / rect.height)
+      };
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function findHandle(editor, point) {
+      if (editor.selected < 0) return -1;
+
+      const shape = editor.shapes[editor.selected];
+      const hitRadius = getHandleSize(editor) * 1.2;
+      const corners = getCorners(shape);
+
+      for (let i = 0; i < corners.length; i++) {
+        const dx = point.x - corners[i][0];
+        const dy = point.y - corners[i][1];
+
+        if (Math.sqrt(dx * dx + dy * dy) <= hitRadius) return i;
       }
+
+      return -1;
+    }
+
+    function findShapeAt(editor, point) {
+      const tolerance = getHandleSize(editor) * 0.5;
+
+      for (let i = editor.shapes.length - 1; i >= 0; i--) {
+        const shape = editor.shapes[i];
+
+        if (
+          point.x >= shape.x - tolerance &&
+          point.x <= shape.x + shape.w + tolerance &&
+          point.y >= shape.y - tolerance &&
+          point.y <= shape.y + shape.h + tolerance
+        ) {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+
+    /* ----- 操作事件 ----- */
+
+    function onPointerDown(prefix, event) {
+      const editor = editors[prefix];
+
+      if (!editor.loaded) return;
 
       event.preventDefault();
 
-      saveHistory(prefix);
+      const point = getPoint(editor, event);
 
-      const rect =
-        editor.canvas.getBoundingClientRect();
+      try {
+        editor.canvas.setPointerCapture(event.pointerId);
+      } catch (error) {
+        // 部分瀏覽器不支援,忽略即可
+      }
 
-      const scaleX =
-        editor.canvas.width / rect.width;
+      // 1. 畫框模式:從這個點開始拖曳出新框
+      if (editor.tool === "draw") {
+        saveHistory(prefix);
 
-      const scaleY =
-        editor.canvas.height / rect.height;
+        editor.shapes.push({ x: point.x, y: point.y, w: 0, h: 0 });
+        editor.selected = editor.shapes.length - 1;
+        editor.drag = { type: "create", startX: point.x, startY: point.y };
 
-      const x =
-        (event.clientX - rect.left) * scaleX;
+        renderEditor(prefix);
+        return;
+      }
 
-      const y =
-        (event.clientY - rect.top) * scaleY;
+      // 2. 拖曳四角控制點:調整大小
+      const handleIndex = findHandle(editor, point);
 
-      const radius = Math.max(
-        35,
-        editor.canvas.width * 0.06
-      );
+      if (handleIndex >= 0) {
+        const shape = editor.shapes[editor.selected];
+        const corners = getCorners(shape);
+        const anchor = corners[3 - handleIndex]; // 對角固定不動
 
-      editor.context.beginPath();
+        saveHistory(prefix);
+        editor.drag = { type: "resize", anchorX: anchor[0], anchorY: anchor[1] };
+        return;
+      }
 
-      editor.context.arc(
-        x,
-        y,
-        radius,
-        0,
-        Math.PI * 2
-      );
+      // 3. 點到框內:選取並移動
+      const shapeIndex = findShapeAt(editor, point);
 
-      editor.context.strokeStyle = "#ff0000";
+      if (shapeIndex >= 0) {
+        const shape = editor.shapes[shapeIndex];
 
-      editor.context.lineWidth = Math.max(
-        6,
-        editor.canvas.width * 0.008
-      );
+        saveHistory(prefix);
+        editor.selected = shapeIndex;
+        editor.drag = {
+          type: "move",
+          offsetX: point.x - shape.x,
+          offsetY: point.y - shape.y
+        };
 
-      editor.context.stroke();
+        renderEditor(prefix);
+        return;
+      }
 
-      editor.tool = "";
-
-      showMessage(
-        "已加入紅色圈選。",
-        "success"
-      );
+      // 4. 點到空白處:取消選取
+      editor.selected = -1;
+      renderEditor(prefix);
     }
 
-    function selectCircleTool(prefix) {
+    function onPointerMove(prefix, event) {
+      const editor = editors[prefix];
+
+      if (!editor.loaded || !editor.drag) return;
+
+      event.preventDefault();
+
+      const point = getPoint(editor, event);
+      const width = editor.canvas.width;
+      const height = editor.canvas.height;
+      const shape = editor.shapes[editor.selected];
+
+      if (!shape) return;
+
+      const px = clamp(point.x, 0, width);
+      const py = clamp(point.y, 0, height);
+
+      if (editor.drag.type === "create") {
+        shape.x = Math.min(editor.drag.startX, px);
+        shape.y = Math.min(editor.drag.startY, py);
+        shape.w = Math.abs(px - editor.drag.startX);
+        shape.h = Math.abs(py - editor.drag.startY);
+      } else if (editor.drag.type === "resize") {
+        shape.x = Math.min(editor.drag.anchorX, px);
+        shape.y = Math.min(editor.drag.anchorY, py);
+        shape.w = Math.abs(px - editor.drag.anchorX);
+        shape.h = Math.abs(py - editor.drag.anchorY);
+      } else if (editor.drag.type === "move") {
+        shape.x = clamp(point.x - editor.drag.offsetX, 0, width - shape.w);
+        shape.y = clamp(point.y - editor.drag.offsetY, 0, height - shape.h);
+      }
+
+      renderEditor(prefix);
+    }
+
+    function onPointerUp(prefix, event) {
+      const editor = editors[prefix];
+
+      if (!editor.loaded || !editor.drag) return;
+
+      const dragType = editor.drag.type;
+      const shape = editor.shapes[editor.selected];
+      const minSize = Math.max(20, editor.canvas.width * 0.02);
+
+      if (shape && (dragType === "create" || dragType === "resize")) {
+        if (shape.w < minSize || shape.h < minSize) {
+          if (dragType === "create") {
+            // 只是點一下:產生預設大小的框,以點擊位置為中心
+            const width = editor.canvas.width * 0.25;
+            const height = editor.canvas.height * 0.25;
+
+            shape.w = width;
+            shape.h = height;
+            shape.x = clamp(editor.drag.startX - width / 2, 0, editor.canvas.width - width);
+            shape.y = clamp(editor.drag.startY - height / 2, 0, editor.canvas.height - height);
+          } else {
+            shape.w = Math.max(shape.w, minSize);
+            shape.h = Math.max(shape.h, minSize);
+          }
+        }
+      }
+
+      if (dragType === "create") {
+        editor.tool = "";
+        showMessage("已加入框選。拖曳框內可移動,拖曳四角白點可調整大小。", "success");
+      }
+
+      editor.drag = null;
+      renderEditor(prefix);
+    }
+
+    /* ----- 按鈕功能 ----- */
+
+    function addFrame(prefix) {
       const editor = editors[prefix];
 
       if (!editor.loaded) {
-        showMessage(
-          "請先選擇並成功載入照片。",
-          "error"
-        );
+        showMessage("請先拍照或選擇照片。", "error");
         return;
       }
 
-      editor.tool = "circle";
-
-      showMessage(
-        "請在照片上點一下要圈選的位置。",
-        "info"
-      );
+      editor.tool = "draw";
+      showMessage("請在照片上拖曳,畫出要框選的範圍(單點一下會產生預設框)。", "info");
     }
 
-    function addPhotoText(prefix) {
+    function deleteSelectedFrame(prefix) {
       const editor = editors[prefix];
 
       if (!editor.loaded) {
-        showMessage(
-          "請先選擇並成功載入照片。",
-          "error"
-        );
+        showMessage("請先拍照或選擇照片。", "error");
         return;
       }
 
-      const text = window.prompt(
-        "請輸入照片標註文字："
-      );
-
-      if (!text || !text.trim()) {
+      if (editor.selected < 0 || !editor.shapes[editor.selected]) {
+        showMessage("請先點選要刪除的框。", "info");
         return;
       }
 
       saveHistory(prefix);
+      editor.shapes.splice(editor.selected, 1);
+      editor.selected = -1;
+      renderEditor(prefix);
 
-      const fontSize = Math.max(
-        28,
-        editor.canvas.width * 0.035
-      );
-
-      const x =
-        editor.canvas.width * 0.04;
-
-      const y =
-        editor.canvas.height * 0.1;
-
-      editor.context.font =
-        "bold " +
-        fontSize +
-        "px sans-serif";
-
-      editor.context.lineWidth =
-        Math.max(4, fontSize * 0.12);
-
-      editor.context.strokeStyle =
-        "rgba(0,0,0,0.9)";
-
-      editor.context.fillStyle =
-        "#ffff00";
-
-      editor.context.strokeText(
-        text.trim(),
-        x,
-        y
-      );
-
-      editor.context.fillText(
-        text.trim(),
-        x,
-        y
-      );
-
-      showMessage(
-        "已加入照片文字。",
-        "success"
-      );
+      showMessage("已刪除選取的框。", "success");
     }
 
     function saveHistory(prefix) {
       const editor = editors[prefix];
 
-      editor.history.push(
-        editor.canvas.toDataURL(
-          "image/jpeg",
-          0.85
-        )
-      );
+      editor.history.push(JSON.stringify({
+        shapes: editor.shapes,
+        selected: editor.selected
+      }));
 
-      if (editor.history.length > 10) {
+      if (editor.history.length > 20) {
         editor.history.shift();
       }
     }
@@ -1101,351 +939,145 @@
       const editor = editors[prefix];
 
       if (!editor.history.length) {
-        showMessage(
-          "沒有可以復原的操作。",
-          "info"
-        );
+        showMessage("沒有可以復原的操作。", "info");
         return;
       }
 
-      const image = new Image();
+      const state = JSON.parse(editor.history.pop());
 
-      image.onload = function () {
-        editor.context.clearRect(
-          0,
-          0,
-          editor.canvas.width,
-          editor.canvas.height
-        );
+      editor.shapes = state.shapes;
+      editor.selected = state.selected;
+      editor.tool = "";
+      editor.drag = null;
 
-        editor.context.drawImage(
-          image,
-          0,
-          0,
-          editor.canvas.width,
-          editor.canvas.height
-        );
-
-        showMessage(
-          "已復原上一個照片操作。",
-          "success"
-        );
-      };
-
-      image.src = editor.history.pop();
+      renderEditor(prefix);
+      showMessage("已復原上一個操作。", "success");
     }
 
     function clearPhoto(prefix) {
       const editor = editors[prefix];
 
-      if (
-        editor.canvas &&
-        editor.context
-      ) {
-        editor.context.clearRect(
-          0,
-          0,
-          editor.canvas.width,
-          editor.canvas.height
-        );
+      if (editor.canvas && editor.context) {
+        editor.context.clearRect(0, 0, editor.canvas.width, editor.canvas.height);
       }
 
       editor.loaded = false;
+      editor.base = null;
       editor.tool = "";
+      editor.shapes = [];
+      editor.selected = -1;
+      editor.drag = null;
       editor.history = [];
 
-      if (editor.canvas) {
-        editor.canvas.classList.add(
-          "hidden"
-        );
-      }
+      if (editor.canvas) editor.canvas.classList.add("hidden");
 
-      const input =
-        document.getElementById(prefix + "File");
-
-      if (input) {
-        input.value = "";
-      }
-
-      setPhotoStatus(
-        prefix,
-        "尚未載入照片",
-        false
-      );
+      resetFileInputs(prefix);
+      setPhotoStatus(prefix, "尚未載入照片", false);
     }
 
-    function createFinalPhoto(
-      prefix,
-      project,
-      location
-    ) {
+    /* 產生最終照片:原始照片 + 框選(不含控制點) + 右下角日期 */
+    function createFinalPhoto(prefix) {
       const editor = editors[prefix];
 
-      if (!editor.loaded) {
+      if (!editor.loaded || !editor.base) {
         throw new Error(
-          prefix === "before"
-            ? "現場照片尚未成功載入。"
-            : "改善後照片尚未成功載入。"
+          prefix === "before" ? "現場照片尚未成功載入。" : "改善後照片尚未成功載入。"
         );
       }
 
-      const output =
-        document.createElement("canvas");
+      const output = document.createElement("canvas");
+      output.width = editor.canvas.width;
+      output.height = editor.canvas.height;
 
-      output.width =
-        editor.canvas.width;
+      const context = output.getContext("2d");
+      context.drawImage(editor.base, 0, 0);
+      drawShapes(context, editor, false);
 
-      output.height =
-        editor.canvas.height;
+      const fontSize = Math.max(20, output.width * 0.024);
+      const padding = Math.max(12, output.width * 0.015);
 
-      const context =
-        output.getContext("2d");
+      const now = new Date();
+      const dateText =
+        now.getFullYear() + "/" +
+        String(now.getMonth() + 1).padStart(2, "0") + "/" +
+        String(now.getDate()).padStart(2, "0");
 
-      context.drawImage(
-        editor.canvas,
-        0,
-        0
-      );
+      context.font = "bold " + fontSize + "px sans-serif";
 
-      const fontSize = Math.max(
-        20,
-        output.width * 0.024
-      );
+      const textWidth = context.measureText(dateText).width;
+      const boxWidth = textWidth + padding * 2;
+      const boxHeight = fontSize + padding * 2;
+      const boxX = output.width - boxWidth;
+      const boxY = output.height - boxHeight;
 
-      const padding = Math.max(
-        12,
-        output.width * 0.015
-      );
-
-      const lineHeight =
-        fontSize * 1.35;
-
-      const boxHeight =
-        lineHeight * 4 +
-        padding * 2;
-
-      context.fillStyle =
-        "rgba(0,0,0,0.68)";
-
-      context.fillRect(
-        0,
-        Math.max(
-          0,
-          output.height - boxHeight
-        ),
-        output.width,
-        boxHeight
-      );
+      context.fillStyle = "rgba(0,0,0,0.68)";
+      context.fillRect(boxX, boxY, boxWidth, boxHeight);
 
       context.fillStyle = "#ffffff";
-
-      context.font =
-        "bold " +
-        fontSize +
-        "px sans-serif";
-
-      const dateText =
-        new Intl.DateTimeFormat(
-          "zh-TW",
-          {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-          }
-        ).format(new Date());
-
-      const gpsText =
-        gps.latitude &&
-        gps.longitude
-          ? "GPS：" +
-            gps.latitude +
-            ", " +
-            gps.longitude
-          : "GPS：未取得";
-
-      const lines = [
-        "日期：" + dateText,
-        "專案：" + project,
-        "位置：" + location,
-        gpsText
-      ];
-
-      lines.forEach(
-        function (line, index) {
-          context.fillText(
-            line,
-            padding,
-            output.height -
-              boxHeight +
-              padding +
-              fontSize +
-              index * lineHeight,
-            output.width -
-              padding * 2
-          );
-        }
+      context.textAlign = "left";
+      context.textBaseline = "alphabetic";
+      context.fillText(
+        dateText,
+        boxX + padding,
+        output.height - padding - fontSize * 0.15
       );
 
-      const dataUrl =
-        output.toDataURL(
-          "image/jpeg",
-          CONFIG.JPEG_QUALITY
-        );
+      const dataUrl = output.toDataURL("image/jpeg", CONFIG.JPEG_QUALITY);
 
-      if (
-        !dataUrl ||
-        !dataUrl.startsWith(
-          "data:image/jpeg;base64,"
-        )
-      ) {
-        throw new Error(
-          "照片轉換失敗，請重新選擇照片。"
-        );
+      if (!dataUrl || !dataUrl.startsWith("data:image/jpeg;base64,")) {
+        throw new Error("照片轉換失敗,請重新選擇照片。");
       }
 
       return dataUrl;
     }
 
-    function locateUser() {
-      if (!navigator.geolocation) {
-        return;
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          gps.latitude =
-            position.coords.latitude.toFixed(6);
-
-          gps.longitude =
-            position.coords.longitude.toFixed(6);
-        },
-        function () {
-          gps.latitude = "";
-          gps.longitude = "";
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 60000
-        }
-      );
-    }
+    /* ========== 送出新增回報 ========== */
 
     async function submitReport(event) {
       event.preventDefault();
 
-      const button =
-        document.getElementById(
-          "submitReportButton"
-        );
-
+      const button = document.getElementById("submitReportButton");
       button.disabled = true;
 
       try {
-        const reporterName =
-          getValue("reporterName");
+        const reporterName = getValue("reporterName");
+        const project = getValue("project");
+        const category = getValue("category");
+        const location = getValue("location");
+        const description = getValue("description");
 
-        const project =
-          getValue("project");
-
-        const category =
-          getValue("category");
-
-        const location =
-          getValue("location");
-
-        const description =
-          getValue("description");
-
-        if (!reporterName) {
-          throw new Error(
-            "請輸入回報人姓名。"
-          );
-        }
-
-        if (!project) {
-          throw new Error(
-            "請輸入專案名稱。"
-          );
-        }
-
-        if (!category) {
-          throw new Error(
-            "請選擇回報類型。"
-          );
-        }
-
-        if (!location) {
-          throw new Error(
-            "請輸入現場位置。"
-          );
-        }
-
-        if (!description) {
-          throw new Error(
-            "請輸入回報內容。"
-          );
-        }
+        if (!reporterName) throw new Error("請輸入回報人姓名。");
+        if (!project) throw new Error("請輸入專案名稱。");
+        if (!category) throw new Error("請選擇回報類型。");
+        if (!location) throw new Error("請輸入現場位置。");
+        if (!description) throw new Error("請輸入回報內容。");
 
         if (!editors.before.loaded) {
-          throw new Error(
-            "照片尚未成功載入，請重新選擇照片。"
-          );
+          throw new Error("請先拍照或選擇現場照片。");
         }
 
         saveReporterName(reporterName);
 
-        showMessage(
-          "正在整理照片，請勿關閉網頁……",
-          "info"
-        );
+        showMessage("正在整理照片,請勿關閉網頁……", "info");
+        const photo = createFinalPhoto("before");
 
-        const photo =
-          createFinalPhoto(
-            "before",
-            project,
-            location
-          );
+        showMessage("正在上傳照片並建立回報,請稍候……", "info");
 
-        showMessage(
-          "正在上傳照片並建立回報，請稍候……",
-          "info"
-        );
+        const result = await callApi("createReport", {
+          reporterName: reporterName,
+          project: project,
+          category: category,
+          location: location,
+          description: description,
+          owner: getValue("owner"),
+          dueDate: getValue("dueDate"),
+          severity: getValue("severity") || "一般",
+          photo: photo
+        });
 
-        const result = await callApi(
-          "createReport",
-          {
-            reporterName: reporterName,
-            project: project,
-            category: category,
-            location: location,
-            description: description,
-            owner: getValue("owner"),
-            dueDate: getValue("dueDate"),
-            severity:
-              getValue("severity") ||
-              "一般",
-            latitude: gps.latitude,
-            longitude: gps.longitude,
-            photo: photo
-          }
-        );
-
-        document
-          .getElementById("reportForm")
-          .reset();
-
-        document.getElementById(
-          "reporterName"
-        ).value = reporterName;
-
-        document.getElementById(
-          "project"
-        ).value =
-          CONFIG.DEFAULT_PROJECT;
+        document.getElementById("reportForm").reset();
+        document.getElementById("reporterName").value = reporterName;
+        document.getElementById("project").value = CONFIG.DEFAULT_PROJECT;
 
         clearPhoto("before");
 
@@ -1453,607 +1085,377 @@
         showPage("listPage");
 
         showMessage(
-          "回報建立成功，編號：" +
-            result.reportId,
+          "回報建立成功,表單編號:" + (result.formNumber || result.reportId),
           "success"
         );
       } catch (error) {
         console.error(error);
-
-        showMessage(
-          getErrorMessage(error),
-          "error"
-        );
+        showMessage(getErrorMessage(error), "error");
       } finally {
         button.disabled = false;
       }
     }
+
+    /* ========== 送出改善回報 ========== */
 
     async function submitImprovement(event) {
       event.preventDefault();
 
-      const button =
-        document.getElementById(
-          "submitImprovementButton"
-        );
-
+      const button = document.getElementById("submitImprovementButton");
       button.disabled = true;
 
       try {
-        const reporterName =
-          getValue(
-            "improvementReporterName"
-          );
+        const reporterName = getValue("improvementReporterName");
+        const reportId = getValue("improvementReportId");
+        const improvementNote = getValue("improvementNote");
 
-        const reportId =
-          getValue(
-            "improvementReportId"
-          );
-
-        const improvementNote =
-          getValue(
-            "improvementNote"
-          );
-
-        if (!reporterName) {
-          throw new Error(
-            "請輸入改善回報人姓名。"
-          );
-        }
-
-        if (!reportId) {
-          throw new Error(
-            "請選擇待改善項目。"
-          );
-        }
-
-        if (!improvementNote) {
-          throw new Error(
-            "請輸入改善說明。"
-          );
-        }
+        if (!reporterName) throw new Error("請輸入改善回報人姓名。");
+        if (!reportId) throw new Error("請選擇待改善項目。");
+        if (!improvementNote) throw new Error("請輸入改善說明。");
 
         if (!editors.after.loaded) {
-          throw new Error(
-            "改善後照片尚未成功載入，請重新選擇照片。"
-          );
+          throw new Error("請先拍照或選擇改善後照片。");
         }
 
-        const report =
-          reports.find(
-            function (item) {
-              return (
-                item.reportId ===
-                reportId
-              );
-            }
-          );
+        const report = reports.find(function (item) {
+          return item.reportId === reportId;
+        });
 
-        if (!report) {
-          throw new Error(
-            "找不到指定的回報資料。"
-          );
-        }
+        if (!report) throw new Error("找不到指定的回報資料。");
 
         saveReporterName(reporterName);
 
-        showMessage(
-          "正在整理改善照片，請勿關閉網頁……",
-          "info"
-        );
+        showMessage("正在整理改善照片,請勿關閉網頁……", "info");
+        const photo = createFinalPhoto("after");
 
-        const photo =
-          createFinalPhoto(
-            "after",
-            report.project,
-            report.location
-          );
+        showMessage("正在上傳改善資料,請稍候……", "info");
 
-        showMessage(
-          "正在上傳改善資料，請稍候……",
-          "info"
-        );
+        await callApi("completeImprovement", {
+          reporterName: reporterName,
+          reportId: reportId,
+          improvementNote: improvementNote,
+          photo: photo
+        });
 
-        await callApi(
-          "completeImprovement",
-          {
-            reporterName: reporterName,
-            reportId: reportId,
-            improvementNote:
-              improvementNote,
-            latitude: gps.latitude,
-            longitude: gps.longitude,
-            photo: photo
-          }
-        );
-
-        document
-          .getElementById(
-            "improvementForm"
-          )
-          .reset();
-
-        document.getElementById(
-          "improvementReporterName"
-        ).value = reporterName;
+        document.getElementById("improvementForm").reset();
+        document.getElementById("improvementReporterName").value = reporterName;
 
         clearPhoto("after");
 
         await loadReports(false);
+        renderImprovementDetail();
         showPage("listPage");
 
-        showMessage(
-          "改善回報完成。",
-          "success"
-        );
+        showMessage("改善回報完成。", "success");
       } catch (error) {
         console.error(error);
-
-        showMessage(
-          getErrorMessage(error),
-          "error"
-        );
+        showMessage(getErrorMessage(error), "error");
       } finally {
         button.disabled = false;
       }
     }
 
+    /* ========== 回報清單 ========== */
+
     async function loadReports(showLoading) {
       try {
         if (showLoading !== false) {
-          showMessage(
-            "正在讀取回報資料……",
-            "info"
-          );
+          showMessage("正在讀取回報資料……", "info");
         }
 
-        const result =
-          await callApi(
-            "listReports",
-            {}
-          );
+        const result = await callApi("listReports", {});
 
-        reports =
-          Array.isArray(result.reports)
-            ? result.reports
-            : [];
+        reports = Array.isArray(result.reports) ? result.reports : [];
 
         renderReports();
         updateImprovementOptions();
 
         if (showLoading !== false) {
-          showMessage(
-            "已讀取 " +
-              reports.length +
-              " 筆資料。",
-            "success"
-          );
+          showMessage("已讀取 " + reports.length + " 筆資料。", "success");
         }
       } catch (error) {
         console.error(error);
 
-        document.getElementById(
-          "reportList"
-        ).innerHTML =
+        document.getElementById("reportList").innerHTML =
           "<p>無法讀取回報資料。</p>";
 
         if (showLoading !== false) {
-          showMessage(
-            getErrorMessage(error),
-            "error"
-          );
+          showMessage(getErrorMessage(error), "error");
         }
       }
     }
 
     function renderReports() {
-      const container =
-        document.getElementById(
-          "reportList"
-        );
+      const container = document.getElementById("reportList");
 
       if (!reports.length) {
-        container.innerHTML =
-          "<p>目前沒有回報資料。</p>";
+        container.innerHTML = "<p>目前沒有回報資料。</p>";
         return;
       }
 
-      container.innerHTML =
-        reports
-          .map(function (report) {
-            const encodedId =
-              encodeURIComponent(
-                report.reportId || ""
-              );
+      container.innerHTML = reports.map(function (report) {
+        const encodedId = encodeURIComponent(report.reportId || "");
 
-            const improvementLink =
-              report.improvementPdfUrl
-                ? (
-                  '<a href="' +
-                  escapeHtml(
-                    report.improvementPdfUrl
-                  ) +
-                  '" target="_blank" rel="noopener noreferrer">' +
-                  "下載改善報告</a>"
-                )
-                : "";
+        const improvementLink = report.improvementPdfUrl
+          ? '<a href="' + escapeHtml(report.improvementPdfUrl) +
+            '" target="_blank" rel="noopener noreferrer">下載改善報告</a>'
+          : "";
 
-            const acceptanceLink =
-              report.acceptancePdfUrl
-                ? (
-                  '<a href="' +
-                  escapeHtml(
-                    report.acceptancePdfUrl
-                  ) +
-                  '" target="_blank" rel="noopener noreferrer">' +
-                  "下載驗收單</a>"
-                )
-                : "";
+        const acceptanceLink = report.acceptancePdfUrl
+          ? '<a href="' + escapeHtml(report.acceptancePdfUrl) +
+            '" target="_blank" rel="noopener noreferrer">下載驗收單</a>'
+          : "";
 
-            const acceptanceButton =
-              report.improvementNote
-                ? (
-                  '<button type="button" ' +
-                  'class="secondary" ' +
-                  'data-pdf-id="' +
-                  encodedId +
-                  '" ' +
-                  'data-pdf-type="acceptance">' +
-                  "驗收單 PDF" +
-                  "</button>"
-                )
-                : "";
+        const acceptanceButton = report.improvementNote
+          ? '<button type="button" class="secondary" data-pdf-id="' + encodedId +
+            '" data-pdf-type="acceptance">驗收單 PDF</button>'
+          : "";
 
-            return (
-              '<article class="report">' +
+        return (
+          '<article class="report">' +
+            "<h3>" + escapeHtml(report.formNumber || report.reportId) +
+              "|" + escapeHtml(report.project) + "</h3>" +
 
-                "<h3>" +
-                  escapeHtml(
-                    report.reportId
-                  ) +
-                  "｜" +
-                  escapeHtml(
-                    report.project
-                  ) +
-                "</h3>" +
+            '<p><span class="badge">' + escapeHtml(report.status) + "</span> " +
+              escapeHtml(report.category) + "/" + escapeHtml(report.severity) + "</p>" +
 
-                '<p><span class="badge">' +
-                  escapeHtml(
-                    report.status
-                  ) +
-                "</span> " +
-                  escapeHtml(
-                    report.category
-                  ) +
-                  "／" +
-                  escapeHtml(
-                    report.severity
-                  ) +
-                "</p>" +
+            "<p><strong>位置:</strong>" + escapeHtml(report.location) + "</p>" +
+            "<p><strong>內容:</strong>" + escapeHtml(report.description) + "</p>" +
+            "<p><strong>負責人:</strong>" + escapeHtml(report.owner || "未指定") + "</p>" +
+            "<p><strong>期限:</strong>" + escapeHtml(report.dueDate || "未設定") + "</p>" +
+            "<p><strong>回報人:</strong>" + escapeHtml(report.createdByName || "現場人員") + "</p>" +
+            "<p><strong>建立時間:</strong>" + escapeHtml(report.createdAt) + "</p>" +
 
-                "<p><strong>位置：</strong>" +
-                  escapeHtml(
-                    report.location
-                  ) +
-                "</p>" +
+            (report.improvementNote
+              ? "<p><strong>改善說明:</strong>" + escapeHtml(report.improvementNote) + "</p>"
+              : "") +
 
-                "<p><strong>內容：</strong>" +
-                  escapeHtml(
-                    report.description
-                  ) +
-                "</p>" +
+            (report.improvedByName
+              ? "<p><strong>改善回報人:</strong>" + escapeHtml(report.improvedByName) + "</p>"
+              : "") +
 
-                "<p><strong>負責人：</strong>" +
-                  escapeHtml(
-                    report.owner ||
-                    "未指定"
-                  ) +
-                "</p>" +
+            (report.improvedAt
+              ? "<p><strong>改善時間:</strong>" + escapeHtml(report.improvedAt) + "</p>"
+              : "") +
 
-                "<p><strong>期限：</strong>" +
-                  escapeHtml(
-                    report.dueDate ||
-                    "未設定"
-                  ) +
-                "</p>" +
+            (report.acceptedByName
+              ? "<p><strong>驗收人:</strong>" + escapeHtml(report.acceptedByName) + "</p>"
+              : "") +
 
-                "<p><strong>回報人：</strong>" +
-                  escapeHtml(
-                    report.createdByName ||
-                    "現場人員"
-                  ) +
-                "</p>" +
+            (report.acceptedAt
+              ? "<p><strong>驗收時間:</strong>" + escapeHtml(report.acceptedAt) + "</p>"
+              : "") +
 
-                "<p><strong>建立時間：</strong>" +
-                  escapeHtml(
-                    report.createdAt
-                  ) +
-                "</p>" +
+            '<div class="actions">' +
+              '<button type="button" data-pdf-id="' + encodedId +
+                '" data-pdf-type="improvement">缺失改善報告 PDF</button>' +
+              acceptanceButton +
+              improvementLink +
+              acceptanceLink +
+            "</div>" +
+          "</article>"
+        );
+      }).join("");
 
-                (
-                  report.improvementNote
-                    ? (
-                      "<p><strong>改善說明：</strong>" +
-                      escapeHtml(
-                        report.improvementNote
-                      ) +
-                      "</p>"
-                    )
-                    : ""
-                ) +
-
-                (
-                  report.improvedByName
-                    ? (
-                      "<p><strong>改善回報人：</strong>" +
-                      escapeHtml(
-                        report.improvedByName
-                      ) +
-                      "</p>"
-                    )
-                    : ""
-                ) +
-
-                (
-                  report.improvedAt
-                    ? (
-                      "<p><strong>改善時間：</strong>" +
-                      escapeHtml(
-                        report.improvedAt
-                      ) +
-                      "</p>"
-                    )
-                    : ""
-                ) +
-
-                '<div class="actions">' +
-
-                  '<button type="button" ' +
-                  'data-pdf-id="' +
-                  encodedId +
-                  '" ' +
-                  'data-pdf-type="improvement">' +
-                  "缺失改善報告 PDF" +
-                  "</button>" +
-
-                  acceptanceButton +
-                  improvementLink +
-                  acceptanceLink +
-
-                "</div>" +
-              "</article>"
-            );
-          })
-          .join("");
-
-      container
-        .querySelectorAll(
-          "[data-pdf-id]"
-        )
-        .forEach(function (button) {
-          button.addEventListener(
-            "click",
-            function () {
-              createPdf(
-                decodeURIComponent(
-                  button.dataset.pdfId
-                ),
-                button.dataset.pdfType,
-                button
-              );
-            }
+      container.querySelectorAll("[data-pdf-id]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          createPdf(
+            decodeURIComponent(button.dataset.pdfId),
+            button.dataset.pdfType,
+            button
           );
         });
+      });
     }
 
+    /* ========== 改善回報:待改善選單與詳細資料 ========== */
+
     function updateImprovementOptions() {
-      const select =
-        document.getElementById(
-          "improvementReportId"
-        );
+      const select = document.getElementById("improvementReportId");
+      const selectedValue = select.value;
 
-      const selectedValue =
-        select.value;
-
-      const available =
-        reports.filter(
-          function (report) {
-            return (
-              report.status !==
-                "已完成" &&
-              report.status !==
-                "已驗收"
-            );
-          }
-        );
+      const available = reports.filter(function (report) {
+        return report.status === "待改善";
+      });
 
       if (!available.length) {
-        select.innerHTML =
-          '<option value="">' +
-          "目前沒有待改善項目" +
-          "</option>";
+        select.innerHTML = '<option value="">目前沒有待改善項目</option>';
+        renderImprovementDetail();
         return;
       }
 
       select.innerHTML =
-        '<option value="">' +
-        "請選擇回報項目" +
-        "</option>" +
-        available
-          .map(function (report) {
-            return (
-              '<option value="' +
-              escapeHtml(
-                report.reportId
-              ) +
-              '">' +
-              escapeHtml(
-                report.reportId +
-                  "｜" +
-                  report.project +
-                  "｜" +
-                  report.location
-              ) +
-              "</option>"
-            );
-          })
-          .join("");
+        '<option value="">請選擇回報項目</option>' +
+        available.map(function (report) {
+          return (
+            '<option value="' + escapeHtml(report.reportId) + '">' +
+            escapeHtml(
+              (report.formNumber || report.reportId) + "|" + report.location
+            ) +
+            "</option>"
+          );
+        }).join("");
 
-      if (
-        available.some(
-          function (report) {
-            return (
-              report.reportId ===
-              selectedValue
-            );
-          }
-        )
-      ) {
-        select.value =
-          selectedValue;
+      if (available.some(function (report) { return report.reportId === selectedValue; })) {
+        select.value = selectedValue;
+      }
+
+      renderImprovementDetail();
+    }
+
+    async function renderImprovementDetail() {
+      const box = document.getElementById("improvementDetail");
+      const reportId = getValue("improvementReportId");
+      const token = ++detailRequestToken;
+
+      const report = reports.find(function (item) {
+        return item.reportId === reportId;
+      });
+
+      if (!report) {
+        box.innerHTML = "";
+        box.classList.add("hidden");
+        return;
+      }
+
+      box.innerHTML =
+        "<p><strong>表單編號:</strong>" +
+          escapeHtml(report.formNumber || report.reportId) + "</p>" +
+        "<p><strong>專案:</strong>" + escapeHtml(report.project) + "</p>" +
+        "<p><strong>類型/嚴重程度:</strong>" +
+          escapeHtml(report.category) + "/" + escapeHtml(report.severity) + "</p>" +
+        "<p><strong>位置:</strong>" + escapeHtml(report.location) + "</p>" +
+        "<p><strong>缺失內容:</strong>" + escapeHtml(report.description) + "</p>" +
+        "<p><strong>負責人:</strong>" + escapeHtml(report.owner || "未指定") + "</p>" +
+        "<p><strong>改善期限:</strong>" + escapeHtml(report.dueDate || "未設定") + "</p>" +
+        "<p><strong>回報人:</strong>" + escapeHtml(report.createdByName || "現場人員") + "</p>" +
+        "<p><strong>建立時間:</strong>" + escapeHtml(report.createdAt) + "</p>" +
+        '<div id="detailPhoto"><p class="muted">正在讀取改善前照片……</p></div>';
+
+      box.classList.remove("hidden");
+
+      const photoBox = document.getElementById("detailPhoto");
+
+      if (!report.hasBeforePhoto) {
+        photoBox.innerHTML = '<p class="muted">此回報沒有改善前照片。</p>';
+        return;
+      }
+
+      try {
+        const result = await callApi("getPhoto", { reportId: reportId });
+
+        // 使用者已切換到別的項目,捨棄這次結果
+        if (token !== detailRequestToken) return;
+
+        photoBox.innerHTML =
+          "<p><strong>改善前照片:</strong></p>" +
+          '<img alt="改善前照片" src="' + result.photo + '">';
+      } catch (error) {
+        if (token !== detailRequestToken) return;
+
+        photoBox.innerHTML =
+          '<p class="muted">照片讀取失敗:' +
+          escapeHtml(getErrorMessage(error)) + "</p>";
       }
     }
 
-    async function createPdf(
-      reportId,
-      reportType,
-      button
-    ) {
-      if (button) {
-        button.disabled = true;
+    /* ========== PDF(驗收單需輸入驗收人) ========== */
+
+    async function createPdf(reportId, reportType, button) {
+      const isAcceptance = reportType === "acceptance";
+      let acceptorName = "";
+
+      // 必須先詢問姓名,再開新視窗(兩者都要在使用者點擊的當下執行)
+      if (isAcceptance) {
+        const savedName = localStorage.getItem("yawanAcceptorName") || "";
+        const input = window.prompt("請輸入驗收人姓名:", savedName);
+
+        if (input === null) return; // 按取消
+
+        acceptorName = input.trim();
+
+        if (!acceptorName) {
+          showMessage("請輸入驗收人姓名,才能產生驗收單。", "error");
+          return;
+        }
+
+        localStorage.setItem("yawanAcceptorName", acceptorName);
       }
 
-      const documentName =
-        reportType === "acceptance"
-          ? "驗收單"
-          : "缺失改善報告";
+      if (button) button.disabled = true;
 
-      /*
-       * 必須在使用者按下按鈕時先開啟空白頁，
-       * 避免非同步作業完成後被瀏覽器阻擋。
-       */
-      const pdfWindow =
-        window.open(
-          "about:blank",
-          "_blank"
-        );
+      const documentName = isAcceptance ? "驗收單" : "缺失改善報告";
+
+      // 必須在使用者按下按鈕時先開啟空白頁,避免被瀏覽器阻擋
+      const pdfWindow = window.open("about:blank", "_blank");
 
       try {
-        showMessage(
-          "正在產生" +
-            documentName +
-            "，請稍候……",
-          "info"
-        );
+        showMessage("正在產生" + documentName + ",請稍候……", "info");
 
-        const result =
-          await callApi(
-            "createPdf",
-            {
-              reporterName:
-                getCurrentReporterName(),
-              reportId: reportId,
-              reportType: reportType
-            }
-          );
+        const result = await callApi("createPdf", {
+          reporterName: getCurrentReporterName(),
+          reportId: reportId,
+          reportType: reportType,
+          acceptorName: acceptorName
+        });
 
         await loadReports(false);
 
-        showMessage(
-          documentName +
-            "已產生。",
-          "success"
-        );
+        showMessage(documentName + "已產生。", "success");
 
         if (pdfWindow) {
-          pdfWindow.location.href =
-            result.url;
+          pdfWindow.location.href = result.url;
         } else {
-          showMessage(
-            documentName +
-              "已產生，請按清單中的下載連結。",
-            "success"
-          );
+          showMessage(documentName + "已產生,請按清單中的下載連結。", "success");
         }
       } catch (error) {
         console.error(error);
 
-        if (
-          pdfWindow &&
-          !pdfWindow.closed
-        ) {
-          pdfWindow.close();
-        }
+        if (pdfWindow && !pdfWindow.closed) pdfWindow.close();
 
-        showMessage(
-          getErrorMessage(error),
-          "error"
-        );
+        showMessage(getErrorMessage(error), "error");
       } finally {
-        if (button) {
-          button.disabled = false;
-        }
+        if (button) button.disabled = false;
       }
     }
+
+    /* ========== API ========== */
 
     async function callApi(action, data) {
       if (
         !CONFIG.APPS_SCRIPT_URL ||
-        !CONFIG.APPS_SCRIPT_URL.startsWith(
-          "https://script.google.com/"
-        )
+        !CONFIG.APPS_SCRIPT_URL.startsWith("https://script.google.com/")
       ) {
-        throw new Error(
-          "Apps Script API 網址設定錯誤。"
-        );
+        throw new Error("Apps Script API 網址設定錯誤。");
       }
 
-      const requestData =
-        Object.assign(
-          {},
-          data || {}
-        );
+      const requestData = Object.assign({}, data || {});
 
       if (!requestData.reporterName) {
-        requestData.reporterName =
-          getCurrentReporterName();
+        requestData.reporterName = getCurrentReporterName();
       }
 
       let response;
 
       try {
-        response = await fetch(
-          CONFIG.APPS_SCRIPT_URL,
-          {
-            method: "POST",
-            redirect: "follow",
-            headers: {
-              "Content-Type":
-                "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify({
-              action: action,
-              data: requestData
-            })
-          }
-        );
+        response = await fetch(CONFIG.APPS_SCRIPT_URL, {
+          method: "POST",
+          redirect: "follow",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: action, data: requestData })
+        });
       } catch (error) {
         console.error(error);
-
         throw new Error(
           "無法連線至後端。請檢查網路、Apps Script 網址及部署權限。"
         );
       }
 
-      const text =
-        await response.text();
+      const text = await response.text();
 
       if (!response.ok) {
         throw new Error(
-          "後端連線失敗：HTTP " +
-            response.status +
-            "。" +
-            text.substring(0, 150)
+          "後端連線失敗:HTTP " + response.status + "。" + text.substring(0, 150)
         );
       }
 
@@ -2062,38 +1464,28 @@
       try {
         result = JSON.parse(text);
       } catch (error) {
-        console.error(
-          "後端原始回應：",
-          text
-        );
-
+        console.error("後端原始回應:", text);
         throw new Error(
           "後端沒有回傳有效 JSON。請確認 Apps Script 已部署為「任何人」可存取。"
         );
       }
 
       if (!result.ok) {
-        throw new Error(
-          result.message ||
-          "操作失敗。"
-        );
+        throw new Error(result.message || "操作失敗。");
       }
 
       return result;
     }
 
+    /* ========== 頁面與工具 ========== */
+
     function openImprovementPage() {
       updateImprovementOptions();
 
-      const savedName =
-        localStorage.getItem(
-          "yawanReporterName"
-        ) || "";
+      const savedName = localStorage.getItem("yawanReporterName") || "";
 
       if (savedName) {
-        document.getElementById(
-          "improvementReporterName"
-        ).value = savedName;
+        document.getElementById("improvementReporterName").value = savedName;
       }
 
       showPage("improvementPage");
@@ -2105,77 +1497,39 @@
     }
 
     function showPage(pageId) {
-      document
-        .querySelectorAll(".page")
-        .forEach(function (element) {
-          element.classList.add(
-            "hidden"
-          );
-        });
+      document.querySelectorAll(".page").forEach(function (element) {
+        element.classList.add("hidden");
+      });
 
-      const page =
-        document.getElementById(
-          pageId
-        );
-
-      if (page) {
-        page.classList.remove(
-          "hidden"
-        );
-      }
+      const page = document.getElementById(pageId);
+      if (page) page.classList.remove("hidden");
     }
 
     function showMessage(text, type) {
-      const element =
-        document.getElementById(
-          "message"
-        );
+      const element = document.getElementById("message");
 
-      element.textContent =
-        text || "";
+      element.textContent = text || "";
+      element.className = "message " + (type || "info");
+      element.classList.remove("hidden");
 
-      element.className =
-        "message " +
-        (type || "info");
-
-      element.classList.remove(
-        "hidden"
-      );
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      // 只有成功或錯誤訊息才捲動到頂端,避免填表時頁面亂跳
+      if (type === "success" || type === "error") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
 
     function getValue(id) {
-      const element =
-        document.getElementById(id);
-
-      return element
-        ? String(
-            element.value || ""
-          ).trim()
-        : "";
+      const element = document.getElementById(id);
+      return element ? String(element.value || "").trim() : "";
     }
 
     function getErrorMessage(error) {
-      if (!error) {
-        return "發生未知錯誤。";
-      }
-
-      return (
-        error.message ||
-        String(error)
-      );
+      if (!error) return "發生未知錯誤。";
+      return error.message || String(error);
     }
 
     function escapeHtml(value) {
-      return String(
-        value == null
-          ? ""
-          : value
-      )
+      return String(value == null ? "" : value)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -2183,216 +1537,5 @@
         .replace(/'/g, "&#039;");
     }
   </script>
-  <script>
-  /*
-   * 回報類型自動設定：
-   * 機電 → 雄菱工程
-   * 土建 → 永青營造
-   * 改善期限 → 開立當天加 7 天
-   */
-  (function () {
-    function formatLocalDate(date) {
-      const year = date.getFullYear();
-
-      const month = String(
-        date.getMonth() + 1
-      ).padStart(2, "0");
-
-      const day = String(
-        date.getDate()
-      ).padStart(2, "0");
-
-      return (
-        year +
-        "-" +
-        month +
-        "-" +
-        day
-      );
-    }
-
-    function getDueDate() {
-      const dueDate = new Date();
-
-      dueDate.setHours(
-        12,
-        0,
-        0,
-        0
-      );
-
-      dueDate.setDate(
-        dueDate.getDate() + 7
-      );
-
-      return formatLocalDate(
-        dueDate
-      );
-    }
-
-    function getOwnerByCategory(
-      category
-    ) {
-      if (category === "機電") {
-        return "雄菱工程";
-      }
-
-      if (category === "土建") {
-        return "永青營造";
-      }
-
-      return "";
-    }
-
-    function updateAutomaticFields() {
-      const category =
-        document.getElementById(
-          "category"
-        );
-
-      const owner =
-        document.getElementById(
-          "owner"
-        );
-
-      const dueDate =
-        document.getElementById(
-          "dueDate"
-        );
-
-      if (
-        category &&
-        owner
-      ) {
-        owner.value =
-          getOwnerByCategory(
-            category.value
-          );
-      }
-
-      if (dueDate) {
-        dueDate.value =
-          getDueDate();
-      }
-    }
-
-    function initializeAutomaticFields() {
-      const category =
-        document.getElementById(
-          "category"
-        );
-
-      const location =
-        document.getElementById(
-          "location"
-        );
-
-      const owner =
-        document.getElementById(
-          "owner"
-        );
-
-      const dueDate =
-        document.getElementById(
-          "dueDate"
-        );
-
-      const reportForm =
-        document.getElementById(
-          "reportForm"
-        );
-
-      if (category) {
-        category.innerHTML = [
-          '<option value="機電">機電</option>',
-          '<option value="土建">土建</option>'
-        ].join("");
-
-        category.value = "機電";
-
-        category.addEventListener(
-          "change",
-          updateAutomaticFields
-        );
-      }
-
-      if (location) {
-        location.placeholder =
-          "例如：A棟3樓02戶廁所";
-      }
-
-      if (owner) {
-        owner.readOnly = true;
-
-        owner.setAttribute(
-          "aria-readonly",
-          "true"
-        );
-
-        owner.title =
-          "依回報類型自動帶入";
-      }
-
-      if (dueDate) {
-        dueDate.readOnly = true;
-
-        dueDate.setAttribute(
-          "aria-readonly",
-          "true"
-        );
-
-        dueDate.title =
-          "開立當天加 7 天";
-      }
-
-      updateAutomaticFields();
-
-      if (reportForm) {
-        /*
-         * 送出前重新計算，避免網頁開啟跨日後，
-         * 日期仍停留在前一天。
-         */
-        reportForm.addEventListener(
-          "submit",
-          updateAutomaticFields,
-          true
-        );
-
-        /*
-         * 表單送出成功並 reset 後，
-         * 再次帶入預設類型、負責人及期限。
-         */
-        reportForm.addEventListener(
-          "reset",
-          function () {
-            window.setTimeout(
-              function () {
-                if (category) {
-                  category.value =
-                    "機電";
-                }
-
-                updateAutomaticFields();
-              },
-              0
-            );
-          }
-        );
-      }
-    }
-
-    if (
-      document.readyState ===
-      "loading"
-    ) {
-      document.addEventListener(
-        "DOMContentLoaded",
-        initializeAutomaticFields
-      );
-    } else {
-      initializeAutomaticFields();
-    }
-  })();
-</script>
 </body>
 </html>

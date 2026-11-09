@@ -1634,7 +1634,9 @@
       try {
         const reporterName = getValue("reporterName");
         const project = getValue("project");
-        const category = getValue("category");
+        const categorySelect = document.getElementById("category");
+        const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+        const category = selectedOption ? selectedOption.text.trim() : "";
         const location = getValue("location");
         const description = getValue("description");
 

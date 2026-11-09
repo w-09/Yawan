@@ -88,8 +88,14 @@
       <h2>新增現場回報</h2>
       <form id="reportForm">
         <div class="grid">
-          <div><label for="reporterName">回報人姓名 *</label><input id="reporterName" maxlength="50" placeholder="請輸入回報人姓名" autocomplete="name" required></div>
-          <div><label for="project">專案名稱 *</label><input id="project" maxlength="100" value="亞灣社宅" required></div>
+          <div>
+            <label for="reporterName">回報人姓名 *</label>
+            <input id="reporterName" maxlength="50" placeholder="請輸入回報人姓名" autocomplete="name" required>
+          </div>
+          <div>
+            <label for="project">專案名稱 *</label>
+            <input id="project" maxlength="100" value="亞灣社宅" required>
+          </div>
           <div>
             <label for="category">回報類型 *</label>
             <select id="category" required>
@@ -117,14 +123,32 @@
               <option value="土建">土建-塑鋼門(塑恆)</option>
             </select>
           </div>
-          <div><label for="location">現場位置 *</label><input id="location" maxlength="150" placeholder="例如：A14-01(A棟14樓01戶)" required></div>
-          <div><label for="owner">改善負責人（依類型自動帶入）</label><input id="owner" maxlength="100" readonly></div>
-          <div><label for="dueDate">改善期限（開立日加 7 天）</label><input id="dueDate" type="date" readonly></div>
-          <div><label for="severity">嚴重程度</label><select id="severity"><option value="一般">一般</option><option value="重要">重要</option><option value="緊急">緊急</option></select></div>
+          <div>
+            <label for="location">現場位置 *</label>
+            <input id="location" maxlength="150" placeholder="例如：A14-01(A棟14樓01戶)" required>
+          </div>
+          <div>
+            <label for="owner">改善負責人（依類型自動帶入）</label>
+            <input id="owner" maxlength="100" readonly>
+          </div>
+          <div>
+            <label for="dueDate">改善期限（開立日加 7 天）</label>
+            <input id="dueDate" type="date" readonly>
+          </div>
+          <div>
+            <label for="severity">嚴重程度</label>
+            <select id="severity">
+              <option value="一般">一般</option>
+              <option value="重要">重要</option>
+              <option value="緊急">緊急</option>
+            </select>
+          </div>
 
           <div class="full">
             <label for="description">回報內容 *</label>
-            <label class="checkbox-label" for="unfinishedCheckbox"><input id="unfinishedCheckbox" type="checkbox">通用項目：未完成</label>
+            <label class="checkbox-label" for="unfinishedCheckbox">
+              <input id="unfinishedCheckbox" type="checkbox">通用項目：未完成
+            </label>
             <details id="commonItemPanel" class="common-item-panel">
               <summary>選擇其他通用缺失項目</summary>
               <div class="common-item-controls">
@@ -157,7 +181,9 @@
             </div>
             <p class="muted">按「新增框選」後拖曳畫框；單點產生預設框。拖曳框內可移動，拖曳四角可調整大小。送出時自動加入日期。</p>
           </div>
-          <div class="full"><button id="submitReportButton" type="submit">送出現場回報</button></div>
+          <div class="full">
+            <button id="submitReportButton" type="submit">送出現場回報</button>
+          </div>
         </div>
       </form>
     </section>
@@ -166,21 +192,57 @@
       <h2>改善完成回報</h2>
       <form id="improvementForm">
         <div class="grid">
-          <div class="full"><label for="improvementReporterName">改善回報人姓名 *</label><input id="improvementReporterName" maxlength="50" placeholder="請輸入改善回報人姓名" autocomplete="name" required></div>
+          <div class="full">
+            <label for="improvementReporterName">改善回報人姓名 *</label>
+            <input id="improvementReporterName" maxlength="50" placeholder="請輸入改善回報人姓名" autocomplete="name" required>
+          </div>
+
           <div class="full filter-box">
             <h3>搜尋待改善項目</h3>
             <div class="grid">
-              <div><label for="filterBuilding">棟別</label><input id="filterBuilding" maxlength="20" placeholder="例如：A 或 A棟" autocomplete="off"></div>
-              <div><label for="filterFloor">樓層</label><input id="filterFloor" maxlength="20" placeholder="例如：14、14樓或 B1" autocomplete="off"></div>
-              <div><label for="filterUnit">戶別</label><input id="filterUnit" maxlength="20" placeholder="例如：01、1 或 01戶" autocomplete="off"></div>
-              <div class="full actions"><button type="button" class="light" onclick="clearImprovementFilters()">清除搜尋條件</button></div>
+              <div>
+                <label for="filterBuilding">棟別</label>
+                <input id="filterBuilding" maxlength="20" placeholder="例如：A 或 A棟" autocomplete="off">
+              </div>
+              <div>
+                <label for="filterFloor">樓層</label>
+                <input id="filterFloor" maxlength="20" placeholder="例如：14、14樓或 B1" autocomplete="off">
+              </div>
+              <div>
+                <label for="filterUnit">戶別</label>
+                <input id="filterUnit" maxlength="20" placeholder="例如：01、1 或 01戶" autocomplete="off">
+              </div>
+              <div>
+                <label for="filterFormNumber">日期流水號</label>
+                <input id="filterFormNumber" type="search" maxlength="100"
+                  placeholder="例如：20261109-001 或 001" autocomplete="off">
+              </div>
+              <div class="full actions">
+                <button type="button" class="light" onclick="clearImprovementFilters()">清除搜尋條件</button>
+              </div>
             </div>
             <p id="filterResult" class="muted" aria-live="polite"></p>
             <p class="muted">位置範例：A14-01、A棟14樓01戶、AB1-01。</p>
+            <p class="muted">日期流水號可輸入完整或部分編號，例如：20261109、001、20261109-001。也可以與棟別、樓層、戶別一起搜尋。</p>
           </div>
-          <div class="full"><label for="improvementReportId">選擇待改善項目 *</label><select id="improvementReportId" required><option value="">請選擇回報項目</option></select><p class="muted">選單格式：表單編號｜位置｜缺失內容。</p></div>
-          <div class="full"><div id="improvementDetail" class="detail-box hidden"></div></div>
-          <div class="full"><label for="improvementNote">改善說明 *</label><textarea id="improvementNote" maxlength="2000" placeholder="請說明改善方式及處理結果" required></textarea></div>
+
+          <div class="full">
+            <label for="improvementReportId">選擇待改善項目 *</label>
+            <select id="improvementReportId" required>
+              <option value="">請選擇回報項目</option>
+            </select>
+            <p class="muted">選單格式：表單編號｜位置｜缺失內容。</p>
+          </div>
+
+          <div class="full">
+            <div id="improvementDetail" class="detail-box hidden"></div>
+          </div>
+
+          <div class="full">
+            <label for="improvementNote">改善說明 *</label>
+            <textarea id="improvementNote" maxlength="2000" placeholder="請說明改善方式及處理結果" required></textarea>
+          </div>
+
           <div class="full">
             <span class="photo-label">改善後照片 *</span>
             <input id="afterCamera" class="hidden" type="file" accept="image/*" capture="environment">
@@ -199,7 +261,10 @@
             </div>
             <p class="muted">按「新增框選」後拖曳畫框；單點產生預設框。框可移動，拖曳四角可調整大小。</p>
           </div>
-          <div class="full"><button id="submitImprovementButton" type="submit">送出改善回報</button></div>
+
+          <div class="full">
+            <button id="submitImprovementButton" type="submit">送出改善回報</button>
+          </div>
         </div>
       </form>
     </section>
@@ -229,6 +294,7 @@
     };
 
     const OWNER_BY_CATEGORY = { "機電": "雄菱工程", "土建": "永青營造" };
+
     const COMMON_ITEMS = [
       "二丁掛未施作","二丁掛需修補","陽台二丁掛未完成",
       "木紋磚未完成","木紋磚污損","木紋磚需修補",
@@ -268,10 +334,16 @@
     const commonItemEntries = new Map();
 
     function createEditor(prefix) {
-      return { prefix, canvas: null, context: null, base: null, loaded: false,
-        tool: "", shapes: [], selected: -1, drag: null, history: [], loadToken: 0 };
+      return {
+        prefix, canvas: null, context: null, base: null, loaded: false,
+        tool: "", shapes: [], selected: -1, drag: null, history: [], loadToken: 0
+      };
     }
-    const editors = { before: createEditor("before"), after: createEditor("after") };
+
+    const editors = {
+      before: createEditor("before"),
+      after: createEditor("after")
+    };
 
     window.addEventListener("load", function () {
       try {
@@ -292,6 +364,7 @@
       const reportForm = document.getElementById("reportForm");
       reportForm.addEventListener("submit", updateAutomaticFields, true);
       reportForm.addEventListener("submit", submitReport);
+
       reportForm.addEventListener("reset", function () {
         autoUnfinishedText = "";
         insertedCommonItems.clear();
@@ -301,22 +374,32 @@
           updateAutomaticFields();
         }, 0);
       });
+
       document.getElementById("improvementForm").addEventListener("submit", submitImprovement);
-      ["beforeFile","beforeCamera"].forEach(function (id) {
-        document.getElementById(id).addEventListener("change", function (event) { loadPhoto("before", event); });
+
+      ["beforeFile", "beforeCamera"].forEach(function (id) {
+        document.getElementById(id).addEventListener("change", function (event) {
+          loadPhoto("before", event);
+        });
       });
-      ["afterFile","afterCamera"].forEach(function (id) {
-        document.getElementById(id).addEventListener("change", function (event) { loadPhoto("after", event); });
+
+      ["afterFile", "afterCamera"].forEach(function (id) {
+        document.getElementById(id).addEventListener("change", function (event) {
+          loadPhoto("after", event);
+        });
       });
+
       document.getElementById("category").addEventListener("change", function () {
         updateAutomaticFields();
         updateUnfinishedDescription();
       });
+
       document.getElementById("unfinishedCheckbox").addEventListener("change", updateUnfinishedDescription);
       document.getElementById("reporterName").addEventListener("change", rememberCreateReporter);
       document.getElementById("improvementReporterName").addEventListener("change", rememberImprovementReporter);
       document.getElementById("improvementReportId").addEventListener("change", renderImprovementDetail);
-      ["filterBuilding","filterFloor","filterUnit"].forEach(function (id) {
+
+      ["filterBuilding", "filterFloor", "filterUnit", "filterFormNumber"].forEach(function (id) {
         document.getElementById(id).addEventListener("input", updateImprovementOptions);
       });
     }
@@ -324,12 +407,15 @@
     /* 通用缺失項目 */
     function initializeCommonItems() {
       const list = document.getElementById("commonItemList");
+
       COMMON_ITEMS.forEach(function (item) {
         const label = document.createElement("label");
         const checkbox = document.createElement("input");
         const text = document.createElement("span");
+
         checkbox.type = "checkbox";
         text.textContent = item;
+
         checkbox.addEventListener("change", function () {
           if (checkbox.checked) {
             if (!addCommonItem(item)) checkbox.checked = false;
@@ -338,12 +424,15 @@
           }
           updateCommonItemCount();
         });
+
         label.appendChild(checkbox);
         label.appendChild(text);
         list.appendChild(label);
         commonItemEntries.set(item, { label, checkbox });
       });
+
       document.getElementById("commonItemSearch").addEventListener("input", filterCommonItems);
+
       document.getElementById("clearCommonItems").addEventListener("click", function () {
         commonItemEntries.forEach(function (entry, item) {
           if (entry.checkbox.checked) {
@@ -353,6 +442,7 @@
         });
         updateCommonItemCount();
       });
+
       updateCommonItemCount();
     }
 
@@ -360,11 +450,14 @@
       const description = document.getElementById("description");
       const lines = description.value.split("\n");
       if (lines.includes(item)) return true;
+
       const next = description.value ? description.value + "\n" + item : item;
+
       if (description.maxLength > 0 && next.length > description.maxLength) {
         showMessage("回報內容已達字數上限，無法再加入此項目。", "error");
         return false;
       }
+
       description.value = next;
       insertedCommonItems.add(item);
       description.dispatchEvent(new Event("input", { bubbles: true }));
@@ -373,31 +466,39 @@
 
     function removeCommonItem(item) {
       if (!insertedCommonItems.has(item)) return;
+
       const description = document.getElementById("description");
       const lines = description.value.split("\n");
       const index = lines.indexOf(item);
+
       if (index !== -1) {
         lines.splice(index, 1);
         description.value = lines.join("\n");
         description.dispatchEvent(new Event("input", { bubbles: true }));
       }
+
       insertedCommonItems.delete(item);
     }
 
     function filterCommonItems() {
       const keyword = document.getElementById("commonItemSearch").value.trim().normalize("NFKC").toUpperCase();
+
       commonItemEntries.forEach(function (entry, item) {
         entry.label.hidden = !item.normalize("NFKC").toUpperCase().includes(keyword);
       });
+
       updateCommonItemCount();
     }
 
     function updateCommonItemCount() {
-      let selected = 0, visible = 0;
+      let selected = 0;
+      let visible = 0;
+
       commonItemEntries.forEach(function (entry) {
         if (entry.checkbox.checked) selected++;
         if (!entry.label.hidden) visible++;
       });
+
       document.getElementById("commonItemCount").textContent =
         "已選 " + selected + " 項｜顯示 " + visible + " / " + COMMON_ITEMS.length + " 項";
     }
@@ -405,10 +506,12 @@
     function resetCommonItems() {
       document.getElementById("commonItemSearch").value = "";
       document.getElementById("commonItemPanel").open = false;
+
       commonItemEntries.forEach(function (entry) {
         entry.checkbox.checked = false;
         entry.label.hidden = false;
       });
+
       updateCommonItemCount();
     }
 
@@ -417,18 +520,24 @@
       const category = document.getElementById("category");
       const description = document.getElementById("description");
       let lines = description.value.split("\n");
+
       if (autoUnfinishedText) {
         const index = lines.indexOf(autoUnfinishedText);
         if (index !== -1) lines.splice(index, 1);
       }
+
       autoUnfinishedText = "";
+
       if (checkbox.checked) {
         const option = category.options[category.selectedIndex];
         const text = option ? option.text.trim() : "";
+
         if (text) {
           const newText = text + "未完成";
           if (lines.length === 1 && lines[0] === "") lines = [];
+
           const next = [newText].concat(lines).join("\n");
+
           if (description.maxLength > 0 && next.length > description.maxLength) {
             checkbox.checked = false;
             showMessage("回報內容已達字數上限，無法加入未完成項目。", "error");
@@ -438,46 +547,56 @@
           }
         }
       }
+
       description.value = lines.join("\n");
     }
 
     /* 自動欄位與姓名 */
     function formatLocalDate(date) {
-      return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2,"0") + "-" + String(date.getDate()).padStart(2,"0");
+      return date.getFullYear() + "-" +
+        String(date.getMonth() + 1).padStart(2, "0") + "-" +
+        String(date.getDate()).padStart(2, "0");
     }
+
     function updateAutomaticFields() {
       document.getElementById("owner").value = OWNER_BY_CATEGORY[getValue("category")] || "";
       const date = new Date();
-      date.setHours(12,0,0,0);
+      date.setHours(12, 0, 0, 0);
       date.setDate(date.getDate() + CONFIG.DUE_DAYS);
       document.getElementById("dueDate").value = formatLocalDate(date);
     }
+
     function restoreReporterName() {
       const name = localStorage.getItem("yawanReporterName") || "";
       document.getElementById("reporterName").value = name;
       document.getElementById("improvementReporterName").value = name;
       updateUserInfo(name);
     }
+
     function rememberCreateReporter() {
       const name = getValue("reporterName");
       saveReporterName(name);
       document.getElementById("improvementReporterName").value = name;
     }
+
     function rememberImprovementReporter() {
       const name = getValue("improvementReporterName");
       saveReporterName(name);
       document.getElementById("reporterName").value = name;
     }
+
     function saveReporterName(name) {
       if (!name) return;
       localStorage.setItem("yawanReporterName", name);
       updateUserInfo(name);
     }
+
     function updateUserInfo(name) {
       document.getElementById("userInfo").textContent = name
         ? "目前填報人：" + name + "｜免登入直接回報"
         : "免登入，開啟後即可直接回報";
     }
+
     function getCurrentReporterName() {
       return getValue("reporterName") || getValue("improvementReporterName") ||
         localStorage.getItem("yawanReporterName") || "現場人員";
@@ -488,7 +607,9 @@
       Object.keys(editors).forEach(function (prefix) {
         const editor = editors[prefix];
         editor.canvas = document.getElementById(prefix + "Canvas");
+
         if (!editor.canvas) throw new Error("找不到照片畫布：" + prefix);
+
         editor.context = editor.canvas.getContext("2d");
         editor.canvas.addEventListener("pointerdown", function (event) { onPointerDown(prefix, event); });
         editor.canvas.addEventListener("pointermove", function (event) { onPointerMove(prefix, event); });
@@ -496,41 +617,53 @@
         editor.canvas.addEventListener("pointercancel", function (event) { onPointerUp(prefix, event); });
       });
     }
+
     function setPhotoStatus(prefix, text, isError) {
       const element = document.getElementById(prefix + "Status");
       element.textContent = text;
       element.style.color = isError ? "#b91c1c" : "#64748b";
     }
+
     function resetFileInputs(prefix) {
-      [prefix + "File", prefix + "Camera"].forEach(function (id) { document.getElementById(id).value = ""; });
+      [prefix + "File", prefix + "Camera"].forEach(function (id) {
+        document.getElementById(id).value = "";
+      });
     }
+
     function loadPhoto(prefix, event) {
       const input = event.target;
       const file = input.files && input.files[0];
       if (!file) return;
+
       if (!file.type || !file.type.startsWith("image/")) {
         input.value = "";
         setPhotoStatus(prefix, "檔案格式不正確", true);
         showMessage("請選擇 JPG、PNG 或手機照片。", "error");
         return;
       }
+
       const editor = editors[prefix];
       const token = ++editor.loadToken;
       editor.loaded = false;
       editor.canvas.classList.add("hidden");
       setPhotoStatus(prefix, "正在讀取照片：" + file.name, false);
       showMessage("正在讀取照片，請稍候……", "info");
+
       const imageUrl = URL.createObjectURL(file);
       const image = new Image();
+
       image.onload = function () {
         try {
           if (token !== editor.loadToken) return;
+
           const sourceWidth = image.naturalWidth || image.width;
           const sourceHeight = image.naturalHeight || image.height;
           if (!sourceWidth || !sourceHeight) throw new Error("無法取得照片尺寸。");
+
           const ratio = Math.min(1, CONFIG.MAX_IMAGE_SIZE / Math.max(sourceWidth, sourceHeight));
           const width = Math.max(1, Math.round(sourceWidth * ratio));
           const height = Math.max(1, Math.round(sourceHeight * ratio));
+
           editor.canvas.width = width;
           editor.canvas.height = height;
           editor.context = editor.canvas.getContext("2d");
@@ -538,12 +671,14 @@
           editor.base.width = width;
           editor.base.height = height;
           editor.base.getContext("2d").drawImage(image, 0, 0, width, height);
+
           editor.loaded = true;
           editor.tool = "";
           editor.shapes = [];
           editor.selected = -1;
           editor.drag = null;
           editor.history = [];
+
           editor.canvas.classList.remove("hidden");
           renderEditor(prefix);
           setPhotoStatus(prefix, "照片已載入：" + file.name + "（" + width + " × " + height + "）", false);
@@ -559,6 +694,7 @@
           URL.revokeObjectURL(imageUrl);
         }
       };
+
       image.onerror = function () {
         URL.revokeObjectURL(imageUrl);
         if (token !== editor.loadToken) return;
@@ -568,198 +704,307 @@
         setPhotoStatus(prefix, "瀏覽器無法讀取此照片", true);
         showMessage("瀏覽器無法開啟照片。請改用 JPG、PNG，或先截圖後再上傳。", "error");
       };
+
       image.src = imageUrl;
     }
-    function getHandleSize(editor) { return Math.max(18, editor.canvas.width * 0.025); }
-    function getCorners(shape) {
-      return [[shape.x,shape.y],[shape.x+shape.w,shape.y],[shape.x,shape.y+shape.h],[shape.x+shape.w,shape.y+shape.h]];
+
+    function getHandleSize(editor) {
+      return Math.max(18, editor.canvas.width * 0.025);
     }
+
+    function getCorners(shape) {
+      return [
+        [shape.x, shape.y],
+        [shape.x + shape.w, shape.y],
+        [shape.x, shape.y + shape.h],
+        [shape.x + shape.w, shape.y + shape.h]
+      ];
+    }
+
     function drawShapes(context, editor, withHandles) {
       const lineWidth = Math.max(5, editor.canvas.width * 0.006);
+
       editor.shapes.forEach(function (shape, index) {
         context.strokeStyle = "#ff0000";
         context.lineWidth = lineWidth;
         context.lineJoin = "round";
         context.strokeRect(shape.x, shape.y, shape.w, shape.h);
+
         if (withHandles && index === editor.selected) {
           const size = getHandleSize(editor);
+
           getCorners(shape).forEach(function (corner) {
             context.fillStyle = "#ffffff";
-            context.fillRect(corner[0]-size/2, corner[1]-size/2, size, size);
+            context.fillRect(corner[0] - size / 2, corner[1] - size / 2, size, size);
             context.lineWidth = Math.max(3, lineWidth * 0.6);
             context.strokeStyle = "#ff0000";
-            context.strokeRect(corner[0]-size/2, corner[1]-size/2, size, size);
+            context.strokeRect(corner[0] - size / 2, corner[1] - size / 2, size, size);
           });
         }
       });
     }
+
     function renderEditor(prefix) {
       const editor = editors[prefix];
       if (!editor.loaded || !editor.base) return;
-      editor.context.clearRect(0,0,editor.canvas.width,editor.canvas.height);
-      editor.context.drawImage(editor.base,0,0);
-      drawShapes(editor.context,editor,true);
+      editor.context.clearRect(0, 0, editor.canvas.width, editor.canvas.height);
+      editor.context.drawImage(editor.base, 0, 0);
+      drawShapes(editor.context, editor, true);
     }
+
     function getPoint(editor, event) {
       const rect = editor.canvas.getBoundingClientRect();
-      return { x: (event.clientX-rect.left)*editor.canvas.width/rect.width,
-        y: (event.clientY-rect.top)*editor.canvas.height/rect.height };
+      return {
+        x: (event.clientX - rect.left) * editor.canvas.width / rect.width,
+        y: (event.clientY - rect.top) * editor.canvas.height / rect.height
+      };
     }
-    function clamp(value, min, max) { return Math.max(min,Math.min(max,value)); }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
     function findHandle(editor, point) {
       if (editor.selected < 0 || !editor.shapes[editor.selected]) return -1;
       const corners = getCorners(editor.shapes[editor.selected]);
       const radius = getHandleSize(editor) * 1.2;
-      for (let i=0;i<corners.length;i++) {
-        if (Math.hypot(point.x-corners[i][0],point.y-corners[i][1]) <= radius) return i;
+
+      for (let i = 0; i < corners.length; i++) {
+        if (Math.hypot(point.x - corners[i][0], point.y - corners[i][1]) <= radius) return i;
       }
+
       return -1;
     }
+
     function findShapeAt(editor, point) {
       const tolerance = getHandleSize(editor) * 0.5;
-      for (let i=editor.shapes.length-1;i>=0;i--) {
+
+      for (let i = editor.shapes.length - 1; i >= 0; i--) {
         const s = editor.shapes[i];
-        if (point.x>=s.x-tolerance && point.x<=s.x+s.w+tolerance &&
-            point.y>=s.y-tolerance && point.y<=s.y+s.h+tolerance) return i;
+        if (point.x >= s.x - tolerance && point.x <= s.x + s.w + tolerance &&
+            point.y >= s.y - tolerance && point.y <= s.y + s.h + tolerance) return i;
       }
+
       return -1;
     }
+
     function onPointerDown(prefix, event) {
       const editor = editors[prefix];
       if (!editor.loaded || editor.drag) return;
+
       event.preventDefault();
-      const raw = getPoint(editor,event);
-      const point = { x: clamp(raw.x,0,editor.canvas.width), y: clamp(raw.y,0,editor.canvas.height) };
+      const raw = getPoint(editor, event);
+      const point = {
+        x: clamp(raw.x, 0, editor.canvas.width),
+        y: clamp(raw.y, 0, editor.canvas.height)
+      };
+
       try { editor.canvas.setPointerCapture(event.pointerId); } catch (error) {}
+
       if (editor.tool === "draw") {
         saveHistory(prefix);
-        editor.shapes.push({ x:point.x,y:point.y,w:0,h:0 });
-        editor.selected = editor.shapes.length-1;
-        editor.drag = { type:"create", startX:point.x, startY:point.y, pointerId:event.pointerId };
+        editor.shapes.push({ x: point.x, y: point.y, w: 0, h: 0 });
+        editor.selected = editor.shapes.length - 1;
+        editor.drag = { type: "create", startX: point.x, startY: point.y, pointerId: event.pointerId };
         renderEditor(prefix);
         return;
       }
-      const handle = findHandle(editor,point);
+
+      const handle = findHandle(editor, point);
       if (handle >= 0) {
-        const anchor = getCorners(editor.shapes[editor.selected])[3-handle];
+        const anchor = getCorners(editor.shapes[editor.selected])[3 - handle];
         saveHistory(prefix);
-        editor.drag = { type:"resize", anchorX:anchor[0], anchorY:anchor[1], pointerId:event.pointerId };
+        editor.drag = { type: "resize", anchorX: anchor[0], anchorY: anchor[1], pointerId: event.pointerId };
         return;
       }
-      const index = findShapeAt(editor,point);
+
+      const index = findShapeAt(editor, point);
       if (index >= 0) {
         const shape = editor.shapes[index];
         saveHistory(prefix);
         editor.selected = index;
-        editor.drag = { type:"move", offsetX:point.x-shape.x, offsetY:point.y-shape.y, pointerId:event.pointerId };
+        editor.drag = {
+          type: "move",
+          offsetX: point.x - shape.x,
+          offsetY: point.y - shape.y,
+          pointerId: event.pointerId
+        };
         renderEditor(prefix);
         return;
       }
+
       editor.selected = -1;
       renderEditor(prefix);
     }
-    function onPointerMove(prefix,event) {
+
+    function onPointerMove(prefix, event) {
       const editor = editors[prefix];
       if (!editor.loaded || !editor.drag || editor.drag.pointerId !== event.pointerId) return;
+
       event.preventDefault();
-      const point = getPoint(editor,event), width = editor.canvas.width, height = editor.canvas.height;
+      const point = getPoint(editor, event);
+      const width = editor.canvas.width;
+      const height = editor.canvas.height;
       const shape = editor.shapes[editor.selected];
       if (!shape) return;
-      const px = clamp(point.x,0,width), py = clamp(point.y,0,height);
+
+      const px = clamp(point.x, 0, width);
+      const py = clamp(point.y, 0, height);
+
       if (editor.drag.type === "create") {
-        shape.x = Math.min(editor.drag.startX,px); shape.y = Math.min(editor.drag.startY,py);
-        shape.w = Math.abs(px-editor.drag.startX); shape.h = Math.abs(py-editor.drag.startY);
+        shape.x = Math.min(editor.drag.startX, px);
+        shape.y = Math.min(editor.drag.startY, py);
+        shape.w = Math.abs(px - editor.drag.startX);
+        shape.h = Math.abs(py - editor.drag.startY);
       } else if (editor.drag.type === "resize") {
-        shape.x = Math.min(editor.drag.anchorX,px); shape.y = Math.min(editor.drag.anchorY,py);
-        shape.w = Math.abs(px-editor.drag.anchorX); shape.h = Math.abs(py-editor.drag.anchorY);
+        shape.x = Math.min(editor.drag.anchorX, px);
+        shape.y = Math.min(editor.drag.anchorY, py);
+        shape.w = Math.abs(px - editor.drag.anchorX);
+        shape.h = Math.abs(py - editor.drag.anchorY);
       } else {
-        shape.x = clamp(point.x-editor.drag.offsetX,0,width-shape.w);
-        shape.y = clamp(point.y-editor.drag.offsetY,0,height-shape.h);
+        shape.x = clamp(point.x - editor.drag.offsetX, 0, width - shape.w);
+        shape.y = clamp(point.y - editor.drag.offsetY, 0, height - shape.h);
       }
+
       renderEditor(prefix);
     }
-    function onPointerUp(prefix,event) {
+
+    function onPointerUp(prefix, event) {
       const editor = editors[prefix];
       if (!editor.loaded || !editor.drag || editor.drag.pointerId !== event.pointerId) return;
-      const type = editor.drag.type, shape = editor.shapes[editor.selected];
-      const minSize = Math.max(20,editor.canvas.width*0.02);
-      if (shape && (type === "create" || type === "resize") && (shape.w < minSize || shape.h < minSize)) {
+
+      const type = editor.drag.type;
+      const shape = editor.shapes[editor.selected];
+      const minSize = Math.max(20, editor.canvas.width * 0.02);
+
+      if (shape && (type === "create" || type === "resize") &&
+          (shape.w < minSize || shape.h < minSize)) {
         if (type === "create") {
-          shape.w = editor.canvas.width*0.25; shape.h = editor.canvas.height*0.25;
-          shape.x = clamp(editor.drag.startX-shape.w/2,0,editor.canvas.width-shape.w);
-          shape.y = clamp(editor.drag.startY-shape.h/2,0,editor.canvas.height-shape.h);
+          shape.w = editor.canvas.width * 0.25;
+          shape.h = editor.canvas.height * 0.25;
+          shape.x = clamp(editor.drag.startX - shape.w / 2, 0, editor.canvas.width - shape.w);
+          shape.y = clamp(editor.drag.startY - shape.h / 2, 0, editor.canvas.height - shape.h);
         } else {
-          shape.w = Math.min(editor.canvas.width,Math.max(shape.w,minSize));
-          shape.h = Math.min(editor.canvas.height,Math.max(shape.h,minSize));
-          shape.x = clamp(shape.x,0,editor.canvas.width-shape.w);
-          shape.y = clamp(shape.y,0,editor.canvas.height-shape.h);
+          shape.w = Math.min(editor.canvas.width, Math.max(shape.w, minSize));
+          shape.h = Math.min(editor.canvas.height, Math.max(shape.h, minSize));
+          shape.x = clamp(shape.x, 0, editor.canvas.width - shape.w);
+          shape.y = clamp(shape.y, 0, editor.canvas.height - shape.h);
         }
       }
+
       if (type === "create") {
         editor.tool = "";
-        showMessage("已加入框選。拖曳框內可移動，拖曳四角可調整大小。","success");
+        showMessage("已加入框選。拖曳框內可移動，拖曳四角可調整大小。", "success");
       }
+
       editor.drag = null;
       renderEditor(prefix);
     }
+
     function addFrame(prefix) {
       const editor = editors[prefix];
-      if (!editor.loaded) { showMessage("請先拍照或選擇照片。","error"); return; }
+      if (!editor.loaded) {
+        showMessage("請先拍照或選擇照片。", "error");
+        return;
+      }
       editor.tool = "draw";
-      showMessage("請在照片上拖曳畫框；單點一下會產生預設框。","info");
+      showMessage("請在照片上拖曳畫框；單點一下會產生預設框。", "info");
     }
+
     function deleteSelectedFrame(prefix) {
       const editor = editors[prefix];
-      if (!editor.loaded) { showMessage("請先拍照或選擇照片。","error"); return; }
-      if (editor.selected < 0 || !editor.shapes[editor.selected]) { showMessage("請先點選要刪除的框。","info"); return; }
+      if (!editor.loaded) {
+        showMessage("請先拍照或選擇照片。", "error");
+        return;
+      }
+      if (editor.selected < 0 || !editor.shapes[editor.selected]) {
+        showMessage("請先點選要刪除的框。", "info");
+        return;
+      }
       saveHistory(prefix);
-      editor.shapes.splice(editor.selected,1);
+      editor.shapes.splice(editor.selected, 1);
       editor.selected = -1;
       renderEditor(prefix);
-      showMessage("已刪除選取的框。","success");
+      showMessage("已刪除選取的框。", "success");
     }
+
     function saveHistory(prefix) {
       const editor = editors[prefix];
-      editor.history.push(JSON.stringify({ shapes:editor.shapes,selected:editor.selected }));
+      editor.history.push(JSON.stringify({ shapes: editor.shapes, selected: editor.selected }));
       if (editor.history.length > 20) editor.history.shift();
     }
+
     function undoPhoto(prefix) {
       const editor = editors[prefix];
-      if (!editor.history.length) { showMessage("沒有可以復原的操作。","info"); return; }
+      if (!editor.history.length) {
+        showMessage("沒有可以復原的操作。", "info");
+        return;
+      }
       const state = JSON.parse(editor.history.pop());
-      editor.shapes = state.shapes; editor.selected = state.selected; editor.tool = ""; editor.drag = null;
+      editor.shapes = state.shapes;
+      editor.selected = state.selected;
+      editor.tool = "";
+      editor.drag = null;
       renderEditor(prefix);
-      showMessage("已復原上一個操作。","success");
+      showMessage("已復原上一個操作。", "success");
     }
+
     function clearPhoto(prefix) {
       const editor = editors[prefix];
       editor.loadToken++;
-      if (editor.canvas && editor.context) editor.context.clearRect(0,0,editor.canvas.width,editor.canvas.height);
-      editor.loaded = false; editor.base = null; editor.tool = ""; editor.shapes = [];
-      editor.selected = -1; editor.drag = null; editor.history = [];
+      if (editor.canvas && editor.context) {
+        editor.context.clearRect(0, 0, editor.canvas.width, editor.canvas.height);
+      }
+      editor.loaded = false;
+      editor.base = null;
+      editor.tool = "";
+      editor.shapes = [];
+      editor.selected = -1;
+      editor.drag = null;
+      editor.history = [];
       editor.canvas.classList.add("hidden");
       resetFileInputs(prefix);
-      setPhotoStatus(prefix,"尚未載入照片",false);
+      setPhotoStatus(prefix, "尚未載入照片", false);
     }
+
     function createFinalPhoto(prefix) {
       const editor = editors[prefix];
-      if (!editor.loaded || !editor.base) throw new Error(prefix === "before" ? "現場照片尚未成功載入。" : "改善後照片尚未成功載入。");
+      if (!editor.loaded || !editor.base) {
+        throw new Error(prefix === "before" ? "現場照片尚未成功載入。" : "改善後照片尚未成功載入。");
+      }
+
       const output = document.createElement("canvas");
-      output.width = editor.canvas.width; output.height = editor.canvas.height;
+      output.width = editor.canvas.width;
+      output.height = editor.canvas.height;
       const context = output.getContext("2d");
-      context.drawImage(editor.base,0,0);
-      drawShapes(context,editor,false);
-      const fontSize = Math.max(20,output.width*0.024), padding = Math.max(12,output.width*0.015);
+
+      context.drawImage(editor.base, 0, 0);
+      drawShapes(context, editor, false);
+
+      const fontSize = Math.max(20, output.width * 0.024);
+      const padding = Math.max(12, output.width * 0.015);
       const now = new Date();
-      const dateText = now.getFullYear()+"/"+String(now.getMonth()+1).padStart(2,"0")+"/"+String(now.getDate()).padStart(2,"0");
-      context.font = "bold "+fontSize+"px sans-serif";
-      const boxWidth = context.measureText(dateText).width+padding*2, boxHeight = fontSize+padding*2;
-      const boxX = output.width-boxWidth, boxY = output.height-boxHeight;
-      context.fillStyle = "rgba(0,0,0,0.68)"; context.fillRect(boxX,boxY,boxWidth,boxHeight);
-      context.fillStyle = "#ffffff"; context.textAlign = "left"; context.textBaseline = "alphabetic";
-      context.fillText(dateText,boxX+padding,output.height-padding-fontSize*0.15);
-      const dataUrl = output.toDataURL("image/jpeg",CONFIG.JPEG_QUALITY);
-      if (!dataUrl || !dataUrl.startsWith("data:image/jpeg;base64,")) throw new Error("照片轉換失敗，請重新選擇照片。");
+      const dateText = now.getFullYear() + "/" +
+        String(now.getMonth() + 1).padStart(2, "0") + "/" +
+        String(now.getDate()).padStart(2, "0");
+
+      context.font = "bold " + fontSize + "px sans-serif";
+      const boxWidth = context.measureText(dateText).width + padding * 2;
+      const boxHeight = fontSize + padding * 2;
+      const boxX = output.width - boxWidth;
+      const boxY = output.height - boxHeight;
+
+      context.fillStyle = "rgba(0,0,0,0.68)";
+      context.fillRect(boxX, boxY, boxWidth, boxHeight);
+      context.fillStyle = "#ffffff";
+      context.textAlign = "left";
+      context.textBaseline = "alphabetic";
+      context.fillText(dateText, boxX + padding, output.height - padding - fontSize * 0.15);
+
+      const dataUrl = output.toDataURL("image/jpeg", CONFIG.JPEG_QUALITY);
+      if (!dataUrl || !dataUrl.startsWith("data:image/jpeg;base64,")) {
+        throw new Error("照片轉換失敗，請重新選擇照片。");
+      }
       return dataUrl;
     }
 
@@ -770,41 +1015,55 @@
       if (button.disabled) return;
       button.disabled = true;
       let result = null;
+
       try {
-        const reporterName = getValue("reporterName"), project = getValue("project");
+        const reporterName = getValue("reporterName");
+        const project = getValue("project");
         const select = document.getElementById("category");
         const option = select.options[select.selectedIndex];
         const category = option ? option.text.trim() : "";
-        const location = getValue("location"), description = getValue("description");
+        const location = getValue("location");
+        const description = getValue("description");
+
         if (!reporterName) throw new Error("請輸入回報人姓名。");
         if (!project) throw new Error("請輸入專案名稱。");
         if (!category) throw new Error("請選擇回報類型。");
         if (!location) throw new Error("請輸入現場位置。");
         if (!description) throw new Error("請輸入回報內容。");
         if (!editors.before.loaded) throw new Error("請先拍照或選擇現場照片。");
+
         saveReporterName(reporterName);
-        showMessage("正在整理照片，請勿關閉網頁……","info");
+        showMessage("正在整理照片，請勿關閉網頁……", "info");
         const photo = createFinalPhoto("before");
-        showMessage("正在上傳照片並建立回報，請稍候……","info");
+        showMessage("正在上傳照片並建立回報，請稍候……", "info");
+
         result = await callApi("createReport", {
           reporterName, project, category, location, description,
-          owner:getValue("owner"), dueDate:getValue("dueDate"),
-          severity:getValue("severity") || "一般", photo
+          owner: getValue("owner"),
+          dueDate: getValue("dueDate"),
+          severity: getValue("severity") || "一般",
+          photo
         });
+
         const formNumber = result.formNumber || result.reportId || "未取得編號";
         document.getElementById("reportForm").reset();
         document.getElementById("reporterName").value = reporterName;
         document.getElementById("project").value = CONFIG.DEFAULT_PROJECT;
         clearPhoto("before");
+
         const refreshed = await loadReports(false);
         showPage("listPage");
-        showMessage("回報建立成功，表單編號："+formNumber+(refreshed?"":"\n清單更新失敗，請按重新整理。"),"success");
+        showMessage("回報建立成功，表單編號：" + formNumber +
+          (refreshed ? "" : "\n清單更新失敗，請按重新整理。"), "success");
       } catch (error) {
         console.error(error);
         showMessage(result
-          ? "回報已建立，但後續處理發生錯誤："+getErrorMessage(error)+"\n請先檢查清單，不要重新送出回報。"
-          : getErrorMessage(error)+"\n若發生網路中斷，回報可能已建立；重新送出前請先檢查清單。","error");
-      } finally { button.disabled = false; }
+          ? "回報已建立，但後續處理發生錯誤：" + getErrorMessage(error) + "\n請先檢查清單，不要重新送出回報。"
+          : getErrorMessage(error) + "\n若發生網路中斷，回報可能已建立；重新送出前請先檢查清單。",
+          "error");
+      } finally {
+        button.disabled = false;
+      }
     }
 
     async function submitImprovement(event) {
@@ -813,168 +1072,279 @@
       if (button.disabled) return;
       button.disabled = true;
       let completed = false;
+
       try {
-        const reporterName = getValue("improvementReporterName"), reportId = getValue("improvementReportId");
+        const reporterName = getValue("improvementReporterName");
+        const reportId = getValue("improvementReportId");
         const improvementNote = getValue("improvementNote");
+
         if (!reporterName) throw new Error("請輸入改善回報人姓名。");
         if (!reportId) throw new Error("請選擇待改善項目。");
         if (!improvementNote) throw new Error("請輸入改善說明。");
         if (!editors.after.loaded) throw new Error("請先拍照或選擇改善後照片。");
-        if (!reports.some(function (item) { return String(item.reportId) === reportId; })) throw new Error("找不到指定的回報資料。");
+        if (!reports.some(function (item) { return String(item.reportId) === reportId; })) {
+          throw new Error("找不到指定的回報資料。");
+        }
+
         saveReporterName(reporterName);
-        showMessage("正在整理改善照片，請勿關閉網頁……","info");
+        showMessage("正在整理改善照片，請勿關閉網頁……", "info");
         const photo = createFinalPhoto("after");
-        showMessage("正在上傳改善資料，請稍候……","info");
-        await callApi("completeImprovement",{ reporterName,reportId,improvementNote,photo });
+        showMessage("正在上傳改善資料，請稍候……", "info");
+
+        await callApi("completeImprovement", { reporterName, reportId, improvementNote, photo });
         completed = true;
+
         document.getElementById("improvementForm").reset();
         document.getElementById("improvementReporterName").value = reporterName;
         clearPhoto("after");
+
         const refreshed = await loadReports(false);
         renderImprovementDetail();
         showPage("listPage");
-        showMessage("改善回報完成。"+(refreshed?"":"清單更新失敗，請按重新整理。")+"\n若此項目已有舊版 PDF，請重新產生以包含最新改善資料。","success");
+        showMessage("改善回報完成。" + (refreshed ? "" : "清單更新失敗，請按重新整理。") +
+          "\n若此項目已有舊版 PDF，請重新產生以包含最新改善資料。", "success");
       } catch (error) {
         console.error(error);
-        showMessage(getErrorMessage(error)+(completed
+        showMessage(getErrorMessage(error) + (completed
           ? "\n改善回報已送出，請檢查清單，不要重新送出。"
-          : "\n若發生網路中斷，資料可能已送出；重新送出前請先檢查清單。"),"error");
-      } finally { button.disabled = false; }
+          : "\n若發生網路中斷，資料可能已送出；重新送出前請先檢查清單。"), "error");
+      } finally {
+        button.disabled = false;
+      }
     }
 
     /* 回報清單 */
     async function loadReports(showLoading) {
       try {
-        if (showLoading !== false) showMessage("正在讀取回報資料……","info");
-        const result = await callApi("listReports",{});
+        if (showLoading !== false) showMessage("正在讀取回報資料……", "info");
+
+        const result = await callApi("listReports", {});
         reports = Array.isArray(result.reports) ? result.reports : [];
+
         renderReports();
         updateImprovementOptions();
-        if (showLoading !== false) showMessage("已讀取 "+reports.length+" 筆資料。","success");
+
+        if (showLoading !== false) showMessage("已讀取 " + reports.length + " 筆資料。", "success");
         return true;
       } catch (error) {
         console.error(error);
         document.getElementById("reportList").innerHTML = "<p>無法讀取回報資料。</p>";
-        if (showLoading !== false) showMessage(getErrorMessage(error),"error");
+        if (showLoading !== false) showMessage(getErrorMessage(error), "error");
         return false;
       }
     }
+
     function safeLink(url) {
       try {
         const parsed = new URL(url);
         return parsed.protocol === "https:" || parsed.protocol === "http:" ? parsed.href : "";
-      } catch (error) { return ""; }
+      } catch (error) {
+        return "";
+      }
     }
+
     function renderReports() {
       const container = document.getElementById("reportList");
-      if (!reports.length) { container.innerHTML = "<p>目前沒有回報資料。</p>"; return; }
+
+      if (!reports.length) {
+        container.innerHTML = "<p>目前沒有回報資料。</p>";
+        return;
+      }
+
       container.innerHTML = reports.map(function (report) {
         const encodedId = encodeURIComponent(report.reportId || "");
-        const improvementUrl = safeLink(report.improvementPdfUrl), acceptanceUrl = safeLink(report.acceptancePdfUrl);
-        const improvementLink = improvementUrl ? '<a href="'+escapeHtml(improvementUrl)+'" target="_blank" rel="noopener noreferrer">開啟改善報告</a>' : "";
-        const acceptanceLink = acceptanceUrl ? '<a href="'+escapeHtml(acceptanceUrl)+'" target="_blank" rel="noopener noreferrer">開啟驗收單</a>' : "";
-        const acceptanceButton = report.improvementNote ? '<button type="button" class="secondary" data-pdf-id="'+encodedId+'" data-pdf-type="acceptance">驗收單 PDF</button>' : "";
-        return '<article class="report"><h3>'+escapeHtml(report.formNumber || report.reportId)+"｜"+escapeHtml(report.project)+"</h3>"+
-          '<p><span class="badge">'+escapeHtml(report.status)+"</span> "+escapeHtml(report.category)+" / "+escapeHtml(report.severity)+"</p>"+
-          "<p><strong>位置：</strong>"+escapeHtml(report.location)+"</p>"+
-          "<p><strong>內容：</strong>"+escapeHtml(report.description)+"</p>"+
-          "<p><strong>負責人：</strong>"+escapeHtml(report.owner || "未指定")+"</p>"+
-          "<p><strong>期限：</strong>"+escapeHtml(report.dueDate || "未設定")+"</p>"+
-          "<p><strong>回報人：</strong>"+escapeHtml(report.createdByName || "現場人員")+"</p>"+
-          "<p><strong>建立時間：</strong>"+escapeHtml(report.createdAt)+"</p>"+
-          (report.improvementNote ? "<p><strong>改善說明：</strong>"+escapeHtml(report.improvementNote)+"</p>" : "")+
-          (report.improvedByName ? "<p><strong>改善回報人：</strong>"+escapeHtml(report.improvedByName)+"</p>" : "")+
-          (report.improvedAt ? "<p><strong>改善時間：</strong>"+escapeHtml(report.improvedAt)+"</p>" : "")+
-          (report.acceptedByName ? "<p><strong>驗收人：</strong>"+escapeHtml(report.acceptedByName)+"</p>" : "")+
-          (report.acceptedAt ? "<p><strong>驗收時間：</strong>"+escapeHtml(report.acceptedAt)+"</p>" : "")+
-          '<div class="actions"><button type="button" data-pdf-id="'+encodedId+'" data-pdf-type="improvement">產生／更新改善報告 PDF</button>'+
-          acceptanceButton+improvementLink+acceptanceLink+"</div></article>";
+        const improvementUrl = safeLink(report.improvementPdfUrl);
+        const acceptanceUrl = safeLink(report.acceptancePdfUrl);
+        const improvementLink = improvementUrl
+          ? '<a href="' + escapeHtml(improvementUrl) + '" target="_blank" rel="noopener noreferrer">開啟改善報告</a>' : "";
+        const acceptanceLink = acceptanceUrl
+          ? '<a href="' + escapeHtml(acceptanceUrl) + '" target="_blank" rel="noopener noreferrer">開啟驗收單</a>' : "";
+        const acceptanceButton = report.improvementNote
+          ? '<button type="button" class="secondary" data-pdf-id="' + encodedId + '" data-pdf-type="acceptance">驗收單 PDF</button>' : "";
+
+        return '<article class="report"><h3>' + escapeHtml(report.formNumber || report.reportId) + "｜" + escapeHtml(report.project) + "</h3>" +
+          '<p><span class="badge">' + escapeHtml(report.status) + "</span> " + escapeHtml(report.category) + " / " + escapeHtml(report.severity) + "</p>" +
+          "<p><strong>位置：</strong>" + escapeHtml(report.location) + "</p>" +
+          "<p><strong>內容：</strong>" + escapeHtml(report.description) + "</p>" +
+          "<p><strong>負責人：</strong>" + escapeHtml(report.owner || "未指定") + "</p>" +
+          "<p><strong>期限：</strong>" + escapeHtml(report.dueDate || "未設定") + "</p>" +
+          "<p><strong>回報人：</strong>" + escapeHtml(report.createdByName || "現場人員") + "</p>" +
+          "<p><strong>建立時間：</strong>" + escapeHtml(report.createdAt) + "</p>" +
+          (report.improvementNote ? "<p><strong>改善說明：</strong>" + escapeHtml(report.improvementNote) + "</p>" : "") +
+          (report.improvedByName ? "<p><strong>改善回報人：</strong>" + escapeHtml(report.improvedByName) + "</p>" : "") +
+          (report.improvedAt ? "<p><strong>改善時間：</strong>" + escapeHtml(report.improvedAt) + "</p>" : "") +
+          (report.acceptedByName ? "<p><strong>驗收人：</strong>" + escapeHtml(report.acceptedByName) + "</p>" : "") +
+          (report.acceptedAt ? "<p><strong>驗收時間：</strong>" + escapeHtml(report.acceptedAt) + "</p>" : "") +
+          '<div class="actions"><button type="button" data-pdf-id="' + encodedId + '" data-pdf-type="improvement">產生／更新改善報告 PDF</button>' +
+          acceptanceButton + improvementLink + acceptanceLink + "</div></article>";
       }).join("");
+
       container.querySelectorAll("[data-pdf-id]").forEach(function (button) {
-        button.addEventListener("click",function () { createPdf(decodeURIComponent(button.dataset.pdfId),button.dataset.pdfType,button); });
+        button.addEventListener("click", function () {
+          createPdf(decodeURIComponent(button.dataset.pdfId), button.dataset.pdfType, button);
+        });
       });
     }
 
-    /* 棟別、樓層、戶別搜尋 */
-    function normalizeText(value) { return String(value || "").normalize("NFKC").toUpperCase().replace(/\s+/g,""); }
-    function normalizeBuilding(value) { return normalizeText(value).replace(/棟$/,""); }
-    function normalizeFloor(value) {
-      const floor = normalizeText(value).replace(/[樓層]$/,""), match = floor.match(/^(B?)(\d+)$/);
-      return match ? match[1]+String(Number(match[2])) : floor;
+    /* 棟別、樓層、戶別、日期流水號搜尋 */
+    function normalizeText(value) {
+      return String(value || "").normalize("NFKC").toUpperCase().replace(/\s+/g, "");
     }
+
+    function normalizeBuilding(value) {
+      return normalizeText(value).replace(/棟$/, "");
+    }
+
+    function normalizeFloor(value) {
+      const floor = normalizeText(value).replace(/[樓層]$/, "");
+      const match = floor.match(/^(B?)(\d+)$/);
+      return match ? match[1] + String(Number(match[2])) : floor;
+    }
+
     function normalizeUnit(value) {
-      const unit = normalizeText(value).replace(/戶$/,"");
+      const unit = normalizeText(value).replace(/戶$/, "");
       return /^\d+$/.test(unit) ? String(Number(unit)) : unit;
     }
+
+    function normalizeFormNumber(value) {
+      return normalizeText(value).replace(/[-_/.年月日]/g, "");
+    }
+
     function parseLocation(location) {
       const text = normalizeText(location);
       let match = text.match(/^(.+?)棟[-_]?((?:B)?\d+)(?:[樓層](?:[-_]?(\d+)(?:戶)?)?|[-_](\d+)(?:戶)?|$)/);
-      if (!match) match = text.match(/^([A-Z]+?)(B?\d+)(?:[樓層](?:[-_]?(\d+)(?:戶)?)?|[-_](\d+)(?:戶)?|$)/);
-      if (!match) return { building:"",floor:"",unit:"" };
-      return { building:normalizeBuilding(match[1]), floor:normalizeFloor(match[2]), unit:normalizeUnit(match[3] || match[4] || "") };
+
+      if (!match) {
+        match = text.match(/^([A-Z]+?)(B?\d+)(?:[樓層](?:[-_]?(\d+)(?:戶)?)?|[-_](\d+)(?:戶)?|$)/);
+      }
+
+      if (!match) return { building: "", floor: "", unit: "" };
+
+      return {
+        building: normalizeBuilding(match[1]),
+        floor: normalizeFloor(match[2]),
+        unit: normalizeUnit(match[3] || match[4] || "")
+      };
     }
+
     function matchesImprovementFilters(report) {
-      const building = normalizeBuilding(getValue("filterBuilding")), floor = normalizeFloor(getValue("filterFloor")), unit = normalizeUnit(getValue("filterUnit"));
+      const building = normalizeBuilding(getValue("filterBuilding"));
+      const floor = normalizeFloor(getValue("filterFloor"));
+      const unit = normalizeUnit(getValue("filterUnit"));
+      const numberInput = getValue("filterFormNumber");
+      const formNumber = normalizeFormNumber(numberInput);
+      const reportNumber = normalizeFormNumber(report.formNumber || report.reportId);
+
+      // 避免只輸入分隔符號時，意外符合所有編號。
+      if (numberInput && (!formNumber || !reportNumber.includes(formNumber))) return false;
+
       if (!building && !floor && !unit) return true;
+
       const location = parseLocation(report.location);
-      return (!building || location.building === building) && (!floor || location.floor === floor) && (!unit || location.unit === unit);
+      return (!building || location.building === building) &&
+        (!floor || location.floor === floor) &&
+        (!unit || location.unit === unit);
     }
+
     function clearImprovementFilters() {
       document.getElementById("filterBuilding").value = "";
       document.getElementById("filterFloor").value = "";
       document.getElementById("filterUnit").value = "";
+      document.getElementById("filterFormNumber").value = "";
       updateImprovementOptions();
     }
+
     function updateImprovementOptions() {
-      const select = document.getElementById("improvementReportId"), resultText = document.getElementById("filterResult"), selectedValue = select.value;
+      const select = document.getElementById("improvementReportId");
+      const resultText = document.getElementById("filterResult");
+      const selectedValue = select.value;
       const allAvailable = reports.filter(function (report) { return report.status === "待改善"; });
       const available = allAvailable.filter(matchesImprovementFilters);
-      const hasFilter = Boolean(getValue("filterBuilding") || getValue("filterFloor") || getValue("filterUnit"));
+      const hasFilter = Boolean(
+        getValue("filterBuilding") ||
+        getValue("filterFloor") ||
+        getValue("filterUnit") ||
+        getValue("filterFormNumber")
+      );
+
       if (!allAvailable.length) {
         select.innerHTML = '<option value="">目前沒有待改善項目</option>';
         resultText.textContent = "目前沒有待改善資料。";
-        renderImprovementDetail(); return;
+        renderImprovementDetail();
+        return;
       }
+
       if (!available.length) {
         select.innerHTML = '<option value="">沒有符合條件的待改善項目</option>';
-        resultText.textContent = "共 "+allAvailable.length+" 筆待改善資料，符合條件 0 筆。若找不到資料，請確認原本的現場位置格式。";
-        renderImprovementDetail(); return;
+        resultText.textContent = "共 " + allAvailable.length +
+          " 筆待改善資料，符合條件 0 筆。請確認日期流水號或原本的現場位置格式。";
+        renderImprovementDetail();
+        return;
       }
-      select.innerHTML = '<option value="">請選擇回報項目</option>' + available.map(function (report) {
-        const description = String(report.description || "無缺失內容").replace(/\s+/g," ").trim();
-        const text = (report.formNumber || report.reportId || "未編號")+"｜"+(report.location || "未填位置")+"｜"+description;
-        return '<option value="'+escapeHtml(report.reportId)+'">'+escapeHtml(text)+"</option>";
-      }).join("");
-      if (available.some(function (report) { return String(report.reportId) === selectedValue; })) select.value = selectedValue;
-      resultText.textContent = hasFilter ? "共 "+allAvailable.length+" 筆待改善資料，符合條件 "+available.length+" 筆。" : "目前共有 "+allAvailable.length+" 筆待改善資料。";
+
+      select.innerHTML = '<option value="">請選擇回報項目</option>' +
+        available.map(function (report) {
+          const description = String(report.description || "無缺失內容").replace(/\s+/g, " ").trim();
+          const text = (report.formNumber || report.reportId || "未編號") + "｜" +
+            (report.location || "未填位置") + "｜" + description;
+          return '<option value="' + escapeHtml(report.reportId) + '">' + escapeHtml(text) + "</option>";
+        }).join("");
+
+      if (available.some(function (report) { return String(report.reportId) === selectedValue; })) {
+        select.value = selectedValue;
+      }
+
+      resultText.textContent = hasFilter
+        ? "共 " + allAvailable.length + " 筆待改善資料，符合條件 " + available.length + " 筆。"
+        : "目前共有 " + allAvailable.length + " 筆待改善資料。";
+
       renderImprovementDetail();
     }
+
     async function renderImprovementDetail() {
-      const box = document.getElementById("improvementDetail"), reportId = getValue("improvementReportId"), token = ++detailRequestToken;
+      const box = document.getElementById("improvementDetail");
+      const reportId = getValue("improvementReportId");
+      const token = ++detailRequestToken;
       const report = reports.find(function (item) { return String(item.reportId) === reportId; });
-      if (!report) { box.innerHTML = ""; box.classList.add("hidden"); return; }
+
+      if (!report) {
+        box.innerHTML = "";
+        box.classList.add("hidden");
+        return;
+      }
+
       box.innerHTML =
-        "<p><strong>表單編號：</strong>"+escapeHtml(report.formNumber || report.reportId)+"</p>"+
-        "<p><strong>專案：</strong>"+escapeHtml(report.project)+"</p>"+
-        "<p><strong>類型 / 嚴重程度：</strong>"+escapeHtml(report.category)+" / "+escapeHtml(report.severity)+"</p>"+
-        "<p><strong>位置：</strong>"+escapeHtml(report.location)+"</p>"+
-        "<p><strong>缺失內容：</strong>"+escapeHtml(report.description)+"</p>"+
-        "<p><strong>負責人：</strong>"+escapeHtml(report.owner || "未指定")+"</p>"+
-        "<p><strong>改善期限：</strong>"+escapeHtml(report.dueDate || "未設定")+"</p>"+
-        "<p><strong>回報人：</strong>"+escapeHtml(report.createdByName || "現場人員")+"</p>"+
-        "<p><strong>建立時間：</strong>"+escapeHtml(report.createdAt)+"</p>"+
+        "<p><strong>表單編號：</strong>" + escapeHtml(report.formNumber || report.reportId) + "</p>" +
+        "<p><strong>專案：</strong>" + escapeHtml(report.project) + "</p>" +
+        "<p><strong>類型 / 嚴重程度：</strong>" + escapeHtml(report.category) + " / " + escapeHtml(report.severity) + "</p>" +
+        "<p><strong>位置：</strong>" + escapeHtml(report.location) + "</p>" +
+        "<p><strong>缺失內容：</strong>" + escapeHtml(report.description) + "</p>" +
+        "<p><strong>負責人：</strong>" + escapeHtml(report.owner || "未指定") + "</p>" +
+        "<p><strong>改善期限：</strong>" + escapeHtml(report.dueDate || "未設定") + "</p>" +
+        "<p><strong>回報人：</strong>" + escapeHtml(report.createdByName || "現場人員") + "</p>" +
+        "<p><strong>建立時間：</strong>" + escapeHtml(report.createdAt) + "</p>" +
         '<div id="detailPhoto"><p class="muted">正在讀取改善前照片……</p></div>';
+
       box.classList.remove("hidden");
       const photoBox = document.getElementById("detailPhoto");
-      if (!report.hasBeforePhoto) { photoBox.innerHTML = '<p class="muted">此回報沒有改善前照片。</p>'; return; }
+
+      if (!report.hasBeforePhoto) {
+        photoBox.innerHTML = '<p class="muted">此回報沒有改善前照片。</p>';
+        return;
+      }
+
       try {
-        const result = await callApi("getPhoto",{ reportId });
+        const result = await callApi("getPhoto", { reportId });
         if (token !== detailRequestToken) return;
+
         photoBox.innerHTML = "<p><strong>改善前照片：</strong></p>";
-        const image = document.createElement("img"); image.alt = "改善前照片"; image.src = result.photo; photoBox.appendChild(image);
+        const image = document.createElement("img");
+        image.alt = "改善前照片";
+        image.src = result.photo;
+        photoBox.appendChild(image);
       } catch (error) {
         if (token !== detailRequestToken) return;
-        photoBox.innerHTML = '<p class="muted">照片讀取失敗：'+escapeHtml(getErrorMessage(error))+"</p>";
+        photoBox.innerHTML = '<p class="muted">照片讀取失敗：' + escapeHtml(getErrorMessage(error)) + "</p>";
       }
     }
 
@@ -983,49 +1353,70 @@
       const isAcceptance = reportType === "acceptance";
       const documentName = isAcceptance ? "驗收單" : "缺失改善報告";
       let acceptorName = "";
+
       if (isAcceptance) {
         const savedName = localStorage.getItem("yawanAcceptorName") || "";
         const input = window.prompt("請輸入驗收人姓名：", savedName);
         if (input === null) return;
+
         acceptorName = input.trim();
-        if (!acceptorName) { showMessage("請輸入驗收人姓名，才能產生驗收單。","error"); return; }
+        if (!acceptorName) {
+          showMessage("請輸入驗收人姓名，才能產生驗收單。", "error");
+          return;
+        }
         localStorage.setItem("yawanAcceptorName", acceptorName);
       }
+
       if (button) button.disabled = true;
-      const pdfWindow = window.open("about:blank","_blank");
+      const pdfWindow = window.open("about:blank", "_blank");
       let created = false;
+
       try {
-        showMessage("正在產生"+documentName+"並儲存至 Google 雲端硬碟，請稍候……","info");
-        const result = await callApi("createPdf",{ reporterName:getCurrentReporterName(),reportId,reportType,acceptorName });
+        showMessage("正在產生" + documentName + "並儲存至 Google 雲端硬碟，請稍候……", "info");
+
+        const result = await callApi("createPdf", {
+          reporterName: getCurrentReporterName(),
+          reportId, reportType, acceptorName
+        });
+
         created = true;
         const pdfUrl = safeLink(result.url);
         if (!pdfUrl) throw new Error("後端沒有回傳有效的 PDF 連結。");
+
         const parsed = new URL(pdfUrl);
         let fileId = "";
+
         if (parsed.hostname === "drive.google.com") {
           const match = parsed.pathname.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
           fileId = match ? match[1] : (parsed.searchParams.get("id") || "");
         }
+
         const downloadUrl = /^[a-zA-Z0-9_-]+$/.test(fileId)
-          ? "https://drive.google.com/uc?export=download&id="+encodeURIComponent(fileId)
+          ? "https://drive.google.com/uc?export=download&id=" + encodeURIComponent(fileId)
           : pdfUrl;
+
         if (pdfWindow && !pdfWindow.closed) pdfWindow.location.href = downloadUrl;
+
         const refreshed = await loadReports(false);
-        showMessage(documentName+"已產生並儲存至 Google 雲端硬碟。\n若下載未開始，請點下方連結。"+(refreshed?"":"\n清單更新失敗，請按重新整理。"),"success");
+        showMessage(documentName + "已產生並儲存至 Google 雲端硬碟。\n若下載未開始，請點下方連結。" +
+          (refreshed ? "" : "\n清單更新失敗，請按重新整理。"), "success");
+
         const message = document.getElementById("message");
         const link = document.createElement("a");
         link.href = downloadUrl;
         link.target = "_blank";
         link.rel = "noopener noreferrer";
-        link.textContent = "下載"+documentName;
+        link.textContent = "下載" + documentName;
         message.appendChild(document.createElement("br"));
         message.appendChild(link);
       } catch (error) {
         console.error(error);
         if (pdfWindow && !pdfWindow.closed) pdfWindow.close();
-        showMessage((created ? documentName+"已產生，但後續處理失敗：" : "產生 PDF 失敗或結果尚未確認：")+
-          getErrorMessage(error)+"\n請先檢查回報清單及雲端硬碟，再決定是否重新產生。","error");
-      } finally { if (button) button.disabled = false; }
+        showMessage((created ? documentName + "已產生，但後續處理失敗：" : "產生 PDF 失敗或結果尚未確認：") +
+          getErrorMessage(error) + "\n請先檢查回報清單及雲端硬碟，再決定是否重新產生。", "error");
+      } finally {
+        if (button) button.disabled = false;
+      }
     }
 
     /* 一鍵產生尚未有 PDF 的報告，並下載 ZIP */
@@ -1035,33 +1426,40 @@
       if (button.disabled) return;
 
       let reporterName = getCurrentReporterName();
+
       if (!reporterName || reporterName === "現場人員") {
         const input = window.prompt("請輸入下載人員姓名：");
         if (input === null) return;
+
         reporterName = input.trim();
         if (!reporterName || reporterName === "現場人員") {
-          showMessage("請輸入實際姓名。","error"); return;
+          showMessage("請輸入實際姓名。", "error");
+          return;
         }
         if (reporterName.length > 50) {
-          showMessage("人員姓名不可超過 50 字。","error"); return;
+          showMessage("人員姓名不可超過 50 字。", "error");
+          return;
         }
+
         saveReporterName(reporterName);
         document.getElementById("reporterName").value = reporterName;
         document.getElementById("improvementReporterName").value = reporterName;
       }
+
       if (reporterName.length > 50) {
-        showMessage("人員姓名不可超過 50 字。","error"); return;
+        showMessage("人員姓名不可超過 50 字。", "error");
+        return;
       }
 
       button.disabled = true;
       box.classList.remove("hidden");
       box.textContent = "正在準備批次產生 PDF……";
-      const downloadWindow = window.open("about:blank","_blank");
+      const downloadWindow = window.open("about:blank", "_blank");
       let createdCount = 0;
       let downloadStarted = false;
 
       try {
-        showMessage("正在讀取最新回報資料……","info");
+        showMessage("正在讀取最新回報資料……", "info");
         const refreshed = await loadReports(false);
         if (!refreshed) throw new Error("無法讀取最新回報清單，已停止批次作業。");
 
@@ -1072,21 +1470,23 @@
         for (let index = 0; index < missingReports.length; index++) {
           const report = missingReports[index];
           const number = report.formNumber || report.reportId;
-          const progress = "正在產生 PDF："+(index+1)+" / "+missingReports.length+
-            "\n目前處理："+number+"\n請勿關閉網頁。";
+          const progress = "正在產生 PDF：" + (index + 1) + " / " + missingReports.length +
+            "\n目前處理：" + number + "\n請勿關閉網頁。";
+
           box.textContent = progress;
-          showMessage(progress,"info");
+          showMessage(progress, "info");
+
           try {
-            await callApi("createPdf",{
+            await callApi("createPdf", {
               reporterName,
-              reportId:String(report.reportId),
-              reportType:"improvement",
-              acceptorName:""
+              reportId: String(report.reportId),
+              reportType: "improvement",
+              acceptorName: ""
             });
             createdCount++;
           } catch (error) {
-            throw new Error("處理「"+number+"」時失敗："+getErrorMessage(error)+
-              "\n此次已確認產生 "+createdCount+" 份 PDF。"+
+            throw new Error("處理「" + number + "」時失敗：" + getErrorMessage(error) +
+              "\n此次已確認產生 " + createdCount + " 份 PDF。" +
               "\n若網路中斷，這一筆可能已經產生；請先檢查清單與雲端硬碟，再重新操作。");
           }
         }
@@ -1096,21 +1496,21 @@
         }
 
         box.textContent = "正在檢查下載批次……";
-        showMessage("正在檢查下載批次並建立 ZIP，請稍候……","info");
-        let state = await callApi("getPdfDownloadState",{});
+        showMessage("正在檢查下載批次並建立 ZIP，請稍候……", "info");
+        let state = await callApi("getPdfDownloadState", {});
         let batch = state.openBatch;
 
         if (!batch && state.pendingCount > 0) {
-          const result = await callApi("createPdfDownloadZip",{ reporterName });
+          const result = await callApi("createPdfDownloadZip", { reporterName });
           batch = result.batch || null;
         }
 
         if (!batch) {
           if (downloadWindow && !downloadWindow.closed) downloadWindow.close();
           renderPdfDownloadState(state);
-          showMessage("批次處理完成。此次產生 "+createdCount+" 份 PDF。"+
-            "\n目前沒有尚未確認下載的改善報告。"+
-            (state.invalidCount ? "\n另有 "+state.invalidCount+" 筆 PDF 連結無法辨識，請檢查。" : ""),"success");
+          showMessage("批次處理完成。此次產生 " + createdCount + " 份 PDF。" +
+            "\n目前沒有尚未確認下載的改善報告。" +
+            (state.invalidCount ? "\n另有 " + state.invalidCount + " 筆 PDF 連結無法辨識，請檢查。" : ""), "success");
           return;
         }
 
@@ -1118,7 +1518,7 @@
         if (!downloadUrl) throw new Error("ZIP 已建立，但下載連結無效。請重新開啟下載區確認批次。");
 
         try {
-          state = await callApi("getPdfDownloadState",{});
+          state = await callApi("getPdfDownloadState", {});
           renderPdfDownloadState(state);
         } catch (error) {
           console.error(error);
@@ -1126,7 +1526,7 @@
           const heading = document.createElement("h3");
           heading.textContent = "改善報告 ZIP 下載";
           box.appendChild(heading);
-          renderOpenPdfBatch(box,batch);
+          renderOpenPdfBatch(box, batch);
         }
 
         if (downloadWindow && !downloadWindow.closed) {
@@ -1134,19 +1534,19 @@
           downloadStarted = true;
         }
 
-        showMessage("批次處理完成：此次產生 "+createdCount+" 份 PDF。"+
-          "\n本批 ZIP 共 "+batch.fileCount+" 份。"+
+        showMessage("批次處理完成：此次產生 " + createdCount + " 份 PDF。" +
+          "\n本批 ZIP 共 " + batch.fileCount + " 份。" +
           (downloadStarted
             ? "\n已嘗試開啟下載；如未開始，請點下方「下載本批 ZIP」。"
-            : "\n瀏覽器可能封鎖自動下載，請點下方「下載本批 ZIP」。")+
-          "\n下載並解壓檢查後，請按「確認本批下載成功」。"+
-          "\n如果尚有其他報告，確認後再按一次一鍵按鈕。","success");
+            : "\n瀏覽器可能封鎖自動下載，請點下方「下載本批 ZIP」。") +
+          "\n下載並解壓檢查後，請按「確認本批下載成功」。" +
+          "\n如果尚有其他報告，確認後再按一次一鍵按鈕。", "success");
       } catch (error) {
         console.error(error);
         if (downloadWindow && !downloadWindow.closed && !downloadStarted) downloadWindow.close();
-        box.textContent = "批次作業未完成。已確認產生 "+createdCount+" 份 PDF。";
-        showMessage(getErrorMessage(error)+
-          "\n請先檢查回報清單、Google 雲端硬碟及下載批次，再重新操作。","error");
+        box.textContent = "批次作業未完成。已確認產生 " + createdCount + " 份 PDF。";
+        showMessage(getErrorMessage(error) +
+          "\n請先檢查回報清單、Google 雲端硬碟及下載批次，再重新操作。", "error");
       } finally {
         button.disabled = false;
       }
@@ -1157,21 +1557,29 @@
       const box = document.getElementById("downloadLinks");
       box.textContent = "";
       box.classList.remove("hidden");
+
       const heading = document.createElement("h3");
       heading.textContent = "改善報告 ZIP 下載";
       box.appendChild(heading);
+
       const summary = document.createElement("p");
       summary.className = "muted";
-      summary.textContent = "目前共有 "+state.totalCount+" 份可辨識的報告｜已確認 "+
-        state.confirmedCount+" 份｜尚未確認 "+state.pendingCount+" 份";
+      summary.textContent = "目前共有 " + state.totalCount + " 份可辨識的報告｜已確認 " +
+        state.confirmedCount + " 份｜尚未確認 " + state.pendingCount + " 份";
       box.appendChild(summary);
+
       if (state.invalidCount) {
         const warning = document.createElement("p");
         warning.className = "muted";
-        warning.textContent = "另有 "+state.invalidCount+" 筆 PDF 連結格式無法辨識，未列入下載。";
+        warning.textContent = "另有 " + state.invalidCount + " 筆 PDF 連結格式無法辨識，未列入下載。";
         box.appendChild(warning);
       }
-      if (state.openBatch) { renderOpenPdfBatch(box,state.openBatch); return; }
+
+      if (state.openBatch) {
+        renderOpenPdfBatch(box, state.openBatch);
+        return;
+      }
+
       const note = document.createElement("p");
       note.textContent = state.pendingCount
         ? "尚有報告待下載，請按「一鍵產生並下載 PDF」建立下一批。"
@@ -1179,113 +1587,175 @@
       box.appendChild(note);
     }
 
-    function renderOpenPdfBatch(box,batch) {
+    function renderOpenPdfBatch(box, batch) {
       const batchInfo = document.createElement("p");
-      batchInfo.textContent = "待確認批次："+batch.batchId+"｜建立人："+batch.createdBy+"｜檔案數："+batch.fileCount+" 份";
+      batchInfo.textContent = "待確認批次：" + batch.batchId + "｜建立人：" +
+        batch.createdBy + "｜檔案數：" + batch.fileCount + " 份";
       box.appendChild(batchInfo);
+
       const url = safeLink(batch.downloadUrl);
       if (!url) {
         const error = document.createElement("p");
         error.textContent = "ZIP 下載連結無效，請聯絡管理員。";
-        box.appendChild(error); return;
+        box.appendChild(error);
+        return;
       }
+
       const link = document.createElement("a");
-      link.href = url; link.target = "_blank"; link.rel = "noopener noreferrer"; link.textContent = "下載本批 ZIP";
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "下載本批 ZIP";
       box.appendChild(link);
+
       const note = document.createElement("p");
       note.className = "muted";
       note.textContent = "請先下載並解壓縮，確認本批所有 PDF 均完整可開啟，再按下方按鈕。若下載失敗，可重新按上面的連結。";
       box.appendChild(note);
-      const details = document.createElement("details"), detailsSummary = document.createElement("summary"), list = document.createElement("ul");
-      detailsSummary.textContent = "查看本批 PDF 清單"; details.appendChild(detailsSummary);
+
+      const details = document.createElement("details");
+      const detailsSummary = document.createElement("summary");
+      const list = document.createElement("ul");
+      detailsSummary.textContent = "查看本批 PDF 清單";
+      details.appendChild(detailsSummary);
+
       (Array.isArray(batch.files) ? batch.files : []).forEach(function (file) {
         const item = document.createElement("li");
         item.textContent = file.formNumber || file.reportId || file.fileId;
         list.appendChild(item);
       });
-      details.appendChild(list); box.appendChild(details);
+
+      details.appendChild(list);
+      box.appendChild(details);
+
       const confirmButton = document.createElement("button");
-      confirmButton.type = "button"; confirmButton.textContent = "確認本批下載成功";
-      confirmButton.addEventListener("click",async function () {
-        if (!window.confirm("請確認 ZIP 已下載、解壓縮，且本批 "+batch.fileCount+
+      confirmButton.type = "button";
+      confirmButton.textContent = "確認本批下載成功";
+
+      confirmButton.addEventListener("click", async function () {
+        if (!window.confirm("請確認 ZIP 已下載、解壓縮，且本批 " + batch.fileCount +
           " 份 PDF 均完整可開啟。\n\n確認後，這些檔案將不會再列入待下載清單。")) return;
+
         const currentName = getCurrentReporterName();
-        const name = window.prompt("請輸入確認下載的人員姓名：",currentName === "現場人員" ? "" : currentName);
+        const name = window.prompt("請輸入確認下載的人員姓名：", currentName === "現場人員" ? "" : currentName);
         if (name === null) return;
+
         const reporterName = name.trim();
-        if (!reporterName || reporterName === "現場人員") { showMessage("請輸入實際姓名。","error"); return; }
-        if (reporterName.length > 50) { showMessage("人員姓名不可超過 50 字。","error"); return; }
+        if (!reporterName || reporterName === "現場人員") {
+          showMessage("請輸入實際姓名。", "error");
+          return;
+        }
+        if (reporterName.length > 50) {
+          showMessage("人員姓名不可超過 50 字。", "error");
+          return;
+        }
+
         confirmButton.disabled = true;
+
         try {
-          showMessage("正在儲存下載確認紀錄……","info");
-          const result = await callApi("confirmPdfDownloadZip",{ batchId:batch.batchId,reporterName });
-          const newState = await callApi("getPdfDownloadState",{});
+          showMessage("正在儲存下載確認紀錄……", "info");
+          const result = await callApi("confirmPdfDownloadZip", { batchId: batch.batchId, reporterName });
+          const newState = await callApi("getPdfDownloadState", {});
           renderPdfDownloadState(newState);
-          showMessage((result.alreadyConfirmed ? "此批次之前已確認下載。" : "已將本批下載確認紀錄儲存至 Google 試算表。")+
-            (newState.pendingCount ? "\n尚有 "+newState.pendingCount+" 份待確認，請再按「一鍵產生並下載 PDF」。" : ""),"success");
+
+          showMessage((result.alreadyConfirmed ? "此批次之前已確認下載。" : "已將本批下載確認紀錄儲存至 Google 試算表。") +
+            (newState.pendingCount ? "\n尚有 " + newState.pendingCount + " 份待確認，請再按「一鍵產生並下載 PDF」。" : ""), "success");
         } catch (error) {
           console.error(error);
-          showMessage("儲存確認紀錄或更新狀態失敗："+getErrorMessage(error)+
-            "\n若網路中斷，請重新按一鍵按鈕確認狀態；不要直接假設已儲存。","error");
-        } finally { confirmButton.disabled = false; }
+          showMessage("儲存確認紀錄或更新狀態失敗：" + getErrorMessage(error) +
+            "\n若網路中斷，請重新按一鍵按鈕確認狀態；不要直接假設已儲存。", "error");
+        } finally {
+          confirmButton.disabled = false;
+        }
       });
+
       box.appendChild(confirmButton);
     }
 
     /* API 與工具 */
-    async function callApi(action,data) {
-      if (!CONFIG.APPS_SCRIPT_URL || !CONFIG.APPS_SCRIPT_URL.startsWith("https://script.google.com/")) throw new Error("Apps Script API 網址設定錯誤。");
-      const requestData = Object.assign({},data || {});
+    async function callApi(action, data) {
+      if (!CONFIG.APPS_SCRIPT_URL || !CONFIG.APPS_SCRIPT_URL.startsWith("https://script.google.com/")) {
+        throw new Error("Apps Script API 網址設定錯誤。");
+      }
+
+      const requestData = Object.assign({}, data || {});
       if (!requestData.reporterName) requestData.reporterName = getCurrentReporterName();
+
       let response;
       try {
-        response = await fetch(CONFIG.APPS_SCRIPT_URL,{
-          method:"POST", redirect:"follow",
-          headers:{ "Content-Type":"text/plain;charset=utf-8" },
-          body:JSON.stringify({ action,data:requestData })
+        response = await fetch(CONFIG.APPS_SCRIPT_URL, {
+          method: "POST",
+          redirect: "follow",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action, data: requestData })
         });
       } catch (error) {
         console.error(error);
         throw new Error("無法連線至後端。請檢查網路、Apps Script 網址及部署權限。");
       }
+
       const text = await response.text();
-      if (!response.ok) throw new Error("後端連線失敗：HTTP "+response.status+"。"+text.substring(0,150));
+      if (!response.ok) throw new Error("後端連線失敗：HTTP " + response.status + "。" + text.substring(0, 150));
+
       let result;
-      try { result = JSON.parse(text); }
-      catch (error) {
-        console.error("後端原始回應：",text);
+      try {
+        result = JSON.parse(text);
+      } catch (error) {
+        console.error("後端原始回應：", text);
         throw new Error("後端沒有回傳有效 JSON。請確認 Apps Script 已部署為「任何人」可存取。");
       }
+
       if (!result.ok) throw new Error(result.message || "操作失敗。");
       return result;
     }
+
     function openImprovementPage() {
       updateImprovementOptions();
       const savedName = localStorage.getItem("yawanReporterName") || "";
       if (savedName) document.getElementById("improvementReporterName").value = savedName;
       showPage("improvementPage");
     }
-    async function openListPage() { showPage("listPage"); await loadReports(); }
+
+    async function openListPage() {
+      showPage("listPage");
+      await loadReports();
+    }
+
     function showPage(pageId) {
-      document.querySelectorAll(".page").forEach(function (element) { element.classList.add("hidden"); });
+      document.querySelectorAll(".page").forEach(function (element) {
+        element.classList.add("hidden");
+      });
       const page = document.getElementById(pageId);
       if (page) page.classList.remove("hidden");
     }
-    function showMessage(text,type) {
+
+    function showMessage(text, type) {
       const element = document.getElementById("message");
       element.textContent = text || "";
-      element.className = "message "+(type || "info");
+      element.className = "message " + (type || "info");
       element.classList.remove("hidden");
-      if (type === "success" || type === "error") window.scrollTo({ top:0,behavior:"smooth" });
+
+      if (type === "success" || type === "error") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
+
     function getValue(id) {
       const element = document.getElementById(id);
       return element ? String(element.value || "").trim() : "";
     }
-    function getErrorMessage(error) { return error ? error.message || String(error) : "發生未知錯誤。"; }
+
+    function getErrorMessage(error) {
+      return error ? error.message || String(error) : "發生未知錯誤。";
+    }
+
     function escapeHtml(value) {
-      return String(value == null ? "" : value).replace(/&/g,"&amp;").replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+      return String(value == null ? "" : value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
   </script>
 </body>

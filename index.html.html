@@ -44,7 +44,7 @@
       padding: 20px;
       background: white;
       border-radius: 14px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
     }
 
     .hidden { display: none !important; }
@@ -222,10 +222,7 @@
     }
 
     .filter-box p { margin: 10px 0 0; }
-
-    .common-item-panel {
-      margin: 10px 0 12px;
-    }
+    .common-item-panel { margin: 10px 0 12px; }
 
     .common-item-panel summary {
       cursor: pointer;
@@ -499,6 +496,9 @@
             <button id="submitReportButton" type="submit">
               送出現場回報
             </button>
+            <p class="muted">
+              回報建立成功後，系統會自動產生缺失改善報告 PDF。
+            </p>
           </div>
         </div>
       </form>
@@ -655,110 +655,108 @@
 
     /*
      * 通用缺失項目：
-     * 如需增加項目，可在此清單中新增一行，
-     * 格式例如： "新的缺失項目",
+     * 如需增加項目，可在此清單中新增一行。
      */
     const COMMON_ITEMS = [
       "二丁掛未施作",
-  "二丁掛需修補",
-  "陽台二丁掛未完成",
-  "木紋磚未完成",
-  "木紋磚污損",
-  "木紋磚需修補",
-  "陽台部分木紋磚未施作",
-  "門口地磚破損",
-  "廁所壁磚孔洞",
-  "廁所天花介面壁磚填縫未完成",
-  "石材未施作",
-  "陽台部分石材未完成",
-  "牆面污損",
-  "牆面裂痕",
-  "臥室牆面裂痕",
-  "牆面裂痕／戶內髒污",
-  "牆面孔洞",
-  "牆面交界處破口",
-  "牆面平整度修改",
-  "天花板孔洞",
-  "全區天花板孔洞修補",
-  "天花板破損",
-  "天花板污損",
-  "天花板未完成",
-  "陽台天花板未施作",
-  "油漆未完成",
-  "塗料未完成",
-  "牆面塗料未完成",
-  "陽台塗料未完成",
-  "外牆塗料未完成",
-  "窗簾盒收邊不完整",
-  "大門把手牆面孔洞",
-  "門窗未安裝",
-  "全間鋁門窗未安裝",
-  "落地窗未安裝",
-  "廁所鋁窗未安裝",
-  "臥室2鋁門窗未安裝",
-  "玻璃未安裝",
-  "臥室1窗戶玻璃未安裝",
-  "臥室2窗戶玻璃未安裝",
-  "廁所窗戶玻璃未安裝",
-  "廁所2窗戶玻璃未安裝",
-  "臥室玻璃破損",
-  "紗窗未安裝",
-  "廁所紗窗未安裝",
-  "開關門不順",
-  "廁所窗戶開關不順",
-  "軌道未清潔",
-  "落地窗軌道變形",
-  "落地窗框變形",
-  "鋁企口開孔未密合",
-  "矽利康未施作",
-  "鋁窗未打矽利康",
-  "門框與牆面介面收邊",
-  "廁所窗戶土屎未清理",
-  "馬桶未安裝",
-  "洗手台未安裝",
-  "衛浴設備未安裝",
-  "主臥衛浴設備未安裝",
-  "廁所1衛浴設備未安裝",
-  "廁所2衛浴設備未安裝",
-  "淋浴拉門未安裝",
-  "廚具未安裝",
-  "廚櫃未安裝",
-  "廚房無烤漆玻璃",
-  "欄杆未施作",
-  "欄杆不穩固",
-  "欄杆不穩固、縫隙太大",
-  "欄杆固定件缺少",
-  "陽台欄杆高低不平",
-  "陽台欄杆縫隙過寬",
-  "格柵未安裝",
-  "格柵不穩固",
-  "截水溝未完成",
-  "陽台截水溝未完成",
-  "陽台截水溝未安裝",
-  "廁所1截水溝未施作",
-  "踢腳板未完成",
-  "全區踢腳板未施作",
-  "落地窗踢腳未完成",
-  "落地窗踢腳未上漆",
-  "門檻未施作",
-  "浴室不鏽鋼門檻未安裝",
-  "水電未安裝",
-  "套管未收尾",
-  "管邊未收尾",
-  "臥室2雄菱管溝修補",
-  "孔洞未修補",
-  "檢修孔面板消失",
-  "廁所1檢修孔板消失",
-  "廁所2檢修孔板消失",
-  "曬衣架未完成"
-];
-
+      "二丁掛需修補",
+      "陽台二丁掛未完成",
+      "木紋磚未完成",
+      "木紋磚污損",
+      "木紋磚需修補",
+      "陽台部分木紋磚未施作",
+      "門口地磚破損",
+      "廁所壁磚孔洞",
+      "廁所天花介面壁磚填縫未完成",
+      "石材未施作",
+      "陽台部分石材未完成",
+      "牆面污損",
+      "牆面裂痕",
+      "臥室牆面裂痕",
+      "牆面裂痕／戶內髒污",
+      "牆面孔洞",
+      "牆面交界處破口",
+      "牆面平整度修改",
+      "天花板孔洞",
+      "全區天花板孔洞修補",
+      "天花板破損",
+      "天花板污損",
+      "天花板未完成",
+      "陽台天花板未施作",
+      "油漆未完成",
+      "塗料未完成",
+      "牆面塗料未完成",
+      "陽台塗料未完成",
+      "外牆塗料未完成",
+      "窗簾盒收邊不完整",
+      "大門把手牆面孔洞",
+      "門窗未安裝",
+      "全間鋁門窗未安裝",
+      "落地窗未安裝",
+      "廁所鋁窗未安裝",
+      "臥室2鋁門窗未安裝",
+      "玻璃未安裝",
+      "臥室1窗戶玻璃未安裝",
+      "臥室2窗戶玻璃未安裝",
+      "廁所窗戶玻璃未安裝",
+      "廁所2窗戶玻璃未安裝",
+      "臥室玻璃破損",
+      "紗窗未安裝",
+      "廁所紗窗未安裝",
+      "開關門不順",
+      "廁所窗戶開關不順",
+      "軌道未清潔",
+      "落地窗軌道變形",
+      "落地窗框變形",
+      "鋁企口開孔未密合",
+      "矽利康未施作",
+      "鋁窗未打矽利康",
+      "門框與牆面介面收邊",
+      "廁所窗戶土屎未清理",
+      "馬桶未安裝",
+      "洗手台未安裝",
+      "衛浴設備未安裝",
+      "主臥衛浴設備未安裝",
+      "廁所1衛浴設備未安裝",
+      "廁所2衛浴設備未安裝",
+      "淋浴拉門未安裝",
+      "廚具未安裝",
+      "廚櫃未安裝",
+      "廚房無烤漆玻璃",
+      "欄杆未施作",
+      "欄杆不穩固",
+      "欄杆不穩固、縫隙太大",
+      "欄杆固定件缺少",
+      "陽台欄杆高低不平",
+      "陽台欄杆縫隙過寬",
+      "格柵未安裝",
+      "格柵不穩固",
+      "截水溝未完成",
+      "陽台截水溝未完成",
+      "陽台截水溝未安裝",
+      "廁所1截水溝未施作",
+      "踢腳板未完成",
+      "全區踢腳板未施作",
+      "落地窗踢腳未完成",
+      "落地窗踢腳未上漆",
+      "門檻未施作",
+      "浴室不鏽鋼門檻未安裝",
+      "水電未安裝",
+      "套管未收尾",
+      "管邊未收尾",
+      "臥室2雄菱管溝修補",
+      "孔洞未修補",
+      "檢修孔面板消失",
+      "廁所1檢修孔板消失",
+      "廁所2檢修孔板消失",
+      "曬衣架未完成"
+    ];
 
     let reports = [];
     let detailRequestToken = 0;
     let autoUnfinishedText = "";
 
-    // 記錄系統加入的通用項目，避免移除使用者原有的相同行。
+    // 記錄系統加入的通用項目。
     const insertedCommonItems = new Set();
     const commonItemEntries = new Map();
 
@@ -902,7 +900,7 @@
       const description = document.getElementById("description");
       const lines = description.value.split("\n");
 
-      // 已存在相同行時，不重複加入，也不標記為系統新增。
+      // 已存在相同行時，不重複加入。
       if (lines.includes(item)) return true;
 
       const nextValue = description.value
@@ -928,7 +926,7 @@
       const lines = description.value.split("\n");
       const index = lines.indexOf(item);
 
-      // 只移除未被修改的完整行；修改過的內容會保留。
+      // 只移除未被修改的完整行。
       if (index !== -1) {
         lines.splice(index, 1);
         description.value = lines.join("\n");
@@ -1160,9 +1158,7 @@
           editor.base = document.createElement("canvas");
           editor.base.width = width;
           editor.base.height = height;
-
-          editor.base.getContext("2d")
-            .drawImage(image, 0, 0, width, height);
+          editor.base.getContext("2d").drawImage(image, 0, 0, width, height);
 
           editor.loaded = true;
           editor.tool = "";
@@ -1457,16 +1453,8 @@
             editor.canvas.height - shape.h
           );
         } else {
-          shape.w = Math.min(
-            editor.canvas.width,
-            Math.max(shape.w, minSize)
-          );
-
-          shape.h = Math.min(
-            editor.canvas.height,
-            Math.max(shape.h, minSize)
-          );
-
+          shape.w = Math.min(editor.canvas.width, Math.max(shape.w, minSize));
+          shape.h = Math.min(editor.canvas.height, Math.max(shape.h, minSize));
           shape.x = clamp(shape.x, 0, editor.canvas.width - shape.w);
           shape.y = clamp(shape.y, 0, editor.canvas.height - shape.h);
         }
@@ -1629,13 +1617,17 @@
       event.preventDefault();
 
       const button = document.getElementById("submitReportButton");
+      if (button.disabled) return;
       button.disabled = true;
+
+      let result = null;
 
       try {
         const reporterName = getValue("reporterName");
         const project = getValue("project");
         const categorySelect = document.getElementById("category");
-        const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+        const selectedOption =
+          categorySelect.options[categorySelect.selectedIndex];
         const category = selectedOption ? selectedOption.text.trim() : "";
         const location = getValue("location");
         const description = getValue("description");
@@ -1657,7 +1649,7 @@
 
         showMessage("正在上傳照片並建立回報，請稍候……", "info");
 
-        const result = await callApi("createReport", {
+        result = await callApi("createReport", {
           reporterName,
           project,
           category,
@@ -1669,23 +1661,77 @@
           photo
         });
 
+        // 後端已確認建立回報。PDF 失敗時不重送回報。
+        const reportId = result.reportId || "";
+        const formNumber = result.formNumber || reportId || "未取得編號";
+
         document.getElementById("reportForm").reset();
         document.getElementById("reporterName").value = reporterName;
         document.getElementById("project").value = CONFIG.DEFAULT_PROJECT;
         clearPhoto("before");
 
+        let pdfError = "";
+
+        if (!reportId) {
+          pdfError = "後端未回傳回報編號，無法自動產生 PDF。";
+        } else {
+          try {
+            showMessage(
+              "回報已建立，正在產生缺失改善報告 PDF，請勿關閉網頁……",
+              "info"
+            );
+
+            await callApi("createPdf", {
+              reporterName,
+              reportId,
+              reportType: "improvement",
+              acceptorName: ""
+            });
+          } catch (error) {
+            console.error("自動產生 PDF 失敗：", error);
+            pdfError = getErrorMessage(error);
+          }
+        }
+
         const refreshed = await loadReports(false);
         showPage("listPage");
 
-        showMessage(
-          "回報建立成功，表單編號：" +
-          (result.formNumber || result.reportId || "") +
-          (refreshed ? "" : "。清單更新失敗，請按重新整理。"),
-          "success"
-        );
+        if (pdfError) {
+          showMessage(
+            "回報已建立，表單編號：" + formNumber +
+            "\n無法確認 PDF 是否產生成功：" + pdfError +
+            "\n請先查看試算表或重新整理清單；若沒有 PDF，" +
+            "可在清單按「缺失改善報告 PDF」重新產生。" +
+            "\n請勿重新送出回報，以免重複建立。" +
+            (refreshed ? "" : "\n清單更新失敗，請按重新整理。"),
+            "error"
+          );
+        } else {
+          showMessage(
+            "回報建立成功，表單編號：" + formNumber +
+            "\n缺失改善報告 PDF 已產生，可至回報清單或試算表下載。" +
+            (refreshed ? "" : "\n清單更新失敗，請按重新整理。"),
+            "success"
+          );
+        }
       } catch (error) {
         console.error(error);
-        showMessage(getErrorMessage(error), "error");
+
+        if (result) {
+          showMessage(
+            "回報已建立，表單編號：" +
+            (result.formNumber || result.reportId || "未取得編號") +
+            "\n後續處理發生錯誤：" + getErrorMessage(error) +
+            "\n請先查看回報清單及試算表，不要重新送出回報。",
+            "error"
+          );
+        } else {
+          showMessage(
+            getErrorMessage(error) +
+            "\n若發生網路中斷，回報可能已建立；重新送出前請先檢查清單。",
+            "error"
+          );
+        }
       } finally {
         button.disabled = false;
       }
@@ -1740,7 +1786,8 @@
 
         showMessage(
           "改善回報完成。" +
-          (refreshed ? "" : "清單更新失敗，請按重新整理。"),
+          (refreshed ? "" : "清單更新失敗，請按重新整理。") +
+          "\n如需包含改善後照片的報告，請重新產生缺失改善報告 PDF。",
           "success"
         );
       } catch (error) {
@@ -2076,7 +2123,7 @@
       }
     }
 
-    /* ========== PDF ========== */
+    /* ========== 手動產生 PDF ========== */
 
     async function createPdf(reportId, reportType, button) {
       const isAcceptance = reportType === "acceptance";

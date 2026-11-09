@@ -22,16 +22,8 @@
       background: #0f766e;
     }
 
-    header h1 {
-      margin: 0 0 6px;
-      font-size: 24px;
-    }
-
-    header p {
-      margin: 0;
-      font-size: 14px;
-      opacity: .9;
-    }
+    header h1 { margin: 0 0 6px; font-size: 24px; }
+    header p { margin: 0; font-size: 14px; opacity: .9; }
 
     main {
       max-width: 1000px;
@@ -86,10 +78,7 @@
       border-color: #0f766e;
     }
 
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
+    textarea { min-height: 110px; resize: vertical; }
 
     button {
       padding: 10px 15px;
@@ -216,11 +205,7 @@
       border-radius: 10px;
     }
 
-    .filter-box h3 {
-      margin: 0 0 12px;
-      font-size: 16px;
-    }
-
+    .filter-box h3 { margin: 0 0 12px; font-size: 16px; }
     .filter-box p { margin: 10px 0 0; }
     .common-item-panel { margin: 10px 0 12px; }
 
@@ -276,12 +261,16 @@
 
     .common-item-list label[hidden] { display: none; }
 
-    .detail-box {
+    .detail-box, .download-box {
       padding: 14px;
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
     }
+
+    .download-box { margin: 12px 0; }
+    .download-box h3 { margin: 0 0 8px; }
+    .download-box a { display: block; }
 
     .detail-box img {
       display: block;
@@ -327,9 +316,7 @@
          role="status" aria-live="polite"></div>
 
     <nav class="nav">
-      <button type="button" onclick="showPage('createPage')">
-        新增回報
-      </button>
+      <button type="button" onclick="showPage('createPage')">新增回報</button>
       <button type="button" class="secondary" onclick="openImprovementPage()">
         改善回報
       </button>
@@ -380,7 +367,7 @@
               <option value="土建">土建-欄杆.陽台截水溝(傑將)</option>
               <option value="土建">土建-整體衛浴(興連興)</option>
               <option value="土建">土建-烤漆玻璃.淋浴拉門.矽利康(昇光)</option>
-              <option value="土建">土建-玻纖門(塑恆)</option>
+              <option value="土建">土建-塑鋼門(塑恆)</option>
             </select>
           </div>
 
@@ -424,7 +411,6 @@
                 <input id="commonItemSearch" type="search"
                        placeholder="搜尋項目，例如：窗戶、天花板"
                        aria-label="搜尋通用缺失項目">
-
                 <button id="clearCommonItems" type="button" class="light">
                   清除已選項目
                 </button>
@@ -432,7 +418,6 @@
 
               <p id="commonItemCount" class="common-item-count"
                  aria-live="polite"></p>
-
               <div id="commonItemList" class="common-item-list"></div>
 
               <p class="muted">
@@ -454,8 +439,7 @@
 
             <input id="beforeCamera" class="hidden" type="file"
                    accept="image/*" capture="environment">
-            <input id="beforeFile" class="hidden" type="file"
-                   accept="image/*">
+            <input id="beforeFile" class="hidden" type="file" accept="image/*">
 
             <div class="photo-pick">
               <button type="button"
@@ -494,12 +478,7 @@
           </div>
 
           <div class="full">
-            <button id="submitReportButton" type="submit">
-              送出現場回報
-            </button>
-            <p class="muted">
-              回報建立成功後，系統會自動產生缺失改善報告 PDF。
-            </p>
+            <button id="submitReportButton" type="submit">送出現場回報</button>
           </div>
         </div>
       </form>
@@ -631,10 +610,23 @@
     <section id="listPage" class="card page hidden">
       <div class="actions">
         <h2 style="flex: 1">回報清單</h2>
+
         <button type="button" class="secondary" onclick="loadReports()">
           重新整理
         </button>
+
+        <button id="downloadAllPdfsButton"
+                type="button"
+                onclick="downloadAllImprovementPdfs()">
+          一鍵下載所有改善報告 PDF
+        </button>
       </div>
+
+      <p class="muted">
+        一鍵下載只包含已產生的改善報告，不會重新產生 PDF，也不包含驗收單。
+      </p>
+
+      <div id="downloadLinks" class="download-box hidden"></div>
       <div id="reportList">讀取中……</div>
     </section>
   </main>
@@ -654,10 +646,6 @@
       "土建": "永青營造"
     };
 
-    /*
-     * 通用缺失項目：
-     * 如需增加項目，可在此清單中新增一行。
-     */
     const COMMON_ITEMS = [
       "二丁掛未施作",
       "二丁掛需修補",
@@ -757,7 +745,6 @@
     let detailRequestToken = 0;
     let autoUnfinishedText = "";
 
-    // 記錄系統加入的通用項目。
     const insertedCommonItems = new Set();
     const commonItemEntries = new Map();
 
@@ -901,7 +888,6 @@
       const description = document.getElementById("description");
       const lines = description.value.split("\n");
 
-      // 已存在相同行時，不重複加入。
       if (lines.includes(item)) return true;
 
       const nextValue = description.value
@@ -927,7 +913,6 @@
       const lines = description.value.split("\n");
       const index = lines.indexOf(item);
 
-      // 只移除未被修改的完整行。
       if (index !== -1) {
         lines.splice(index, 1);
         description.value = lines.join("\n");
@@ -1361,7 +1346,6 @@
           anchorY: anchor[1],
           pointerId: event.pointerId
         };
-
         return;
       }
 
@@ -1662,68 +1646,30 @@
           photo
         });
 
-        // 後端已確認建立回報。PDF 失敗時不重送回報。
-        const reportId = result.reportId || "";
-        const formNumber = result.formNumber || reportId || "未取得編號";
+        const formNumber =
+          result.formNumber || result.reportId || "未取得編號";
 
         document.getElementById("reportForm").reset();
         document.getElementById("reporterName").value = reporterName;
         document.getElementById("project").value = CONFIG.DEFAULT_PROJECT;
         clearPhoto("before");
 
-        let pdfError = "";
-
-        if (!reportId) {
-          pdfError = "後端未回傳回報編號，無法自動產生 PDF。";
-        } else {
-          try {
-            showMessage(
-              "回報已建立，正在產生缺失改善報告 PDF，請勿關閉網頁……",
-              "info"
-            );
-
-            await callApi("createPdf", {
-              reporterName,
-              reportId,
-              reportType: "improvement",
-              acceptorName: ""
-            });
-          } catch (error) {
-            console.error("自動產生 PDF 失敗：", error);
-            pdfError = getErrorMessage(error);
-          }
-        }
-
         const refreshed = await loadReports(false);
         showPage("listPage");
 
-        if (pdfError) {
-          showMessage(
-            "回報已建立，表單編號：" + formNumber +
-            "\n無法確認 PDF 是否產生成功：" + pdfError +
-            "\n請先查看試算表或重新整理清單；若沒有 PDF，" +
-            "可在清單按「缺失改善報告 PDF」重新產生。" +
-            "\n請勿重新送出回報，以免重複建立。" +
-            (refreshed ? "" : "\n清單更新失敗，請按重新整理。"),
-            "error"
-          );
-        } else {
-          showMessage(
-            "回報建立成功，表單編號：" + formNumber +
-            "\n缺失改善報告 PDF 已產生，可至回報清單或試算表下載。" +
-            (refreshed ? "" : "\n清單更新失敗，請按重新整理。"),
-            "success"
-          );
-        }
+        showMessage(
+          "回報建立成功，表單編號：" + formNumber +
+          (refreshed ? "" : "\n清單更新失敗，請按重新整理。"),
+          "success"
+        );
       } catch (error) {
         console.error(error);
 
         if (result) {
           showMessage(
-            "回報已建立，表單編號：" +
-            (result.formNumber || result.reportId || "未取得編號") +
-            "\n後續處理發生錯誤：" + getErrorMessage(error) +
-            "\n請先查看回報清單及試算表，不要重新送出回報。",
+            "回報已建立，但後續處理發生錯誤：" +
+            getErrorMessage(error) +
+            "\n請先檢查清單，不要重新送出回報。",
             "error"
           );
         } else {
@@ -1742,6 +1688,7 @@
       event.preventDefault();
 
       const button = document.getElementById("submitImprovementButton");
+      if (button.disabled) return;
       button.disabled = true;
 
       try {
@@ -1787,8 +1734,7 @@
 
         showMessage(
           "改善回報完成。" +
-          (refreshed ? "" : "清單更新失敗，請按重新整理。") +
-          "\n如需包含改善後照片的報告，請重新產生缺失改善報告 PDF。",
+          (refreshed ? "" : "清單更新失敗，請按重新整理。"),
           "success"
         );
       } catch (error) {
@@ -1948,11 +1894,6 @@
       return /^\d+$/.test(unit) ? String(Number(unit)) : unit;
     }
 
-    /*
-     * 支援 A14-01、A棟14樓01戶、AB1-01 等格式。
-     * AB1-01 視為 A 棟 B1 樓；
-     * 多字母棟別若有歧義，請使用「AB棟1樓01戶」。
-     */
     function parseLocation(location) {
       const text = normalizeText(location);
 
@@ -2189,6 +2130,98 @@
         showMessage(getErrorMessage(error), "error");
       } finally {
         if (button) button.disabled = false;
+      }
+    }
+
+    /* ========== 一鍵下載已產生的改善報告 ========== */
+
+    async function downloadAllImprovementPdfs() {
+      const button = document.getElementById("downloadAllPdfsButton");
+      const box = document.getElementById("downloadLinks");
+
+      if (button.disabled) return;
+      button.disabled = true;
+
+      box.textContent = "";
+      box.classList.add("hidden");
+
+      try {
+        showMessage("正在讀取已產生的改善報告 PDF……", "info");
+
+        const result = await callApi("listAllImprovementPdfs", {});
+        const files = Array.isArray(result.files) ? result.files : [];
+
+        if (!files.length) {
+          showMessage("目前沒有可用的改善報告 PDF 連結。", "info");
+          return;
+        }
+
+        const heading = document.createElement("h3");
+        heading.textContent = "改善報告下載連結";
+        box.appendChild(heading);
+
+        const note = document.createElement("p");
+        note.className = "muted";
+        note.textContent =
+          "若瀏覽器攔截批次下載，請允許多個下載，或點選下方連結逐一下載。";
+        box.appendChild(note);
+
+        const links = [];
+
+        files.forEach(function (file, index) {
+          const url = safeLink(file.downloadUrl);
+          if (!url) return;
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent =
+            (index + 1) + ". " + (file.formNumber || "改善報告") + " PDF";
+
+          box.appendChild(link);
+          links.push(link);
+        });
+
+        if (!links.length) {
+          showMessage("沒有可用的 PDF 下載連結。", "error");
+          return;
+        }
+
+        box.classList.remove("hidden");
+
+        const invalidText = result.invalidCount
+          ? "\n另有 " + result.invalidCount + " 筆連結格式無法辨識，已跳過。"
+          : "";
+
+        showMessage(
+          "找到 " + links.length + " 份報告，正在嘗試逐一下載。" +
+          "\n若瀏覽器詢問是否允許下載多個檔案，請選擇「允許」。" +
+          "\n下載是否成功請至瀏覽器下載清單確認。" +
+          invalidText,
+          "info"
+        );
+
+        for (const link of links) {
+          link.click();
+
+          await new Promise(function (resolve) {
+            window.setTimeout(resolve, 500);
+          });
+        }
+
+        showMessage(
+          "已嘗試下載 " + links.length + " 份報告。" +
+          "\n瀏覽器或 Google Drive 可能攔截部分下載或要求登入，" +
+          "請檢查下載清單；未下載的檔案可使用下方個別連結。" +
+          invalidText,
+          "info"
+        );
+      } catch (error) {
+        console.error(error);
+        showMessage("讀取 PDF 連結失敗：" + getErrorMessage(error), "error");
+      } finally {
+        button.disabled = false;
       }
     }
 

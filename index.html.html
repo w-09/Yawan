@@ -8,21 +8,21 @@
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; color: #1f2937; background: #f1f5f9; font-family: Arial, "Microsoft JhengHei", sans-serif; }
-    header { padding: 18px; color: white; background: #0f766e; }
+    header { padding: 18px; color: #fff; background: #0f766e; }
     header h1 { margin: 0 0 6px; font-size: 24px; }
     header p { margin: 0; font-size: 14px; opacity: .9; }
     main { max-width: 1000px; margin: auto; padding: 16px; }
-    .card { margin-bottom: 16px; padding: 20px; background: white; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+    .card { margin-bottom: 16px; padding: 20px; background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
     .hidden { display: none !important; }
-    .grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
     .full { grid-column: 1 / -1; }
     label { display: block; margin-bottom: 6px; font-weight: bold; }
     input, select, textarea, button { width: 100%; min-height: 44px; font: inherit; border-radius: 8px; }
-    input, select, textarea { padding: 10px; border: 1px solid #cbd5e1; background: white; }
+    input, select, textarea { padding: 10px; border: 1px solid #cbd5e1; background: #fff; }
     input[readonly] { background: #f1f5f9; color: #475569; }
     input:focus, select:focus, textarea:focus { outline: 2px solid #5eead4; border-color: #0f766e; }
     textarea { min-height: 110px; resize: vertical; }
-    button { padding: 10px 15px; border: 0; color: white; background: #0f766e; font-weight: bold; cursor: pointer; }
+    button { padding: 10px 15px; border: 0; color: #fff; background: #0f766e; font-weight: bold; cursor: pointer; }
     button.secondary { background: #475569; }
     button.warning { background: #c2410c; }
     button.light { color: #1f2937; background: #e2e8f0; }
@@ -46,18 +46,17 @@
     .badge { display: inline-block; padding: 4px 9px; color: #065f46; background: #d1fae5; border-radius: 999px; font-size: 13px; font-weight: bold; }
     .filter-box, .common-item-panel { padding: 14px; background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 10px; }
     .filter-box h3 { margin: 0 0 12px; font-size: 16px; }
-    .filter-box p { margin: 10px 0 0; }
     .common-item-panel { margin: 10px 0 12px; }
     .common-item-panel summary { cursor: pointer; font-weight: bold; color: #115e59; }
     .common-item-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
     .common-item-controls input { flex: 1 1 200px; width: auto; }
     .common-item-controls button { width: auto; }
     .common-item-count { margin: 8px 0; color: #475569; font-size: 14px; }
-    .common-item-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 12px; max-height: 300px; overflow-y: auto; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
+    .common-item-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 12px; max-height: 300px; overflow-y: auto; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; }
     .common-item-list label { display: flex; align-items: flex-start; gap: 8px; margin: 0; padding: 7px 4px; font-weight: normal; cursor: pointer; overflow-wrap: anywhere; }
     .common-item-list label[hidden] { display: none; }
     .detail-box, .download-box { padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; }
-    .download-box { margin: 12px 0; }
+    .download-box { margin: 12px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
     .download-box h3 { margin: 0 0 8px; }
     .download-box button { width: auto; margin-top: 10px; }
     .detail-box img { display: block; width: 100%; max-height: 450px; margin-top: 10px; object-fit: contain; background: #111827; border-radius: 8px; }
@@ -76,6 +75,7 @@
     <h1>現場回報系統</h1>
     <p id="userInfo">免登入，開啟後即可直接回報</p>
   </header>
+
   <main>
     <div id="message" class="message info hidden" role="status" aria-live="polite"></div>
     <nav class="nav">
@@ -121,6 +121,7 @@
           <div><label for="owner">改善負責人（依類型自動帶入）</label><input id="owner" maxlength="100" readonly></div>
           <div><label for="dueDate">改善期限（開立日加 7 天）</label><input id="dueDate" type="date" readonly></div>
           <div><label for="severity">嚴重程度</label><select id="severity"><option value="一般">一般</option><option value="重要">重要</option><option value="緊急">緊急</option></select></div>
+
           <div class="full">
             <label for="description">回報內容 *</label>
             <label class="checkbox-label" for="unfinishedCheckbox"><input id="unfinishedCheckbox" type="checkbox">通用項目：未完成</label>
@@ -135,8 +136,9 @@
               <p class="muted">可複選。勾選後會逐行加入回報內容，也可手動修改或補充說明。</p>
             </details>
             <textarea id="description" maxlength="2000" placeholder="請輸入現場狀況或缺失內容" required></textarea>
-            <p class="muted">勾選「未完成」會自動加入回報類型及「未完成」。其他通用項目會依所選內容逐行加入。</p>
+            <p class="muted">勾選「未完成」會自動加入回報類型及「未完成」。</p>
           </div>
+
           <div class="full">
             <span class="photo-label">現場照片 *</span>
             <input id="beforeCamera" class="hidden" type="file" accept="image/*" capture="environment">
@@ -153,7 +155,7 @@
               <button type="button" class="light" onclick="undoPhoto('before')">復原</button>
               <button type="button" class="light" onclick="clearPhoto('before')">清除照片</button>
             </div>
-            <p class="muted">按「新增框選」後拖曳畫框；單點會產生預設框。拖曳框內可移動，拖曳四角可調整大小。送出時自動加入日期。</p>
+            <p class="muted">按「新增框選」後拖曳畫框；單點產生預設框。拖曳框內可移動，拖曳四角可調整大小。送出時自動加入日期。</p>
           </div>
           <div class="full"><button id="submitReportButton" type="submit">送出現場回報</button></div>
         </div>
@@ -174,13 +176,9 @@
               <div class="full actions"><button type="button" class="light" onclick="clearImprovementFilters()">清除搜尋條件</button></div>
             </div>
             <p id="filterResult" class="muted" aria-live="polite"></p>
-            <p class="muted">棟別、樓層、戶別可單獨或組合搜尋。位置範例：A14-01、A棟14樓01戶、AB1-01。</p>
+            <p class="muted">位置範例：A14-01、A棟14樓01戶、AB1-01。</p>
           </div>
-          <div class="full">
-            <label for="improvementReportId">選擇待改善項目 *</label>
-            <select id="improvementReportId" required><option value="">請選擇回報項目</option></select>
-            <p class="muted">選單格式：表單編號｜位置｜缺失內容。選擇後可查看完整資料。</p>
-          </div>
+          <div class="full"><label for="improvementReportId">選擇待改善項目 *</label><select id="improvementReportId" required><option value="">請選擇回報項目</option></select><p class="muted">選單格式：表單編號｜位置｜缺失內容。</p></div>
           <div class="full"><div id="improvementDetail" class="detail-box hidden"></div></div>
           <div class="full"><label for="improvementNote">改善說明 *</label><textarea id="improvementNote" maxlength="2000" placeholder="請說明改善方式及處理結果" required></textarea></div>
           <div class="full">
@@ -199,7 +197,7 @@
               <button type="button" class="light" onclick="undoPhoto('after')">復原</button>
               <button type="button" class="light" onclick="clearPhoto('after')">清除照片</button>
             </div>
-            <p class="muted">按「新增框選」後拖曳畫框；單點會產生預設框。框可移動，拖曳四角可調整大小。</p>
+            <p class="muted">按「新增框選」後拖曳畫框；單點產生預設框。框可移動，拖曳四角可調整大小。</p>
           </div>
           <div class="full"><button id="submitImprovementButton" type="submit">送出改善回報</button></div>
         </div>
@@ -210,11 +208,12 @@
       <div class="actions">
         <h2 style="flex:1">回報清單</h2>
         <button type="button" class="secondary" onclick="loadReports()">重新整理</button>
-        <button id="downloadAllPdfsButton" type="button" onclick="downloadAllImprovementPdfs()">一鍵下載改善報告 ZIP</button>
+        <button id="downloadAllPdfsButton" type="button" onclick="downloadAllImprovementPdfs()">一鍵產生並下載 PDF</button>
       </div>
-      <p class="muted">每個 ZIP 最多 30 份，或原始檔案合計最多 25 MB。下載並解壓確認完整後，請按「確認本批下載成功」。若還有其他報告，請建立下一批。</p>
-      <p class="muted">下載確認紀錄保存在 Google 試算表，所有裝置共用。舊版瀏覽器紀錄不會自動匯入。</p>
-      <div id="downloadLinks" class="download-box hidden"></div>
+      <p class="muted">一鍵處理會替尚未有改善報告 PDF 的回報產生 PDF，儲存到 Google 雲端硬碟，再建立或開啟下載批次。已有 PDF 不會自動更新。</p>
+      <p class="muted">每個 ZIP 最多 30 份，或原始 PDF 合計最多 25 MB。下載並解壓確認後，請按「確認本批下載成功」。若尚有其他報告，請再按一次按鈕下載下一批。</p>
+      <p class="muted">待改善項目也會產生 PDF，可能沒有改善後照片。下載確認紀錄保存在 Google 試算表，所有裝置共用。</p>
+      <div id="downloadLinks" class="download-box hidden" aria-live="polite"></div>
       <div id="reportList">讀取中……</div>
     </section>
   </main>
@@ -323,7 +322,6 @@
     }
 
     /* 通用缺失項目 */
-
     function initializeCommonItems() {
       const list = document.getElementById("commonItemList");
       COMMON_ITEMS.forEach(function (item) {
@@ -444,7 +442,6 @@
     }
 
     /* 自動欄位與姓名 */
-
     function formatLocalDate(date) {
       return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2,"0") + "-" + String(date.getDate()).padStart(2,"0");
     }
@@ -487,7 +484,6 @@
     }
 
     /* 照片編輯 */
-
     function initializeEditors() {
       Object.keys(editors).forEach(function (prefix) {
         const editor = editors[prefix];
@@ -768,7 +764,6 @@
     }
 
     /* 新增及改善回報 */
-
     async function submitReport(event) {
       event.preventDefault();
       const button = document.getElementById("submitReportButton");
@@ -838,7 +833,7 @@
         const refreshed = await loadReports(false);
         renderImprovementDetail();
         showPage("listPage");
-        showMessage("改善回報完成。"+(refreshed?"":"清單更新失敗，請按重新整理。"),"success");
+        showMessage("改善回報完成。"+(refreshed?"":"清單更新失敗，請按重新整理。")+"\n若此項目已有舊版 PDF，請重新產生以包含最新改善資料。","success");
       } catch (error) {
         console.error(error);
         showMessage(getErrorMessage(error)+(completed
@@ -848,7 +843,6 @@
     }
 
     /* 回報清單 */
-
     async function loadReports(showLoading) {
       try {
         if (showLoading !== false) showMessage("正在讀取回報資料……","info");
@@ -877,8 +871,8 @@
       container.innerHTML = reports.map(function (report) {
         const encodedId = encodeURIComponent(report.reportId || "");
         const improvementUrl = safeLink(report.improvementPdfUrl), acceptanceUrl = safeLink(report.acceptancePdfUrl);
-        const improvementLink = improvementUrl ? '<a href="'+escapeHtml(improvementUrl)+'" target="_blank" rel="noopener noreferrer">下載改善報告</a>' : "";
-        const acceptanceLink = acceptanceUrl ? '<a href="'+escapeHtml(acceptanceUrl)+'" target="_blank" rel="noopener noreferrer">下載驗收單</a>' : "";
+        const improvementLink = improvementUrl ? '<a href="'+escapeHtml(improvementUrl)+'" target="_blank" rel="noopener noreferrer">開啟改善報告</a>' : "";
+        const acceptanceLink = acceptanceUrl ? '<a href="'+escapeHtml(acceptanceUrl)+'" target="_blank" rel="noopener noreferrer">開啟驗收單</a>' : "";
         const acceptanceButton = report.improvementNote ? '<button type="button" class="secondary" data-pdf-id="'+encodedId+'" data-pdf-type="acceptance">驗收單 PDF</button>' : "";
         return '<article class="report"><h3>'+escapeHtml(report.formNumber || report.reportId)+"｜"+escapeHtml(report.project)+"</h3>"+
           '<p><span class="badge">'+escapeHtml(report.status)+"</span> "+escapeHtml(report.category)+" / "+escapeHtml(report.severity)+"</p>"+
@@ -893,7 +887,7 @@
           (report.improvedAt ? "<p><strong>改善時間：</strong>"+escapeHtml(report.improvedAt)+"</p>" : "")+
           (report.acceptedByName ? "<p><strong>驗收人：</strong>"+escapeHtml(report.acceptedByName)+"</p>" : "")+
           (report.acceptedAt ? "<p><strong>驗收時間：</strong>"+escapeHtml(report.acceptedAt)+"</p>" : "")+
-          '<div class="actions"><button type="button" data-pdf-id="'+encodedId+'" data-pdf-type="improvement">缺失改善報告 PDF</button>'+
+          '<div class="actions"><button type="button" data-pdf-id="'+encodedId+'" data-pdf-type="improvement">產生／更新改善報告 PDF</button>'+
           acceptanceButton+improvementLink+acceptanceLink+"</div></article>";
       }).join("");
       container.querySelectorAll("[data-pdf-id]").forEach(function (button) {
@@ -902,7 +896,6 @@
     }
 
     /* 棟別、樓層、戶別搜尋 */
-
     function normalizeText(value) { return String(value || "").normalize("NFKC").toUpperCase().replace(/\s+/g,""); }
     function normalizeBuilding(value) { return normalizeText(value).replace(/棟$/,""); }
     function normalizeFloor(value) {
@@ -985,60 +978,181 @@
       }
     }
 
-    /* 手動產生 PDF */
-
-    async function createPdf(reportId,reportType,button) {
+    /* 單筆 PDF */
+    async function createPdf(reportId, reportType, button) {
       const isAcceptance = reportType === "acceptance";
+      const documentName = isAcceptance ? "驗收單" : "缺失改善報告";
       let acceptorName = "";
       if (isAcceptance) {
         const savedName = localStorage.getItem("yawanAcceptorName") || "";
-        const input = window.prompt("請輸入驗收人姓名：",savedName);
+        const input = window.prompt("請輸入驗收人姓名：", savedName);
         if (input === null) return;
         acceptorName = input.trim();
         if (!acceptorName) { showMessage("請輸入驗收人姓名，才能產生驗收單。","error"); return; }
-        localStorage.setItem("yawanAcceptorName",acceptorName);
+        localStorage.setItem("yawanAcceptorName", acceptorName);
       }
       if (button) button.disabled = true;
-      const documentName = isAcceptance ? "驗收單" : "缺失改善報告";
       const pdfWindow = window.open("about:blank","_blank");
+      let created = false;
       try {
-        showMessage("正在產生"+documentName+"，請稍候……","info");
+        showMessage("正在產生"+documentName+"並儲存至 Google 雲端硬碟，請稍候……","info");
         const result = await callApi("createPdf",{ reporterName:getCurrentReporterName(),reportId,reportType,acceptorName });
+        created = true;
         const pdfUrl = safeLink(result.url);
-        const refreshed = await loadReports(false);
-        if (pdfWindow && pdfUrl) {
-          pdfWindow.location.href = pdfUrl;
-          showMessage(documentName+"已產生。"+(refreshed?"":"清單更新失敗，請按重新整理。"),"success");
-        } else {
-          if (pdfWindow && !pdfWindow.closed) pdfWindow.close();
-          showMessage(documentName+"已產生。"+(refreshed?"請按清單中的下載連結。":"清單更新失敗，請按重新整理。"),"success");
+        if (!pdfUrl) throw new Error("後端沒有回傳有效的 PDF 連結。");
+        const parsed = new URL(pdfUrl);
+        let fileId = "";
+        if (parsed.hostname === "drive.google.com") {
+          const match = parsed.pathname.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+          fileId = match ? match[1] : (parsed.searchParams.get("id") || "");
         }
+        const downloadUrl = /^[a-zA-Z0-9_-]+$/.test(fileId)
+          ? "https://drive.google.com/uc?export=download&id="+encodeURIComponent(fileId)
+          : pdfUrl;
+        if (pdfWindow && !pdfWindow.closed) pdfWindow.location.href = downloadUrl;
+        const refreshed = await loadReports(false);
+        showMessage(documentName+"已產生並儲存至 Google 雲端硬碟。\n若下載未開始，請點下方連結。"+(refreshed?"":"\n清單更新失敗，請按重新整理。"),"success");
+        const message = document.getElementById("message");
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "下載"+documentName;
+        message.appendChild(document.createElement("br"));
+        message.appendChild(link);
       } catch (error) {
         console.error(error);
         if (pdfWindow && !pdfWindow.closed) pdfWindow.close();
-        showMessage(getErrorMessage(error),"error");
+        showMessage((created ? documentName+"已產生，但後續處理失敗：" : "產生 PDF 失敗或結果尚未確認：")+
+          getErrorMessage(error)+"\n請先檢查回報清單及雲端硬碟，再決定是否重新產生。","error");
       } finally { if (button) button.disabled = false; }
     }
 
-    /* ZIP 下載與雲端確認紀錄 */
-
+    /* 一鍵產生尚未有 PDF 的報告，並下載 ZIP */
     async function downloadAllImprovementPdfs() {
       const button = document.getElementById("downloadAllPdfsButton");
       const box = document.getElementById("downloadLinks");
       if (button.disabled) return;
+
+      let reporterName = getCurrentReporterName();
+      if (!reporterName || reporterName === "現場人員") {
+        const input = window.prompt("請輸入下載人員姓名：");
+        if (input === null) return;
+        reporterName = input.trim();
+        if (!reporterName || reporterName === "現場人員") {
+          showMessage("請輸入實際姓名。","error"); return;
+        }
+        if (reporterName.length > 50) {
+          showMessage("人員姓名不可超過 50 字。","error"); return;
+        }
+        saveReporterName(reporterName);
+        document.getElementById("reporterName").value = reporterName;
+        document.getElementById("improvementReporterName").value = reporterName;
+      }
+      if (reporterName.length > 50) {
+        showMessage("人員姓名不可超過 50 字。","error"); return;
+      }
+
       button.disabled = true;
       box.classList.remove("hidden");
-      box.textContent = "正在讀取下載紀錄……";
+      box.textContent = "正在準備批次產生 PDF……";
+      const downloadWindow = window.open("about:blank","_blank");
+      let createdCount = 0;
+      let downloadStarted = false;
+
       try {
-        const state = await callApi("getPdfDownloadState",{});
-        renderPdfDownloadState(state);
+        showMessage("正在讀取最新回報資料……","info");
+        const refreshed = await loadReports(false);
+        if (!refreshed) throw new Error("無法讀取最新回報清單，已停止批次作業。");
+
+        const missingReports = reports.filter(function (report) {
+          return report.reportId && !String(report.improvementPdfUrl || "").trim();
+        });
+
+        for (let index = 0; index < missingReports.length; index++) {
+          const report = missingReports[index];
+          const number = report.formNumber || report.reportId;
+          const progress = "正在產生 PDF："+(index+1)+" / "+missingReports.length+
+            "\n目前處理："+number+"\n請勿關閉網頁。";
+          box.textContent = progress;
+          showMessage(progress,"info");
+          try {
+            await callApi("createPdf",{
+              reporterName,
+              reportId:String(report.reportId),
+              reportType:"improvement",
+              acceptorName:""
+            });
+            createdCount++;
+          } catch (error) {
+            throw new Error("處理「"+number+"」時失敗："+getErrorMessage(error)+
+              "\n此次已確認產生 "+createdCount+" 份 PDF。"+
+              "\n若網路中斷，這一筆可能已經產生；請先檢查清單與雲端硬碟，再重新操作。");
+          }
+        }
+
+        if (createdCount > 0 && !(await loadReports(false))) {
+          throw new Error("PDF 已產生，但回報清單更新失敗。請重新整理後再操作。");
+        }
+
+        box.textContent = "正在檢查下載批次……";
+        showMessage("正在檢查下載批次並建立 ZIP，請稍候……","info");
+        let state = await callApi("getPdfDownloadState",{});
+        let batch = state.openBatch;
+
+        if (!batch && state.pendingCount > 0) {
+          const result = await callApi("createPdfDownloadZip",{ reporterName });
+          batch = result.batch || null;
+        }
+
+        if (!batch) {
+          if (downloadWindow && !downloadWindow.closed) downloadWindow.close();
+          renderPdfDownloadState(state);
+          showMessage("批次處理完成。此次產生 "+createdCount+" 份 PDF。"+
+            "\n目前沒有尚未確認下載的改善報告。"+
+            (state.invalidCount ? "\n另有 "+state.invalidCount+" 筆 PDF 連結無法辨識，請檢查。" : ""),"success");
+          return;
+        }
+
+        const downloadUrl = safeLink(batch.downloadUrl);
+        if (!downloadUrl) throw new Error("ZIP 已建立，但下載連結無效。請重新開啟下載區確認批次。");
+
+        try {
+          state = await callApi("getPdfDownloadState",{});
+          renderPdfDownloadState(state);
+        } catch (error) {
+          console.error(error);
+          box.textContent = "";
+          const heading = document.createElement("h3");
+          heading.textContent = "改善報告 ZIP 下載";
+          box.appendChild(heading);
+          renderOpenPdfBatch(box,batch);
+        }
+
+        if (downloadWindow && !downloadWindow.closed) {
+          downloadWindow.location.href = downloadUrl;
+          downloadStarted = true;
+        }
+
+        showMessage("批次處理完成：此次產生 "+createdCount+" 份 PDF。"+
+          "\n本批 ZIP 共 "+batch.fileCount+" 份。"+
+          (downloadStarted
+            ? "\n已嘗試開啟下載；如未開始，請點下方「下載本批 ZIP」。"
+            : "\n瀏覽器可能封鎖自動下載，請點下方「下載本批 ZIP」。")+
+          "\n下載並解壓檢查後，請按「確認本批下載成功」。"+
+          "\n如果尚有其他報告，確認後再按一次一鍵按鈕。","success");
       } catch (error) {
         console.error(error);
-        box.textContent = "讀取下載紀錄失敗："+getErrorMessage(error);
-        showMessage(getErrorMessage(error),"error");
-      } finally { button.disabled = false; }
+        if (downloadWindow && !downloadWindow.closed && !downloadStarted) downloadWindow.close();
+        box.textContent = "批次作業未完成。已確認產生 "+createdCount+" 份 PDF。";
+        showMessage(getErrorMessage(error)+
+          "\n請先檢查回報清單、Google 雲端硬碟及下載批次，再重新操作。","error");
+      } finally {
+        button.disabled = false;
+      }
     }
 
+    /* ZIP 狀態與下載確認 */
     function renderPdfDownloadState(state) {
       const box = document.getElementById("downloadLinks");
       box.textContent = "";
@@ -1058,42 +1172,11 @@
         box.appendChild(warning);
       }
       if (state.openBatch) { renderOpenPdfBatch(box,state.openBatch); return; }
-      if (!state.pendingCount) {
-        const done = document.createElement("p");
-        done.textContent = "目前沒有尚未確認下載的改善報告。";
-        box.appendChild(done); return;
-      }
       const note = document.createElement("p");
-      note.className = "muted";
-      note.textContent = "將建立一個 ZIP。若報告數量或容量超過單批上限，確認本批後可繼續下載下一批。";
+      note.textContent = state.pendingCount
+        ? "尚有報告待下載，請按「一鍵產生並下載 PDF」建立下一批。"
+        : "目前沒有尚未確認下載的改善報告。";
       box.appendChild(note);
-      const createButton = document.createElement("button");
-      createButton.type = "button"; createButton.textContent = "建立本批 ZIP";
-      createButton.addEventListener("click",async function () {
-        const currentName = getCurrentReporterName();
-        const name = window.prompt("請輸入建立下載批次的人員姓名：",currentName === "現場人員" ? "" : currentName);
-        if (name === null) return;
-        const reporterName = name.trim();
-        if (!reporterName || reporterName === "現場人員") { showMessage("請輸入實際姓名。","error"); return; }
-        createButton.disabled = true;
-        try {
-          showMessage("正在建立 ZIP，請稍候……","info");
-          const result = await callApi("createPdfDownloadZip",{ reporterName });
-          if (!result.batch) {
-            showMessage(result.message || "目前沒有待下載報告。","info");
-            const state = await callApi("getPdfDownloadState",{});
-            renderPdfDownloadState(state); return;
-          }
-          const newState = await callApi("getPdfDownloadState",{});
-          renderPdfDownloadState(newState);
-          showMessage(result.reused ? "已找到尚未確認的下載批次，請下載並確認。" : "ZIP 已建立，請按下載連結。","success");
-        } catch (error) {
-          console.error(error);
-          showMessage("建立 ZIP 或更新狀態失敗："+getErrorMessage(error)+
-            "\n若網路中斷，請重新按「一鍵下載改善報告 ZIP」檢查是否已有待確認批次。","error");
-        } finally { createButton.disabled = false; }
-      });
-      box.appendChild(createButton);
     }
 
     function renderOpenPdfBatch(box,batch) {
@@ -1131,24 +1214,25 @@
         if (name === null) return;
         const reporterName = name.trim();
         if (!reporterName || reporterName === "現場人員") { showMessage("請輸入實際姓名。","error"); return; }
+        if (reporterName.length > 50) { showMessage("人員姓名不可超過 50 字。","error"); return; }
         confirmButton.disabled = true;
         try {
           showMessage("正在儲存下載確認紀錄……","info");
           const result = await callApi("confirmPdfDownloadZip",{ batchId:batch.batchId,reporterName });
           const newState = await callApi("getPdfDownloadState",{});
           renderPdfDownloadState(newState);
-          showMessage(result.alreadyConfirmed ? "此批次之前已確認下載。" : "已將本批下載確認紀錄儲存至 Google 試算表。","success");
+          showMessage((result.alreadyConfirmed ? "此批次之前已確認下載。" : "已將本批下載確認紀錄儲存至 Google 試算表。")+
+            (newState.pendingCount ? "\n尚有 "+newState.pendingCount+" 份待確認，請再按「一鍵產生並下載 PDF」。" : ""),"success");
         } catch (error) {
           console.error(error);
           showMessage("儲存確認紀錄或更新狀態失敗："+getErrorMessage(error)+
-            "\n若網路中斷，請重新開啟下載區確認狀態；不要直接假設已儲存。","error");
+            "\n若網路中斷，請重新按一鍵按鈕確認狀態；不要直接假設已儲存。","error");
         } finally { confirmButton.disabled = false; }
       });
       box.appendChild(confirmButton);
     }
 
     /* API 與工具 */
-
     async function callApi(action,data) {
       if (!CONFIG.APPS_SCRIPT_URL || !CONFIG.APPS_SCRIPT_URL.startsWith("https://script.google.com/")) throw new Error("Apps Script API 網址設定錯誤。");
       const requestData = Object.assign({},data || {});

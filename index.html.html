@@ -192,6 +192,7 @@
       margin: 6px 0;
       line-height: 1.5;
       overflow-wrap: anywhere;
+      white-space: pre-wrap;
     }
 
     .badge {
@@ -207,6 +208,23 @@
     .muted {
       color: #64748b;
       font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .filter-box {
+      padding: 14px;
+      background: #f0fdfa;
+      border: 1px solid #99f6e4;
+      border-radius: 10px;
+    }
+
+    .filter-box h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .filter-box p {
+      margin: 10px 0 0;
     }
 
     a {
@@ -227,6 +245,7 @@
       margin: 6px 0;
       line-height: 1.5;
       overflow-wrap: anywhere;
+      white-space: pre-wrap;
     }
 
     .detail-box img {
@@ -314,7 +333,13 @@
 
           <div>
             <label for="location">現場位置 *</label>
-            <input id="location" maxlength="150" placeholder="例如：A14-01（A棟14樓01戶）" required>
+            <input
+              id="location"
+              maxlength="150"
+              placeholder="例如：A14-01 或 A棟14樓01戶"
+              required
+            >
+            <p class="muted">建議以「A14-01」或「A棟14樓01戶」格式輸入，方便依棟別與樓層搜尋。</p>
           </div>
 
           <div>
@@ -352,8 +377,8 @@
             ></textarea>
 
             <p class="muted">
-              勾選「未完成」後，系統會自動加入回報類型及「未完成」文字，
-              例如：機電-弱電工程未完成。您也可以繼續輸入其他說明。
+              勾選後會自動加入回報類型及「未完成」，例如：機電-弱電工程未完成。
+              您也可以繼續輸入其他說明。
             </p>
           </div>
 
@@ -380,8 +405,8 @@
 
             <p class="muted">
               按「新增框選」後，在照片上拖曳畫出範圍；單點一下會產生預設框。
-              框可拖曳移動，拖曳四角的白點調整大小。
-              送出時會自動在照片右下角加入日期。
+              框可拖曳移動，拖曳四角白點可調整大小。
+              送出時會在照片右下角加入日期。
             </p>
           </div>
 
@@ -398,14 +423,64 @@
 
       <form id="improvementForm">
         <div class="grid">
-          <div>
+          <div class="full">
             <label for="improvementReporterName">改善回報人姓名 *</label>
-            <input id="improvementReporterName" maxlength="50" placeholder="請輸入改善回報人姓名" autocomplete="name" required>
+            <input
+              id="improvementReporterName"
+              maxlength="50"
+              placeholder="請輸入改善回報人姓名"
+              autocomplete="name"
+              required
+            >
           </div>
 
-          <div>
+          <!-- 棟別與樓層篩選 -->
+          <div class="full filter-box">
+            <h3>搜尋待改善項目</h3>
+
+            <div class="grid">
+              <div>
+                <label for="filterBuilding">棟別</label>
+                <input
+                  id="filterBuilding"
+                  maxlength="20"
+                  placeholder="例如：A 或 A棟"
+                  autocomplete="off"
+                >
+              </div>
+
+              <div>
+                <label for="filterFloor">樓層</label>
+                <input
+                  id="filterFloor"
+                  maxlength="20"
+                  placeholder="例如：14、14樓或 B1"
+                  autocomplete="off"
+                >
+              </div>
+
+              <div class="full actions">
+                <button type="button" class="light" onclick="clearImprovementFilters()">
+                  清除搜尋條件
+                </button>
+              </div>
+            </div>
+
+            <p id="filterResult" class="muted" aria-live="polite"></p>
+            <p class="muted">
+              可只輸入棟別、只輸入樓層，或同時輸入。搜尋依「現場位置」辨識；
+              建議位置使用 A14-01、A棟14樓01戶或 AB1-01 等格式。
+            </p>
+          </div>
+
+          <div class="full">
             <label for="improvementReportId">選擇待改善項目 *</label>
-            <select id="improvementReportId" required></select>
+            <select id="improvementReportId" required>
+              <option value="">請選擇回報項目</option>
+            </select>
+            <p class="muted">
+              選單格式：表單編號｜位置｜缺失內容。選擇後可在下方查看完整資料。
+            </p>
           </div>
 
           <div class="full">
@@ -414,7 +489,12 @@
 
           <div class="full">
             <label for="improvementNote">改善說明 *</label>
-            <textarea id="improvementNote" maxlength="2000" placeholder="請說明改善方式及處理結果" required></textarea>
+            <textarea
+              id="improvementNote"
+              maxlength="2000"
+              placeholder="請說明改善方式及處理結果"
+              required
+            ></textarea>
           </div>
 
           <div class="full">
@@ -440,7 +520,7 @@
 
             <p class="muted">
               按「新增框選」後，在照片上拖曳畫出範圍；單點一下會產生預設框。
-              框可拖曳移動，拖曳四角的白點調整大小。
+              框可拖曳移動，拖曳四角白點可調整大小。
             </p>
           </div>
 
@@ -522,6 +602,7 @@
 
     function bindEvents() {
       const reportForm = document.getElementById("reportForm");
+      const improvementForm = document.getElementById("improvementForm");
 
       reportForm.addEventListener("submit", submitReport);
       reportForm.addEventListener("submit", updateAutomaticFields, true);
@@ -535,8 +616,7 @@
         }, 0);
       });
 
-      document.getElementById("improvementForm")
-        .addEventListener("submit", submitImprovement);
+      improvementForm.addEventListener("submit", submitImprovement);
 
       ["beforeFile", "beforeCamera"].forEach(function (id) {
         document.getElementById(id).addEventListener("change", function (event) {
@@ -550,11 +630,10 @@
         });
       });
 
-      document.getElementById("category")
-        .addEventListener("change", function () {
-          updateAutomaticFields();
-          updateUnfinishedDescription();
-        });
+      document.getElementById("category").addEventListener("change", function () {
+        updateAutomaticFields();
+        updateUnfinishedDescription();
+      });
 
       document.getElementById("unfinishedCheckbox")
         .addEventListener("change", updateUnfinishedDescription);
@@ -567,6 +646,12 @@
 
       document.getElementById("improvementReportId")
         .addEventListener("change", renderImprovementDetail);
+
+      document.getElementById("filterBuilding")
+        .addEventListener("input", updateImprovementOptions);
+
+      document.getElementById("filterFloor")
+        .addEventListener("input", updateImprovementOptions);
     }
 
     /* ========== 通用項目：未完成 ========== */
@@ -578,7 +663,6 @@
 
       let lines = description.value.split("\n");
 
-      // 只移除未被手動修改、完整符合的自動文字。
       if (autoUnfinishedText) {
         const index = lines.indexOf(autoUnfinishedText);
 
@@ -596,7 +680,6 @@
         if (categoryText) {
           autoUnfinishedText = categoryText + "未完成";
 
-          // 避免原本空白內容產生多餘換行。
           if (lines.length === 1 && lines[0] === "") {
             lines = [];
           }
@@ -660,6 +743,7 @@
 
     function saveReporterName(name) {
       if (!name) return;
+
       localStorage.setItem("yawanReporterName", name);
       updateUserInfo(name);
     }
@@ -741,7 +825,6 @@
       const editor = editors[prefix];
       const token = ++editor.loadToken;
 
-      // 換照片期間禁止送出舊照片。
       editor.loaded = false;
       editor.canvas.classList.add("hidden");
 
@@ -999,8 +1082,11 @@
     function onPointerMove(prefix, event) {
       const editor = editors[prefix];
 
-      if (!editor.loaded || !editor.drag ||
-          editor.drag.pointerId !== event.pointerId) return;
+      if (
+        !editor.loaded ||
+        !editor.drag ||
+        editor.drag.pointerId !== event.pointerId
+      ) return;
 
       event.preventDefault();
 
@@ -1035,8 +1121,11 @@
     function onPointerUp(prefix, event) {
       const editor = editors[prefix];
 
-      if (!editor.loaded || !editor.drag ||
-          editor.drag.pointerId !== event.pointerId) return;
+      if (
+        !editor.loaded ||
+        !editor.drag ||
+        editor.drag.pointerId !== event.pointerId
+      ) return;
 
       const dragType = editor.drag.type;
       const shape = editor.shapes[editor.selected];
@@ -1137,8 +1226,6 @@
 
     function clearPhoto(prefix) {
       const editor = editors[prefix];
-
-      // 使仍在讀取中的照片失效。
       editor.loadToken++;
 
       if (editor.canvas && editor.context) {
@@ -1164,7 +1251,9 @@
 
       if (!editor.loaded || !editor.base) {
         throw new Error(
-          prefix === "before" ? "現場照片尚未成功載入。" : "改善後照片尚未成功載入。"
+          prefix === "before"
+            ? "現場照片尚未成功載入。"
+            : "改善後照片尚未成功載入。"
         );
       }
 
@@ -1327,7 +1416,8 @@
         showPage("listPage");
 
         showMessage(
-          "改善回報完成。" + (refreshed ? "" : "清單更新失敗，請按重新整理。"),
+          "改善回報完成。" +
+          (refreshed ? "" : "清單更新失敗，請按重新整理。"),
           "success"
         );
       } catch (error) {
@@ -1467,18 +1557,132 @@
       });
     }
 
-    /* ========== 改善回報明細 ========== */
+    /* ========== 棟別、樓層搜尋 ========== */
+
+    function normalizeBuilding(value) {
+      return String(value || "")
+        .normalize("NFKC")
+        .toUpperCase()
+        .replace(/\s+/g, "")
+        .replace(/棟$/, "");
+    }
+
+    function normalizeFloor(value) {
+      let floor = String(value || "")
+        .normalize("NFKC")
+        .toUpperCase()
+        .replace(/\s+/g, "")
+        .replace(/[樓層]$/, "");
+
+      const match = floor.match(/^(B?)(\d+)$/);
+
+      if (match) {
+        floor = match[1] + String(Number(match[2]));
+      }
+
+      return floor;
+    }
+
+    /*
+      由位置辨識棟別與樓層。
+
+      支援例：
+      A14-01
+      A棟14樓01戶
+      A棟14層01戶
+      AB1-01（A 棟地下 1 樓）
+      A棟B1樓
+      甲棟14樓01戶
+
+      對無法辨識的位置，未輸入篩選條件時仍會顯示；
+      輸入篩選條件後，無法辨識的資料不會被誤判。
+    */
+    function parseLocation(location) {
+      const text = String(location || "")
+        .normalize("NFKC")
+        .toUpperCase()
+        .replace(/\s+/g, "");
+
+      let match;
+
+      // 有明確「棟」字，例如 A棟14樓、甲棟B1樓。
+      match = text.match(/^(.+?)棟[-_]?((?:B)?\d+)(?:樓|層|(?=[\-_]|$))/);
+
+      if (match) {
+        return {
+          building: normalizeBuilding(match[1]),
+          floor: normalizeFloor(match[2])
+        };
+      }
+
+      // 無「棟」字的英文棟別，例如 A14-01、AB1-01。
+      // 非貪婪棟別讓 AB1 解讀為 A 棟 B1，而不是 AB 棟 1 樓。
+      match = text.match(/^([A-Z]+?)(B?\d+)(?:樓|層|(?=[\-_]|$))/);
+
+      if (match) {
+        return {
+          building: normalizeBuilding(match[1]),
+          floor: normalizeFloor(match[2])
+        };
+      }
+
+      return {
+        building: "",
+        floor: ""
+      };
+    }
+
+    function matchesImprovementFilters(report) {
+      const buildingFilter = normalizeBuilding(getValue("filterBuilding"));
+      const floorFilter = normalizeFloor(getValue("filterFloor"));
+
+      if (!buildingFilter && !floorFilter) return true;
+
+      const location = parseLocation(report.location);
+
+      if (buildingFilter && location.building !== buildingFilter) {
+        return false;
+      }
+
+      if (floorFilter && location.floor !== floorFilter) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function clearImprovementFilters() {
+      document.getElementById("filterBuilding").value = "";
+      document.getElementById("filterFloor").value = "";
+      updateImprovementOptions();
+    }
 
     function updateImprovementOptions() {
       const select = document.getElementById("improvementReportId");
+      const resultText = document.getElementById("filterResult");
       const selectedValue = select.value;
 
-      const available = reports.filter(function (report) {
+      const allAvailable = reports.filter(function (report) {
         return report.status === "待改善";
       });
 
-      if (!available.length) {
+      const available = allAvailable.filter(matchesImprovementFilters);
+      const hasFilter = Boolean(
+        getValue("filterBuilding") || getValue("filterFloor")
+      );
+
+      if (!allAvailable.length) {
         select.innerHTML = '<option value="">目前沒有待改善項目</option>';
+        resultText.textContent = "目前沒有待改善資料。";
+        renderImprovementDetail();
+        return;
+      }
+
+      if (!available.length) {
+        select.innerHTML = '<option value="">沒有符合條件的待改善項目</option>';
+        resultText.textContent =
+          "共 " + allAvailable.length + " 筆待改善資料，符合條件 0 筆。" +
+          "若找不到資料，請確認原本的現場位置格式。";
         renderImprovementDetail();
         return;
       }
@@ -1486,9 +1690,20 @@
       select.innerHTML =
         '<option value="">請選擇回報項目</option>' +
         available.map(function (report) {
+          const description = String(report.description || "無缺失內容")
+            .replace(/\s+/g, " ")
+            .trim();
+
+          const optionText =
+            (report.formNumber || report.reportId || "未編號") +
+            "｜" +
+            (report.location || "未填位置") +
+            "｜" +
+            description;
+
           return (
             '<option value="' + escapeHtml(report.reportId) + '">' +
-            escapeHtml((report.formNumber || report.reportId) + "｜" + report.location) +
+            escapeHtml(optionText) +
             "</option>"
           );
         }).join("");
@@ -1499,8 +1714,14 @@
         select.value = selectedValue;
       }
 
+      resultText.textContent = hasFilter
+        ? "共 " + allAvailable.length + " 筆待改善資料，符合條件 " + available.length + " 筆。"
+        : "目前共有 " + allAvailable.length + " 筆待改善資料。";
+
       renderImprovementDetail();
     }
+
+    /* ========== 改善回報明細 ========== */
 
     async function renderImprovementDetail() {
       const box = document.getElementById("improvementDetail");
@@ -1602,7 +1823,8 @@
         if (pdfWindow && pdfUrl) {
           pdfWindow.location.href = pdfUrl;
           showMessage(
-            documentName + "已產生。" + (refreshed ? "" : "清單更新失敗，請按重新整理。"),
+            documentName + "已產生。" +
+            (refreshed ? "" : "清單更新失敗，請按重新整理。"),
             "success"
           );
         } else {
@@ -1610,7 +1832,9 @@
 
           showMessage(
             documentName + "已產生。" +
-            (refreshed ? "請按清單中的下載連結。" : "清單更新失敗，請按重新整理。"),
+            (refreshed
+              ? "請按清單中的下載連結。"
+              : "清單更新失敗，請按重新整理。"),
             "success"
           );
         }
